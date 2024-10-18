@@ -1,0 +1,178 @@
+﻿.contact-header {
+    font-size: 14px;
+    display: flex;
+    height: 34px;
+    justify-content: flex-end;
+    display: flex;
+}
+
+    .contact-header ul {
+        display: flex;
+        margin-top: 10px;
+    }
+
+    .contact-header li {
+        list-style: none;
+        margin-right: 20px;
+        font-weight: 600;
+    }
+
+        .contact-header li a {
+            font-weight: 600;
+            opacity: 0.6;
+        }
+
+        .contact-header li span {
+            opacity: 0.6;
+        }
+
+        .contact-header li .call {
+            cursor: pointer;
+        }
+
+            .contact-header li .call:hover {
+                color: var(--my-color);
+            }
+
+    .contact-header a {
+        text-decoration: none;
+        color: black;
+    }
+
+        .contact-header a:hover {
+            color: var(--my-color);
+        }
+
+.nav {
+    width: 100%;
+    position: fixed;
+    height: 60px;
+    background-color: #fff;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    z-index: 1;
+}
+
+.ti-angle-down {
+    font-size: 10px;
+}
+
+.nav .list-nav img {
+    width: 60px;
+    position: absolute;
+    left: 10px;
+    top: 6px;
+    cursor: pointer;
+}
+
+.nav .list-nav p a {
+    margin-left: 34px;
+    margin-right: 4px;
+    font-weight: 900;
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+}
+
+
+.nav .list-nav > ul {
+    display: flex;
+    margin-top: 18px;
+}
+
+.list-nav > ul > li {
+    margin-left: 4px;
+    list-style: none;
+    cursor: pointer;
+}
+
+.list-nav .nav-item {
+    position: relative;
+}
+
+    .list-nav .nav-item:hover > a {
+        background-color: var(--my-color);
+        color: white;
+    }
+
+    .list-nav .nav-item a {
+        text-decoration: none;
+        color: #000;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 4px 8px;
+        border-radius: 8px;
+    }
+
+
+.fixed {
+    position: fixed;
+    top: 0;
+}
+
+.search-bar {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #ecebeb;
+    margin-left: 30px;
+    margin-left: 12px;
+}
+
+    .search-bar input {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-size: 12px;
+        padding: 4px 10px 4px 4px;
+        background-color: #ecebeb;
+    }
+
+    .search-bar button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin-right: 6px;
+    }
+
+.nav .list-nav .shopping-cart {
+    position: absolute;
+    right: 20px;
+    top: 8px;
+    background-color: #000;
+    color: #fff;
+    padding: 8px;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.nav .list-nav .sig-up-user {
+    position: absolute;
+    right: 70px;
+    font-size: 12px;
+    top: 20px;
+    color: #000;
+    text-decoration: none;
+}
+
+    .nav .list-nav .sig-up-user:hover,
+    .nav .list-nav .sig-in-user:hover {
+        color: var(--my-color);
+    }
+
+.nav .list-nav .sig-in-user {
+    position: absolute;
+    right: 122px;
+    font-size: 12px;
+    top: 20px;
+    color: #000;
+    text-decoration: none;
+}
+
+.nav .list-nav .or {
+    position: absolute;
+    right: 116px;
+    font-size: 12px;
+    top: 10px;
+}

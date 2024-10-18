@@ -1,0 +1,29 @@
+﻿.sub-nav {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    width: 130px;
+    padding: 0;
+    margin-top: 16px;
+    border: 1px solid gray;
+}
+
+    .sub-nav li:hover {
+        background-color: var(--my-color);
+    }
+
+        .sub-nav li:hover a {
+            color: white;
+        }
+
+.list-nav .nav-item:hover .sub-nav {
+    display: block;
+}
+
+
+
+.sub-nav li {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+}
