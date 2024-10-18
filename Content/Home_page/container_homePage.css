@@ -15,23 +15,24 @@
 .product-item .product-image {
     overflow: hidden;
     transition: transform 0.3s ease-in-out;
-    border-radius: 10px;
+    border-radius: 8px;
+    isolation: isolate;
 }
 
     .product-item .product-image img {
-        object-fit: cover;
         transition: transform 0.3s ease-in-out;
         width: 100%;
+        display: block;
     }
 
         .product-item .product-image img:hover {
             transform: scale(1.1);
         }
 
-.product-content,
-.product-image > img {
-    cursor: pointer;
-}
+            .product-content,
+            .product-image > img {
+                cursor: pointer;
+            }
 
 
 .container .product-item .product-content {
@@ -59,12 +60,13 @@
 }
 
 
-.tag {
+.tag{
     position: absolute;
-    padding: 2px 8px;
+    padding: 2px 8px; 
     font-size: 14px;
     font-weight: 600;
     color: #fff;
+    z-index: 1;
 }
 
 .new-tag {

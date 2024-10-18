@@ -142,6 +142,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\product-image\new_product\ZM+SUPERFLY+10+ACADEMY+TF.png" />
+    <Content Include="Image\product-image\new_product\ZM+SUPERFLY+10+ELITE+F+FG.png" />
+    <Content Include="Image\product-image\new_product\ZM+SUPERFLY+10+ELITE+FG.png" />
+    <Resource Include="Image\product-image\new_product\ZM+SUPERFLY+10+ELITE+KM+FG.png" />
+    <Content Include="Image\product-image\new_product\ZM+VAPOR+16+ELITE+KM+FG.png" />
+    <Content Include="Image\product-image\new_product\ZOOM+SUPERFLY+9+ELITE+FG+SE.png" />
+    <Content Include="Image\product-image\new_product\ZOOM+SUPERFLY+9+ELITE+FG.png" />
+    <Content Include="Image\product-image\new_product\ZOOM+SUPERFLY+9+ELITE+MR+FG.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -175,6 +183,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Image\product-image\hot_product\" />
+    <Folder Include="Image\product-image\sale_product\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
