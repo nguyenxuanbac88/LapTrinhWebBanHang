@@ -5,15 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="597289d2cab044c6a94395aa339aab73" Name="Diagram1">
-        <EntityTypeShape EntityType="WebsiteModel.AddressUser" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.Category" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.Customer" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.OrderDetail" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.Order" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.Product" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.Stock" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.User" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.AddressUser" Width="1.5" PointX="7.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.Category" Width="1.5" PointX="1.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.Customer" Width="1.5" PointX="5.875" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.OrderDetail" Width="1.5" PointX="5.125" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.Order" Width="1.5" PointX="11" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.Product" Width="1.5" PointX="1.375" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.Stock" Width="1.5" PointX="1.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.sysdiagram" Width="1.5" PointX="8.375" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.User" Width="1.5" PointX="9.875" PointY="7.5" IsExpanded="true" />
         <AssociationConnector Association="WebsiteModel.FK_AddressUser_Users" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel.FK_Products_Categories" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel.FK_Orders_Customers" ManuallyRouted="false" />
