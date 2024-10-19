@@ -12,49 +12,49 @@ const web = {
             name: "Nike Mercurial Superfly 10 Elite 'Kylian Mbappé'",
             description: "FG High-Top Football Boot",
             price: "8,059,000đ",
-            img: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/737e6beb-15b3-4950-9c82-a642b67c1bfb/ZM+SUPERFLY+10+ELITE+KM+FG.png",
+            img: "../Image/product-image/new_product/ZM SUPERFLY 10 ELITE KM FG.png",
         },
         {
             name: "Nike Mercurial Vapor 16 Elite 'Kylian Mbappé'",
             description: "FG Low-Top Football Boot",
             price: "7,319,000đ",
-            img: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/fc9ac018-7494-4055-8667-b3ec810c3f3f/ZM+VAPOR+16+ELITE+KM+FG.png",
+            img: "../Image/product-image/new_product/ZM VAPOR 16 ELITE KM FG.png",
         },
         {
             name: "Nike Mercurial Superfly 10 Elite",
             description: "FG High-Top Football Boot",
             price: "8,059,000đ",
-            img: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/f71f58eb-ad7b-4495-acd0-163411f79298/ZM+SUPERFLY+10+ELITE+FG.png",
+            img: "../Image/product-image/new_product/ZM SUPERFLY 10 ELITE FG.png",
         },
         {
             name: "Nike Zoom Mercurial Superfly 9 Elite 'Marcus Rashford'",
             description: "FG High-Top Football Shoes",
             price: "2,799,000đ",
-            img: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png",
+            img: "../Image/product-image/new_product/ZOOM SUPERFLY 9 ELITE MR FG.png",
         },
         {
             name: "Nike Mercurial Superfly 9 Elite",
             description: "FG High-Top Football Boot",
             price: "8,799,000đ",
-            img: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/48a39b6e-e03e-4e95-83c7-3adf2f66a9a5/ZOOM+SUPERFLY+9+ELITE+FG.png",
+            img: "../Image/product-image/new_product/ZM SUPERFLY 10 ELITE FFG.png",
         },
         {
             name: "Nike Mercurial Superfly 10 Elite Blueprint",
             description: "FG High-Top Football Boot",
             price: "2,479,000đ",
-            img: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/5856a35a-fed0-476a-9b97-491356dc5c95/ZM+SUPERFLY+10+ELITE+F+FG.png",
+            img: "../Image/product-image/new_product/ZOOM SUPERFLY 9 ELITE FG.png",
         },
         {
             name: "Nike Mercurial Superfly 10 Academy",
             description: "TF High-Top Football Shoes",
             price: "8,059,000đ",
-            img: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/a10e080b-1985-48dc-83d5-ce0d86a294b7/ZM+SUPERFLY+10+ACADEMY+TF.png",
+            img: "../Image/product-image/new_product/ZM SUPERFLY 10 ACADEMY TF.png",
         },
         {
-            name: "Nike Mercurial Superfly 10 Academy",
+            name: "Nike Mercurial Superfly 9 Elite SE",
             description: "FG High-Top Football Boot",
             price: "8,059,000đ",
-            img: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/615bd8bf-ea41-487a-b3e1-70399eef6be6/ZM+SUPERFLY+10+ACAD+FG%2FMG.png",
+            img: "../Image/product-image/new_product/ZOOM SUPERFLY 9 ELITE FG SE.png",
         },
     ],
     hotProducts: [
@@ -62,54 +62,58 @@ const web = {
             name: "Nike Mercurial Superfly 10 Elite 'Kylian Mbappé'",
             description: "FG High-Top Football Boot",
             price: "8,059,000đ",
-            img: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/737e6beb-15b3-4950-9c82-a642b67c1bfb/ZM+SUPERFLY+10+ELITE+KM+FG.png",
+            img: "../Image/product-image/hot_product/ZM SUPERFLY 10 ELITE KM FG.png",
         },
         {
             name: "Nike Mercurial Superfly 10 Elite",
             description: "FG Low-Top Football Boot",
             price: "8,059,000đ",
-            img: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/f71f58eb-ad7b-4495-acd0-163411f79298/ZM+SUPERFLY+10+ELITE+FG.png",
+            img: "../Image/product-image/hot_product/ZM SUPERFLY 10 ELITE FG.png",
         },
         {
             name: "Nike Mercurial Superfly 9 Elite",
             description: "Firm-Ground Football Boot",
             price: "8,649,000đ",
-            img: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/48a39b6e-e03e-4e95-83c7-3adf2f66a9a5/ZOOM+SUPERFLY+9+ELITE+FG.png",
+            img: "../Image/product-image/hot_product/ZOOM SUPERFLY 9 ELITE FG.png",
         },
         {
             name: "Nike Zoom Mercurial Superfly 9 Elite 'Marcus Rashford' FG",
             description: "FG High-Top Football Boot",
             price: "8,059,000đ",
-            img: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png",
+            img: "../Image/product-image/hot_product/ZOOM SUPERFLY 9 ELITE MR FG.png",
         },
     ],
     saleProducts: [
         {
-            name: "Adidas X Crazyfast League TF Đỏ/Trắng IF0699",
-            description: "TF Low-Top Football Shoes",
-            price: "1,750,000đ",
-            img: "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/795cea980d10430cbd5bfc9b5c10dd34_9366/giay-da-bong-turf-x-crazyfast-league.jpg",
+            name: "Adidas X SpeedFlow 1 FG Meteorite",
+            description: "FG Low-Top Football Shoes",
+            price: "2,790,000đ",
+            old_price: "8.603.000₫",
+            img: "../Image/product-image/sale_product/Adidas X SpeedFlow 1 FG Meterorite.jpg",
             sale: "- 20%",
         },
         {
-            name: "Adidas X Crazyfast League LL TF Đỏ/Trắng IF0695",
+            name: "Giày adidas X Crazyfast.3 Fg 'Bright Royal'' GY7428",
             description: "FG Low-Top Football Shoes",
-            price: "1,820,000đ",
-            img: "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/9fe9f584536540c5b2e6159a87cc85a7_9366/giay-da-bong-firm-multi-ground-f50-league.jpg",
+            price: "2,390,000đ",
+            old_price: "8.603.000₫",
+            img: "../Image/product-image/sale_product/x crazyfast 3 fg bright royal gy7428 0.jpg",
             sale: "- 30%",
         },
         {
-            name: "Adidas X Crazyfast.3 TF Xanh/Trắng ID9338",
-            description: "TF Low-Top Football Shoes",
-            price: "1,590,000đ",
-            img: "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/6b8350b7d80141bbb41f96e441f171fd_9366/giay-da-bong-turf-x-crazyfast-league.jpg",
+            name: "Giày Adidas X SpeedPortal.1 FG #Solar Green",
+            description: "FG Low-Top Football Shoes",
+            price: "8.603.000₫",
+            old_price: "8.603.000₫",
+            img: "../Image/product-image/sale_product/giay adidas x speedportal 1 fg solar green.jpg",
             sale: "- 10%",
         },
         {
-            name: "Adidas X Crazyfast League TF Vàng Neon - IF0698",
+            name: "Giày Adidas X Speedportal+ FG #Team Shock Pink 2",
             description: "TF Low-Top Football Shoes",
-            price: "1,450,000đ",
-            img: "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/be7aefaccf5a489a8b2483726617ae71_9366/giay-da-bong-firm-ground-x-crazyfast.3-tre-em.jpg",
+            price: "10.126.000₫",
+            old_price: "10.126.000₫",
+            img: "../Image/product-image/sale_product/X FG Pink GZ5126 01 standard.jpg",
             sale: "- 15%",
         },
     ],
@@ -180,7 +184,10 @@ const web = {
             <div class="product-content">
                 <h6>${shoe.name}</h6>
                 <p class="description-product">${shoe.description}</p>
-                <p class="price">${shoe.price}</p>
+                <div class="price-container">
+                    <p class="price">${shoe.price}</p>
+                    <p class="old-price">${shoe.old_price}</p>
+                </div>
             </div>
         </div>`;
         });

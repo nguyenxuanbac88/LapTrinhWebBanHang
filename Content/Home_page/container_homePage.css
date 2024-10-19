@@ -46,23 +46,33 @@
     margin: 0;
 }
 
-.container .product-content .description-product {
-    margin: 0;
-    margin-top: 2px;
-    font-size: 14px;
-    opacity: 0.4;
+    .container .product-content .description-product {
+        margin-top: 2px;
+        font-size: 14px;
+        opacity: 0.4;
+    }
+
+.container .product-content .price-container {
+    display: flex;
 }
 
 .container .product-content .price {
-    margin-top: 8px;
     font-weight: 600;
     font-size: 18px;
 }
 
+.container .product-content .old-price {
+    margin-top: 6px;
+    margin-left: 20px;
+    text-decoration: line-through;
+    color: gray;
+}
 
-.tag{
+
+
+.tag {
     position: absolute;
-    padding: 2px 8px; 
+    padding: 2px 8px;
     font-size: 14px;
     font-weight: 600;
     color: #fff;
