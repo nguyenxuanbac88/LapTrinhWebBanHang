@@ -40,7 +40,7 @@ namespace LapTrinhWebBanHang.Controllers
 
             return View();
         }
-        public ActionResult test()
+        public ActionResult Test()
         {
             ConnectDB db = new ConnectDB();
 
@@ -49,15 +49,31 @@ namespace LapTrinhWebBanHang.Controllers
 
             if (isConnected)
             {
-                ViewBag.Message = "Kết nối thành công từ ConnectDB";
-                //Lấy bảng đang có trong DB
+                ViewBag.Message = "Kết nối thành công!";
+
+    
                 List<string> tableNames = db.GetTableNames();
-                ViewBag.TableNames = tableNames;  
+                ViewBag.TableNames = tableNames;
+
+                
+                Dictionary<string, List<string>> columns = new Dictionary<string, List<string>>();
+
+                foreach (var tableName in tableNames)
+                {
+                    var columnList = db.GetColumnNames(tableName); 
+                    if (columnList != null && columnList.Count > 0)
+                    {
+                        columns[tableName] = columnList;
+                    }
+                }
+
+                ViewBag.Columns = columns;
             }
             else
             {
-                ViewBag.Message = "Kết nối thất bại từ ConnectDB!";
-                ViewBag.TableNames = null;
+                ViewBag.Message = "Kết nối thất bại!";
+                ViewBag.TableNames = new List<string>(); 
+                ViewBag.Columns = new Dictionary<string, List<string>>(); 
             }
 
             return View();

@@ -79,5 +79,30 @@ namespace LapTrinhWebBanHang.Controllers
 
             return tableNames;
         }
+        public List<string> GetColumnNames(string tableName)
+        {
+            List<string> columnNames = new List<string>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    // Lấy thông tin cột từ bảng được chỉ định
+                    DataTable schema = connection.GetSchema("Columns", new string[] { null, null, tableName, null });
+
+                    foreach (DataRow row in schema.Rows)
+                    {
+                        columnNames.Add(row["COLUMN_NAME"].ToString()); // Tên cột nằm trong cột "COLUMN_NAME"
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error fetching columns: " + ex.Message);
+                }
+            }
+
+            return columnNames;
+        }
     }
 }
