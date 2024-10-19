@@ -16,32 +16,32 @@
 
         @if (ViewBag.TableNames != null && ((List<string>)ViewBag.TableNames).Count > 0)
         {
-        <h3>Các bảng có trong Database:</h3>
-        <ul>
-            @foreach (var tableName in ViewBag.TableNames)
-                {
-            <h2>Bảng: @tableName</h2>
-            
-
-            if (ViewBag.Columns != null && ViewBag.Columns is Dictionary<string, List<string>> && ViewBag.Columns.ContainsKey(tableName))
-                    {
+            <h3>Các bảng có trong Database:</h3>
             <ul>
-                @foreach (var columnName in ViewBag.Columns[tableName])
+                @foreach (var tableName in ViewBag.TableNames)
+                {
+                    <h2>Bảng: @tableName</h2>
+
+
+                    if (ViewBag.Columns != null && ViewBag.Columns is Dictionary<string, List<string>> && ViewBag.Columns.ContainsKey(tableName))
+                    {
+                        <ul>
+                            @foreach (var columnName in ViewBag.Columns[tableName])
                             {
-                <li>@columnName</li>
+                                <li>@columnName</li>
                             }
-            </ul>
+                        </ul>
                     }
                     else
                     {
-            <p>Không có cột nào ở đây</p>
+                        <p>Không có cột nào ở đây</p>
                     }
                 }
-        </ul>
+            </ul>
         }
         else
         {
-        <p>Không tìm được bảng nào ở database</p>
+            <p>Không tìm được bảng nào ở database</p>
         }
     </div>
 </body>
