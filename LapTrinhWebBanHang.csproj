@@ -120,7 +120,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ConnectDB.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -146,6 +145,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Category_page\container_category.css" />
     <Content Include="Content\Home_page\container_homePage.css" />
     <Content Include="Content\Home_page\introduce_homePage.css" />
     <Content Include="Content\MasterLayout\footer.css" />
@@ -172,13 +172,12 @@
     <Content Include="Image\product-image\sale_product\x crazyfast 3 fg bright royal gy7428 0.jpg" />
     <Content Include="Image\product-image\sale_product\X FG Pink GZ5126 01 standard.jpg" />
     <Content Include="Image\thumbnail\3-1722856929-183514avatar.png" />
-    <Content Include="Image\thumbnail\NEYMARSPORT-35753.jpg" />
+    <Content Include="Image\thumbnail\map.png" />
     <Content Include="Image\thumbnail\nhung-phong-thay-do-dep-nhat-lang-bong-da-the-gioi.jpg" />
     <Content Include="Image\thumbnail\PhongThayDo2.jpg" />
     <Content Include="Image\thumbnail\PhongThayDo3.jpg" />
     <Content Include="Image\thumbnail\PhongThayDoMU.jpg" />
     <Content Include="Image\thumbnail\PhongTrungBay.jpg" />
-    <Content Include="Image\thumbnail\thumb2.jpg" />
     <Content Include="Image\thumbnail\thumb3.jpg" />
     <Content Include="Image\thumbnail\thumb4jpg.jpg" />
     <Content Include="Image\thumbnail\thumbnail1.jpg" />
@@ -235,7 +234,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_MasterLayout.cshtml" />
     <Content Include="Views\HomePage\Home_page.cshtml" />
-    <Content Include="Views\Shared\Test.cshtml" />
+	  
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

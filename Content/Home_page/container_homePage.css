@@ -62,7 +62,7 @@
 }
 
 .container .product-content .old-price {
-    margin-top: 6px;
+    margin-top: 4px;
     margin-left: 20px;
     text-decoration: line-through;
     color: gray;
@@ -112,3 +112,23 @@
         .number-list li:hover {
             background-color: var(--my-color);
         }
+
+.carousel-control-prev {
+    left: -60px;
+}
+
+    .carousel-control-next{
+        right: -60px;
+    }
+
+    .carousel-indicators button {
+        width: 10px !important;
+        height: 10px !important;
+        border-radius: 50% !important;
+    }
+
+.carousel-indicators .active {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+}
