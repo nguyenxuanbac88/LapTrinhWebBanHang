@@ -169,6 +169,17 @@
     <Content Include="Image\product-image\sale_product\giay adidas x speedportal 1 fg solar green.jpg" />
     <Content Include="Image\product-image\sale_product\x crazyfast 3 fg bright royal gy7428 0.jpg" />
     <Content Include="Image\product-image\sale_product\X FG Pink GZ5126 01 standard.jpg" />
+    <Content Include="Image\thumbnail\3-1722856929-183514avatar.png" />
+    <Content Include="Image\thumbnail\NEYMARSPORT-35753.jpg" />
+    <Content Include="Image\thumbnail\nhung-phong-thay-do-dep-nhat-lang-bong-da-the-gioi.jpg" />
+    <Content Include="Image\thumbnail\PhongThayDo2.jpg" />
+    <Content Include="Image\thumbnail\PhongThayDo3.jpg" />
+    <Content Include="Image\thumbnail\PhongThayDoMU.jpg" />
+    <Content Include="Image\thumbnail\PhongTrungBay.jpg" />
+    <Content Include="Image\thumbnail\thumb2.jpg" />
+    <Content Include="Image\thumbnail\thumb3.jpg" />
+    <Content Include="Image\thumbnail\thumb4jpg.jpg" />
+    <Content Include="Image\thumbnail\thumbnail1.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
