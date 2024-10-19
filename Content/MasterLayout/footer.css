@@ -47,11 +47,13 @@ input[type="email"] {
     padding: 2% 8%;
     background-color: rgb(70, 69, 69);
     color: #fff;
+    text-align: center;
 }
 
     .contact-footer h3 {
         font-weight: 200;
         margin-top: 20px;
+   
     }
 
     .contact-footer .socials-list {
@@ -96,7 +98,7 @@ input[type="email"] {
         }
 
     .contact-footer .map img {
-        width: 100%;
+        width: 90%;
         margin-top: 10px;
     }
 

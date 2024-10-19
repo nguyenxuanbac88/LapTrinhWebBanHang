@@ -1,0 +1,147 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+
+li {
+    list-style: none;
+    cursor: pointer;
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.link-option span {
+    margin-left: 10%;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--my-color);
+}
+
+.content {
+    display: flex;
+}
+
+.slide img {
+    width: 100%;
+    margin-top: 60px;
+}
+
+.content-left {
+    float: left;
+    width: 16%;
+    padding-top: 40px;
+}
+
+    .content-left .container-left {
+        text-align: center;
+        padding: 12px 30px;
+    }
+
+        .content-left .container-left h4 {
+            background-color: var(--my-color);
+            padding: 8px 0;
+            font-size: 24px;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+
+
+.style-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.style-everyList {
+    margin: 2px 4px;
+    border: 1px solid black;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 2px;
+}
+
+    .style-everyList:hover a {
+        color: var(--my-color);
+    }
+
+.content-right {
+    float: right;
+    width: 84%;
+    padding-top: 10px;
+}
+
+    .content-right .arrange {
+        opacity: 0.6;
+        margin-left: 10px;
+    }
+
+    .content-right .container-products {
+        padding: 20px;
+    }
+
+    .content-right .product-image {
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out;
+        border-radius: 10px;
+    }
+
+        .content-right .product-image img {
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+            width: 100%;
+            cursor: pointer;
+        }
+
+            .content-right .product-image img:hover {
+                transform: scale(1.1);
+            }
+
+.product-item .product-content {
+    cursor: pointer;
+}
+
+    .product-item .product-content h6 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 10px;
+        margin-bottom: 4px;
+    }
+
+    .product-item .product-content .description-product {
+        font-size: 14px;
+        opacity: 0.6;
+    }
+
+    .product-item .product-content p {
+        margin: 0;
+    }
+
+    .product-item .product-content .price {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+.number-list {
+    text-align: center;
+}
+
+    .number-list li {
+        font-size: 18px;
+        background-color: gray;
+        display: inline-block;
+        padding: 10px 14px;
+        margin-top: 14px;
+        margin-left: 12px;
+        border-radius: 14px;
+        cursor: pointer;
+    }
+
+        .number-list li:hover {
+            background-color: var(--my-color);
+        }
