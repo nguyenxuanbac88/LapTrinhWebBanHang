@@ -10,6 +10,20 @@ namespace LapTrinhWebBanHang.Controllers
     {
         public ActionResult Index()
         {
+            ConnectDB db = new ConnectDB();
+
+            // Kiểm tra kết nối
+            bool isConnected = db.TestConnection();
+
+            if (isConnected)
+            {
+                ViewBag.Message = "Kết nối thành công!";
+            }
+            else
+            {
+                ViewBag.Message = "Kết nối thất bại!";
+            }
+
             return View();
         }
        
@@ -26,5 +40,28 @@ namespace LapTrinhWebBanHang.Controllers
 
             return View();
         }
+        public ActionResult test()
+        {
+            ConnectDB db = new ConnectDB();
+
+            // Kiểm tra kết nối
+            bool isConnected = db.TestConnection();
+
+            if (isConnected)
+            {
+                ViewBag.Message = "Kết nối thành công từ ConnectDB";
+                //Lấy bảng đang có trong DB
+                List<string> tableNames = db.GetTableNames();
+                ViewBag.TableNames = tableNames;  
+            }
+            else
+            {
+                ViewBag.Message = "Kết nối thất bại từ ConnectDB!";
+                ViewBag.TableNames = null;
+            }
+
+            return View();
+        }
+
     }
 }

@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;  // Không sử dụng layout nếu bạn muốn
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Test Connection</title>
+</head>
+<body>
+    <div>
+        <h2>Test connnect SQL Server:</h2>
+        <h3>@ViewBag.Message</h3>  
+
+        @if (ViewBag.TableNames != null && ((List<string>)ViewBag.TableNames).Count > 0)
+        {
+            <h3>Đã lấy được bảng trong CSDL từ xa:</h3>
+            <ul>
+                @foreach (var tableName in ViewBag.TableNames)
+                {
+                    <li>@tableName</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Không có bảng nào được tìm thấy</p>
+        }
+    </div>
+</body>
+</html>
