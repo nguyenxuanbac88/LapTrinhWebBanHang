@@ -17,13 +17,13 @@ namespace LapTrinhWebBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Size()
         {
-            this.Products = new HashSet<Product>();
+            this.ProductSizes = new HashSet<ProductSize>();
         }
     
         public int SizeID { get; set; }
         public string Size1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<ProductSize> ProductSizes { get; set; }
     }
 }

@@ -4,27 +4,36 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a9766245816d47279ccff483f0d9166f" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="WebsiteModel.AddressUser" Width="1.5" PointX="13.625" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.Category" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.Color" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.Customer" Width="1.5" PointX="11" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.OrderDetail" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.Order" Width="1.5" PointX="8.25" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.Product" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.Size" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.Stock" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.sysdiagram" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel.User" Width="1.5" PointX="10.75" PointY="4" IsExpanded="true" />
+      <Diagram DiagramId="a9ddb82f83fc40119c3b68de04388969" Name="Diagram1">
+        <EntityTypeShape EntityType="WebsiteModel.AddressUser" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.Category" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.Color" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.OrderDetail" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.Order" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.Payment" Width="1.5" PointX="5.25" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.ProductColor" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.ProductPromotion" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.Product" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.ProductSize" Width="1.5" PointX="8.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.Promotion" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.Size" Width="1.5" PointX="6" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.Stock" Width="1.5" PointX="5.25" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.sysdiagram" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel.User" Width="1.5" PointX="1.5" PointY="16.875" IsExpanded="true" />
         <AssociationConnector Association="WebsiteModel.FK_AddressUser_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="WebsiteModel.FK_Orders_AddressUser" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel.FK_Products_Categories" ManuallyRouted="false" />
-        <AssociationConnector Association="WebsiteModel.FK_Products_Colors" ManuallyRouted="false" />
-        <AssociationConnector Association="WebsiteModel.FK_Orders_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="WebsiteModel.FK_ProductColors_Colors" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel.FK_OrderDetails_Orders" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel.FK_OrderDetails_Products" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel.FK_Orders_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="WebsiteModel.FK_Products_Sizes" ManuallyRouted="false" />
+        <AssociationConnector Association="WebsiteModel.FK_Payments_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="WebsiteModel.FK_ProductColors_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="WebsiteModel.FK_ProductPromotions_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="WebsiteModel.FK_ProductPromotions_Promotions" ManuallyRouted="false" />
+        <AssociationConnector Association="WebsiteModel.FK_ProductSizes_Products" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel.FK_Stock_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="WebsiteModel.FK_ProductSizes_Sizes" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

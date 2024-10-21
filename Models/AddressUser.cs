@@ -14,6 +14,12 @@ namespace LapTrinhWebBanHang.Models
     
     public partial class AddressUser
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AddressUser()
+        {
+            this.Orders = new HashSet<Order>();
+        }
+    
         public int IdAddress { get; set; }
         public Nullable<int> IdUser { get; set; }
         public string FullName { get; set; }
@@ -24,5 +30,7 @@ namespace LapTrinhWebBanHang.Models
         public string SpecificAddress { get; set; }
     
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

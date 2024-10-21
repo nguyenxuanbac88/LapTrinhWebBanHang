@@ -18,6 +18,9 @@ namespace LapTrinhWebBanHang.Models
         public Product()
         {
             this.OrderDetails = new HashSet<OrderDetail>();
+            this.ProductColors = new HashSet<ProductColor>();
+            this.ProductPromotions = new HashSet<ProductPromotion>();
+            this.ProductSizes = new HashSet<ProductSize>();
             this.Stocks = new HashSet<Stock>();
         }
     
@@ -27,14 +30,16 @@ namespace LapTrinhWebBanHang.Models
         public string Description { get; set; }
         public string ImageURL { get; set; }
         public Nullable<int> CategoryID { get; set; }
-        public Nullable<int> SizeID { get; set; }
-        public Nullable<int> ColorID { get; set; }
     
         public virtual Category Category { get; set; }
-        public virtual Color Color { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        public virtual Size Size { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductColor> ProductColors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductPromotion> ProductPromotions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductSize> ProductSizes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Stock> Stocks { get; set; }
     }
