@@ -16,7 +16,11 @@ namespace LapTrinhWebBanHang.Models
     {
         public int StockID { get; set; }
         public Nullable<int> ProductID { get; set; }
-        public int QuantityInStock { get; set; }
+        public string StockType { get; set; }
+        public int Quantity { get; set; }
+        public Nullable<System.DateTime> TransactionDate { get; set; }
+        public string WarehouseLocation { get; set; }
+        public string Notes { get; set; }
     
         public virtual Product Product { get; set; }
     }

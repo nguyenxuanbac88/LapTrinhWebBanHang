@@ -13,10 +13,10 @@ namespace LapTrinhWebBanHang.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WebsiteEntities3 : DbContext
+    public partial class WebsiteEntities4 : DbContext
     {
-        public WebsiteEntities3()
-            : base("name=WebsiteEntities3")
+        public WebsiteEntities4()
+            : base("name=WebsiteEntities4")
         {
         }
     

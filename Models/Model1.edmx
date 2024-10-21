@@ -123,7 +123,11 @@
           </Key>
           <Property Name="StockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductID" Type="int" />
-          <Property Name="QuantityInStock" Type="int" Nullable="false" />
+          <Property Name="StockType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="TransactionDate" Type="datetime" />
+          <Property Name="WarehouseLocation" Type="nvarchar" MaxLength="100" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -140,20 +144,14 @@
             <PropertyRef Name="IdUser" />
           </Key>
           <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PasswordHash" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="255" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Phone" Type="nvarchar" MaxLength="15" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
-          <Property Name="ProfilePicture" Type="nvarchar" MaxLength="255" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="IsAdmin" Type="int" />
           <Property Name="IsEmailVerified" Type="bit" />
+          <Property Name="TokenPassword" Type="nvarchar" MaxLength="255" />
           <Property Name="Stt" Type="int" />
-          <Property Name="LastLogin" Type="datetime" />
           <Property Name="CreatedAt" Type="datetime" />
-          <Property Name="UpdatedAt" Type="datetime" />
+          <Property Name="Ip" Type="varchar" MaxLength="20" />
         </EntityType>
         <Association Name="FK_AddressUser_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1">
@@ -334,7 +332,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Stock_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -566,7 +566,11 @@
           </Key>
           <Property Name="StockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductID" Type="Int32" />
-          <Property Name="QuantityInStock" Type="Int32" Nullable="false" />
+          <Property Name="StockType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="TransactionDate" Type="DateTime" Precision="3" />
+          <Property Name="WarehouseLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Stock_Products" FromRole="Stock" ToRole="Products" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -584,20 +588,14 @@
             <PropertyRef Name="IdUser" />
           </Key>
           <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PasswordHash" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PasswordSalt" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ProfilePicture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsAdmin" Type="Int32" />
           <Property Name="IsEmailVerified" Type="Boolean" />
+          <Property Name="TokenPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Stt" Type="Int32" />
-          <Property Name="LastLogin" Type="DateTime" Precision="3" />
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+          <Property Name="Ip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AddressUsers" Relationship="Self.FK_AddressUser_Users" FromRole="Users" ToRole="AddressUser" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
         </EntityType>
@@ -766,7 +764,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Stock_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -791,7 +791,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="WebsiteEntities3" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="WebsiteEntities4" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AddressUsers" EntityType="Self.AddressUser" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Colors" EntityType="Self.Color" />
@@ -869,7 +869,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WebsiteModelStoreContainer" CdmEntityContainer="WebsiteEntities3">
+        <EntityContainerMapping StorageEntityContainer="WebsiteModelStoreContainer" CdmEntityContainer="WebsiteEntities4">
           <EntitySetMapping Name="AddressUsers">
             <EntityTypeMapping TypeName="WebsiteModel.AddressUser">
               <MappingFragment StoreEntitySet="AddressUser">
@@ -999,7 +999,11 @@
               <MappingFragment StoreEntitySet="Stock">
                 <ScalarProperty Name="StockID" ColumnName="StockID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="QuantityInStock" ColumnName="QuantityInStock" />
+                <ScalarProperty Name="StockType" ColumnName="StockType" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="WarehouseLocation" ColumnName="WarehouseLocation" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1018,20 +1022,14 @@
             <EntityTypeMapping TypeName="WebsiteModel.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="IdUser" ColumnName="IdUser" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
                 <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="TokenPassword" ColumnName="TokenPassword" />
                 <ScalarProperty Name="Stt" ColumnName="Stt" />
-                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="Ip" ColumnName="Ip" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

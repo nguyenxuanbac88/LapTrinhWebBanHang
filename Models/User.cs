@@ -22,20 +22,14 @@ namespace LapTrinhWebBanHang.Models
         }
     
         public int IdUser { get; set; }
-        public string UserName { get; set; }
-        public string PasswordHash { get; set; }
-        public string PasswordSalt { get; set; }
         public string Email { get; set; }
-        public string Phone { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string ProfilePicture { get; set; }
+        public string PasswordHash { get; set; }
         public Nullable<int> IsAdmin { get; set; }
         public Nullable<bool> IsEmailVerified { get; set; }
+        public string TokenPassword { get; set; }
         public Nullable<int> Stt { get; set; }
-        public Nullable<System.DateTime> LastLogin { get; set; }
         public Nullable<System.DateTime> CreatedAt { get; set; }
-        public Nullable<System.DateTime> UpdatedAt { get; set; }
+        public string Ip { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AddressUser> AddressUsers { get; set; }
