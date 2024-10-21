@@ -13,10 +13,10 @@ namespace LapTrinhWebBanHang.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WebsiteEntities : DbContext
+    public partial class WebsiteEntities2 : DbContext
     {
-        public WebsiteEntities()
-            : base("name=WebsiteEntities")
+        public WebsiteEntities2()
+            : base("name=WebsiteEntities2")
         {
         }
     
@@ -27,10 +27,12 @@ namespace LapTrinhWebBanHang.Models
     
         public virtual DbSet<AddressUser> AddressUsers { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Color> Colors { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Size> Sizes { get; set; }
         public virtual DbSet<Stock> Stocks { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }

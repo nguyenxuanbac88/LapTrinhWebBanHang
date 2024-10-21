@@ -27,10 +27,14 @@ namespace LapTrinhWebBanHang.Models
         public string Description { get; set; }
         public string ImageURL { get; set; }
         public Nullable<int> CategoryID { get; set; }
+        public Nullable<int> SizeID { get; set; }
+        public Nullable<int> ColorID { get; set; }
     
         public virtual Category Category { get; set; }
+        public virtual Color Color { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual Size Size { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Stock> Stocks { get; set; }
     }
