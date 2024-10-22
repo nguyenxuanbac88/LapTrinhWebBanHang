@@ -5,9 +5,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace LapTrinhWebBanHang.Controllers
+namespace LapTrinhWebBanHang.Services
 {
-    public class md5
+    public class Md5
     {
         public static string GetMd5Hash(string input)
         {
@@ -26,5 +26,4 @@ namespace LapTrinhWebBanHang.Controllers
             }
         }
     }
-   
 }

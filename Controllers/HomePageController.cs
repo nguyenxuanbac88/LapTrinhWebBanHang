@@ -1,8 +1,6 @@
 ﻿using LapTrinhWebBanHang.Models;
-using System;
-using System.Collections.Generic;
+using LapTrinhWebBanHang.Services;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -24,7 +22,7 @@ namespace LapTrinhWebBanHang.Controllers
         public ActionResult Sign_in(string user, string password)
         {
             WebsiteEntities4 db= new WebsiteEntities4();
-            string md5password = md5.GetMd5Hash(password);
+            string md5password = Md5.GetMd5Hash(password);
             // Tìm người dùng trong cơ sở dữ liệu
             var userInDb = db.Users.FirstOrDefault(u => u.Email.ToLower() == user.ToLower() && u.PasswordHash == md5password);
             if (user.Length >=10 && user.Length < 35) 
