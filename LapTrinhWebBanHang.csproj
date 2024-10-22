@@ -131,6 +131,7 @@
     <Compile Include="Controllers\ConnectDB.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
+    <Compile Include="Controllers\Ip.cs" />
     <Compile Include="Controllers\md5.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
