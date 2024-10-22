@@ -24,19 +24,30 @@ namespace LapTrinhWebBanHang.Controllers
         public ActionResult Sign_in(string user, string password)
         {
             WebsiteEntities4 db= new WebsiteEntities4();
-
+            string md5password = md5.GetMd5Hash(password);
             // Tìm người dùng trong cơ sở dữ liệu
-            var userInDb = db.Users.FirstOrDefault(u => u.Email.ToLower() == user.ToLower() && u.PasswordHash == password);
-            if (userInDb != null)
+            var userInDb = db.Users.FirstOrDefault(u => u.Email.ToLower() == user.ToLower() && u.PasswordHash == md5password);
+            if (user.Length >=10 && user.Length < 35) 
             {
-                Session["user"] = userInDb;
-                return RedirectToAction("Home_page");
+                if (password.Length>=6 && password.Length<40)
+                {
+                    if (userInDb != null)
+                    {
+                        Session["user"] = userInDb;
+                        return RedirectToAction("Home_page");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng.");
+                        return View();
+                    }
+                }
             }
             else
             {
-                ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng.");
-                return View();
+                return RedirectToAction("Sign_in");
             }
+            return View();
         }
 
         public ActionResult Logout()
