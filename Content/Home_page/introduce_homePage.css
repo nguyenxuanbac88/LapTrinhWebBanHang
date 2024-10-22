@@ -11,24 +11,24 @@
 }
 
     .commit .commit-icon {
-        font-size: 70px;
+        font-size: 4rem;
         margin-bottom: 10px;
     }
 
     .commit h3 {
-        font-size: 20px;
+        font-size: 1.3rem;
         font-weight: 600;
         color: rgb(138, 98, 24);
         margin: 0;
     }
 
     .commit h5 {
-        font-size: 14px;
+        font-size: 1rem;
         font-weight: 600;
         margin: 0;
     }
 
     .commit p {
-        font-size: 12px;
+        font-size: 0.8rem;
         margin: 0;
     }

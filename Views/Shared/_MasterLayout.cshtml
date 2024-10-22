@@ -122,10 +122,10 @@
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </div>
                         </li>
-                        <li>
+                        <li class="account">
                             @if (HttpContext.Current.Session["user"] != null)
                             {
-                                var user =(LapTrinhWebBanHang.Models.User) HttpContext.Current.Session["user"];
+                                var user = (LapTrinhWebBanHang.Models.User)HttpContext.Current.Session["user"];
                                 <a data-toggle="dropdown" href="#">
                                     <span>@user.Email</span>
                                 </a>
@@ -133,8 +133,7 @@
                             }
                             else
                             {
-                                @Html.ActionLink("Đăng nhập", "Sign_in")
-
+                                @Html.ActionLink("Đăng nhập", "Sign_in", "Sign_in")
                             }
                         </li>
                         <li>

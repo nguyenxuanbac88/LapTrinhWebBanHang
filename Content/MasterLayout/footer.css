@@ -26,19 +26,19 @@ input[type="email"] {
 
 .voucher-container .first-text h3 {
     margin-top: 6px;
-    font-size: 20px;
+    font-size: 1rem;
     font-weight: 600;
     color: #fff;
 }
 
 .voucher-container .last-text span {
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 600;
     color: #000;
 }
 
 .voucher-container .last-text p {
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--my-color);
 }
@@ -57,7 +57,7 @@ input[type="email"] {
     }
 
     .contact-footer .socials-list {
-        font-size: 30px;
+        font-size: 1.6rem;
     }
 
         .contact-footer .socials-list img {

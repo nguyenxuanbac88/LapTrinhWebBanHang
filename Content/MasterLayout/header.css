@@ -1,5 +1,7 @@
-﻿.contact-header {
-    font-size: 14px;
+﻿
+
+.contact-header {
+    font-size: 0.8rem;
     display: flex;
     height: 34px;
     justify-content: flex-end;
@@ -46,7 +48,7 @@
 .nav {
     width: 100%;
     position: fixed;
-    height: 60px;
+    height: 3.6rem;
     background-color: #fff;
     border-bottom: 1px solid black;
     border-top: 1px solid black;
@@ -66,10 +68,10 @@
 }
 
 .nav .list-nav p a {
-    margin-left: 35px;
+    margin-left: 1.5rem;
     margin-right: 4px;
     font-weight: 900;
-    font-size: 16px;
+    font-size: 1rem;
     text-decoration: none;
     color: black;
 }
@@ -122,10 +124,9 @@
 }
 
     .search-bar input {
-        flex: 1;
         border: none;
         outline: none;
-        font-size: 12px;
+        font-size: 0.8rem;
         padding: 4px 10px 4px 4px;
         background-color: #ecebeb;
     }
@@ -148,32 +149,15 @@
     cursor: pointer;
 }
 
-.nav .list-nav .sig-up-user {
+.nav .account a{
     position: absolute;
-    right: 70px;
-    font-size: 12px;
+    right: 80px;
+    font-size: 0.8rem;
     top: 20px;
     color: #000;
     text-decoration: none;
 }
 
-    .nav .list-nav .sig-up-user:hover,
-    .nav .list-nav .sig-in-user:hover {
-        color: var(--my-color);
-    }
-
-.nav .list-nav .sig-in-user {
-    position: absolute;
-    right: 122px;
-    font-size: 12px;
-    top: 20px;
-    color: #000;
-    text-decoration: none;
-}
-
-.nav .list-nav .or {
-    position: absolute;
-    right: 116px;
-    font-size: 12px;
-    top: 10px;
+.nav .account a:hover{
+    color: var(--my-color);
 }

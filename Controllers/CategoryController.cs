@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace LapTrinhWebBanHang.Controllers
 {
-    public class CategoryPageController : Controller
+    public class CategoryController : Controller
     {
-        // GET: CategoryPage
-        public ActionResult Index()
+        // GET: Category
+        public ActionResult CategoryPage()
         {
             return View();
         }
