@@ -123,8 +123,19 @@
                             </div>
                         </li>
                         <li>
-                            <a class="sig-in-user" href="http://127.0.0.1:5503/index.html">Đăng nhập</a>
-                            <a class="sig-up-user" href="http://127.0.0.1:5502/index.html">Đăng ký</a>
+                            @if (HttpContext.Current.Session["user"] != null)
+                            {
+                                var user =(LapTrinhWebBanHang.Models.User) HttpContext.Current.Session["user"];
+                                <a data-toggle="dropdown" href="#">
+                                    <span>@user.Email</span>
+                                </a>
+                                @Html.ActionLink("Đăng xuất", "Logout")
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Đăng nhập", "Sign_in")
+
+                            }
                         </li>
                         <li>
                             <div class="shopping-cart">
