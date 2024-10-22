@@ -328,11 +328,13 @@
     <Content Include="Views\HomePage\Home_page.cshtml" />
     <Content Include="Views\Sign_in\Sign_in.cshtml" />
     <Content Include="Views\Category\CategoryPage.cshtml" />
+    <Content Include="Views\admin\ManageProducts.cshtml" />
+    <Content Include="Views\admin\CreateProducts.cshtml" />
+    <Content Include="Views\admin\EditProducts.cshtml" />
+    <Content Include="Views\admin\DeleteProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Log\" />
-    <Folder Include="Views\admin\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
