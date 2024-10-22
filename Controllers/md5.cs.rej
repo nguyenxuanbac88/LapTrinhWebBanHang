@@ -1,0 +1,9 @@
+diff a/Controllers/md5.cs b/Controllers/md5.cs	(rejected hunks)
+@@ -0,6 +0,7 @@
+ using System.Collections.Generic;
+ using System.Linq;
+ using System.Web;
++using System.Security.Cryptography;
+ using System.Text;
+ 
+ namespace LapTrinhWebBanHang.Controllers
