@@ -7,6 +7,10 @@ body{
     height: auto;
 }
 
+h6{
+    font-weight: 600;
+}
+
 .main {
     position: relative;
     padding-top: 150px;
@@ -20,11 +24,21 @@ body{
     background-color: #f7f7f7;
     display: flex;
     align-items: center;
-    padding: 50px 50px;
-    float: left;
-    width: 46%;
+    height: 400px;
+    padding: 0 30px;
+    width: 50%;
     border: 1px solid #eaeaea;
+    margin-right: 40px;
 }
+
+    .sign-in-container span{
+        font-size: 0.8rem;
+    }
+
+    .sign-in-container p {
+        font-size: 0.6rem;
+        margin: 0;
+    }
 
 #user{
     display: block;
@@ -47,20 +61,21 @@ body{
 
 .obligatory-text{
     color: red;
-    margin-top: 10px;
-    margin-bottom: 0;
+    padding-top: 10px;
 }
 
 .support:hover {
     color: var(--my-color);
 }
 
-    .btn-sign-in {
-        padding: 10px 20px;
-        background-color: var(--my-color);
-        border: none;
-        font-weight: 600;
-    }
+.btn-sign-in {
+    padding: 15px 20px;
+    background-color: var(--my-color);
+    border: none;
+    font-weight: 600;
+    font-size: 0.7rem;
+    border: 2px solid var(--my-color);
+}
 
         .btn-sign-in:hover {
             background-color: #292929;
@@ -69,10 +84,11 @@ body{
 
 input[type="email"] {
     border-radius: 6px;
-    padding: 4px 100px 4px 8px;
+    padding: 4px 0 4px 8px;
     border: 1px solid #ccc;
     box-shadow: none;
     outline: none;
+    width: 400px;
 }
 
     input[type="email"]:focus {
@@ -81,11 +97,12 @@ input[type="email"] {
 
 input[type="password"] {
     border-radius: 6px;
-    padding: 4px 100px 4px 8px;
+    padding: 4px 0 4px 8px;
     border: 1px solid #ccc;
     box-shadow: none;
     outline: none;
-    background-color: #f7f7f7;
+    background-color: white;
+    width: 400px;
 }
 
         input[type="password"]:focus {
@@ -95,4 +112,49 @@ input[type="password"] {
 .sign-up-container{
     float: right;
     width: 46%;
+}
+
+.new-customer {
+    background-color: #f7f7f7;
+    height: 400px;
+    padding: 60px 20px;
+    border: 1px solid #eaeaea;
+    width: 46%;
+}
+
+.new-customer span{
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.new-customer p {
+    font-size: 0.7rem;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    opacity: 0.8;
+}
+
+    .new-customer .btn-sign-up {
+        background-color: #292929;
+        color: white;
+        padding: 10px 15px;
+        font-size: 0.8rem;
+    }
+
+    .new-customer .btn-sign-up a{
+        color: white;
+        text-decoration: none;
+    }
+
+    .new-customer .btn-sign-up:hover{
+        background-color: var(--my-color);
+        color: black;
+    }
+
+        .new-customer .btn-sign-up:hover a{
+            color: black;
+        }
+
+.account .sub-account{
+    display: none;
 }
