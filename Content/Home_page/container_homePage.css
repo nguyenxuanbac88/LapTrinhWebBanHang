@@ -2,10 +2,19 @@
     padding-bottom: 40px;
 }
 
-    .container h2 {
-        margin: 40px 0 40px 0;
-        font-weight: 600;
-    }
+.thumb{
+    margin-bottom: 20px;
+}
+
+.container h2 {
+    margin: 40px 0 20px 0;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-decoration-thickness: 2px;
+    text-underline-position: under;
+}
 
 
     .container .product-item {
