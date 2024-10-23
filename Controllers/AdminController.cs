@@ -25,6 +25,13 @@ namespace LapTrinhWebBanHang.Controllers
             return View(products); // Trả về view với danh sách sản phẩm
         }
 
+        // GET: Admin/ManageProducts
+        public ActionResult ManageCategory()
+        {
+            var ManageCategory = db.Categories.ToList();  // Lấy danh sách tất cả sản phẩm
+            return View(ManageCategory); // Trả về view với danh sách sản phẩm
+        }
+
         // GET: Admin/CreateProducts
         public ActionResult CreateProducts()
         {
@@ -46,7 +53,7 @@ namespace LapTrinhWebBanHang.Controllers
                     // Tạo tên file duy nhất cho ảnh
                     string fileName = Path.GetFileNameWithoutExtension(ImageFile.FileName);
                     string extension = Path.GetExtension(ImageFile.FileName);
-                    fileName =DateTime.Now.ToString("yyyyMMddHHmmssfff") + extension;
+                    fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + extension;
 
                     // Đường dẫn lưu ảnh
                     string path = Path.Combine(Server.MapPath("~/image/product-image/"), fileName);
@@ -55,7 +62,7 @@ namespace LapTrinhWebBanHang.Controllers
                     ImageFile.SaveAs(path);
 
                     // Lưu tên file vào thuộc tính ImageURL của sản phẩm
-                    product.ImageURL =fileName;
+                    product.ImageURL = fileName;
                 }
 
                 // Thêm sản phẩm vào cơ sở dữ liệu
@@ -128,5 +135,43 @@ namespace LapTrinhWebBanHang.Controllers
             return RedirectToAction("ManageProducts");
         }
 
+
+        // POST: Admin/CreateProducts
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult CreateCategory(Category category)
+        {
+            if (ModelState.IsValid)  // Kiểm tra xem dữ liệu trong model có hợp lệ hay không
+            {
+                db.Categories.Add(category);
+                db.SaveChanges();  
+                return RedirectToAction("ManageCategory");
+            }
+
+            ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName");
+            return View(category);
+        }
+
+
+        public ActionResult CreateCategory()
+        {
+            return View();
+        }
+        // GET: Admin/EditCategory/5
+        public ActionResult EditCategory(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+
+            Category category = db.Categories.Find(id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(category); // Pass the single category to the view
+        }
     }
 }

@@ -1,10 +1,15 @@
 ﻿@model IEnumerable<LapTrinhWebBanHang.Models.Product>
 
-@{ Layout = null;  }
+@{ Layout = null; }
 <h2>Quản lý sản phẩm</h2>
+
 
 <p>
     <a href="@Url.Action("CreateProducts", "Admin")" class="btn btn-success">Thêm sản phẩm mới</a>
+</p>
+
+<p>
+    <a href="@Url.Action("ManageCategory", "Admin")" class="btn btn-success">Quản lý loại sản phẩm</a>
 </p>
 
 <table class="table table-striped">

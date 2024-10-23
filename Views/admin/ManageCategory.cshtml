@@ -1,0 +1,33 @@
+﻿@model IEnumerable<LapTrinhWebBanHang.Models.Category>
+
+@{ Layout = null; }
+<h2>Quản lý loại sản phẩm</h2>
+
+<p>
+    <a href="@Url.Action("CreateCategory", "Admin")" class="btn btn-success">Thêm loại sản phẩm</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.CategoryID)</th>
+            <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+
+            <td>@item.CategoryID</td> <!-- Nếu có bảng Categories, hiển thị tên danh mục thay vì ID -->
+            <td>@item.CategoryName</td>
+            <td>
+                <a href="@Url.Action("EditCategory", "Admin", new { id = item.CategoryID })" class="btn btn-primary">Sửa Tên Loại Sản Phẩm</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div>
+    @Html.ActionLink("Back to ManageProducts", "ManageProducts")
+</div>
