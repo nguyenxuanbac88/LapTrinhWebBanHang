@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using LapTrinhWebBanHang.Models;
 
@@ -32,20 +34,42 @@ namespace LapTrinhWebBanHang.Controllers
         }
 
         // POST: Admin/CreateProducts
-        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProducts(Product product)
+        [HttpPost]
+        public ActionResult CreateProducts(Product product, HttpPostedFileBase ImageFile)
         {
             if (ModelState.IsValid)
             {
-                db.Products.Add(product);  // Thêm sản phẩm mới vào cơ sở dữ liệu
-                db.SaveChanges();  // Lưu các thay đổi
-                return RedirectToAction("ManageProducts");  // Chuyển hướng về trang quản lý sản phẩm
+                // Kiểm tra nếu có file ảnh được upload
+                if (ImageFile != null && ImageFile.ContentLength > 0)
+                {
+                    // Tạo tên file duy nhất cho ảnh
+                    string fileName = Path.GetFileNameWithoutExtension(ImageFile.FileName);
+                    string extension = Path.GetExtension(ImageFile.FileName);
+                    fileName =DateTime.Now.ToString("yyyyMMddHHmmssfff") + extension;
+
+                    // Đường dẫn lưu ảnh
+                    string path = Path.Combine(Server.MapPath("~/image/product-image/"), fileName);
+
+                    // Lưu ảnh vào thư mục đã chỉ định
+                    ImageFile.SaveAs(path);
+
+                    // Lưu tên file vào thuộc tính ImageURL của sản phẩm
+                    product.ImageURL =fileName;
+                }
+
+                // Thêm sản phẩm vào cơ sở dữ liệu
+                db.Products.Add(product);
+                db.SaveChanges();
+
+                return RedirectToAction("ManageProducts");
             }
+
             // Nếu có lỗi, trả lại view với dữ liệu đã nhập
             ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName");
             return View(product);
         }
+
 
         // GET: Admin/EditProducts/5
         public ActionResult EditProducts(int? id)
@@ -103,5 +127,6 @@ namespace LapTrinhWebBanHang.Controllers
             db.SaveChanges();  // Lưu
             return RedirectToAction("ManageProducts");
         }
+
     }
 }

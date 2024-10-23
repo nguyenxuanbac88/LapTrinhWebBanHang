@@ -344,6 +344,7 @@
     <Content Include="Views\admin\EditProducts.cshtml" />
     <Content Include="Views\admin\DeleteProducts.cshtml" />
     <Content Include="Views\Register\Register.cshtml" />
+    <Content Include="Views\admin\CreateCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
