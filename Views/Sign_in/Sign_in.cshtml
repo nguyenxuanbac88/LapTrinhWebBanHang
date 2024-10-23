@@ -14,10 +14,11 @@
 </head>
 <body>
     <div class="main">
-        <div class="container" id="container">
-            <div class="form-container sign-in-container">
+        <div class="container row" id="container">
+            <div class="form-container sign-in-container col-md-6">
                 <form action="#" method="post">
-                    <h4>Đăng nhập</h4>
+                    <h6>Đăng nhập</h6>
+                    <p>Nếu đã có tài khoản vui lòng đăng nhập</p>
                     <span>Email</span>
                     <input type="email" placeholder="KhoaCho@123gmail.com" name="user" id="user" required />
                     <span>Mật khẩu</span>
@@ -32,11 +33,17 @@
                         </div>
                     }
                     <p class="obligatory-text">* Yêu cầu bắt buộc</p>
-                <div class="container-btn">
-                    <button class="btn-sign-in">Đăng nhập</button>
-                    <a class="support" href="#">Quên mật khẩu ?</a>
-                </div>
+                    <div class="container-btn">
+                        <button class="btn-sign-in"><i class="fa-solid fa-unlock-keyhole"></i> Đăng nhập</button>
+                        <a class="support" href="#">Quên mật khẩu ?</a>
+                    </div>
                 </form>
+            </div>
+
+            <div class="new-customer col-md-6">
+                <span>KHÁCH HÀNG MỚI</span>
+                <p>Bằng cách tạo một tài khoản với cửa hàng của chúng tôi , bạn sẽ có thể thực hiện những quy trình mua hàng nhanh hơn , lưu trữ nhiều địa chỉ gửi hàng , xem và theo dõi đơn đặt hàng của bạn trong tài khoản của bạn và nhiều hơn nữa .</p>
+                <button class="btn-sign-up"><i class="fa-solid fa-user-plus"></i>@Html.ActionLink("Đăng ký", "Register", "Register")</button>
             </div>
            
             @*<div class="overlay-container">

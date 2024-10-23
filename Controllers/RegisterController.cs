@@ -1,4 +1,5 @@
 ﻿using LapTrinhWebBanHang.Models;
+using LapTrinhWebBanHang.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,28 @@ namespace LapTrinhWebBanHang.Controllers
             var userInDb = db.Users.FirstOrDefault(u => u.Email.ToLower() == user.ToLower());
             if (userInDb == null) 
             {
-                return View();
+                if (password == confirmpassword)
+                {
+                    string md5password = Md5.GetMd5Hash(password);
+                    var _user = new User
+                    {
+                        Email = user,
+                        PasswordHash = password,
+                    };
+                    db.Users.Add(_user);
+                    db.SaveChanges();
+                }
+                else 
+                {
+                    ModelState.AddModelError("", "mật khẩu confirm không đúng với mật khẩu đã nhập");
+                }
+                
             }
-            return View(userInDb);
+            else
+            {
+                ModelState.AddModelError("", "tài khoản đã được sử dụng vui lòng nhập tài khoản khác");
+            }
+            return View();
         }
     }
 }

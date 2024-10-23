@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="~/Content/MasterLayout/subnav.css" />
     <link rel="stylesheet" href="~/Content/MasterLayout/style.css">
     <link rel="stylesheet" href="~/Content/MasterLayout/footer.css">
-    <link rel="stylesheet" href="assets/font/themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="~/Content/Home_page/Sign_in.css"/>
     <title>HANGMUSPORTS.VN</title>
 </head>
 <body>
@@ -42,7 +42,7 @@
                     <ul>
                         <li>
                             <img src="https://hali.vn/wp-content/uploads/2020/01/logo-MU.jpg" />
-                            <p><@Html.ActionLink("HANGMUSPORTS.VN","Home_Page","HomePage")</p>
+                            <p>@Html.ActionLink("HANGMUSPORTS.VN", "Home_Page", "HomePage")</p>
                         </li>
                         <li class="nav-item">
                             <a href="">TÌM NHANH<i class="ti-angle-down"></i></a>
@@ -126,15 +126,14 @@
                             @if (HttpContext.Current.Session["Email"] != null)
                             {
                                 var user = (LapTrinhWebBanHang.Models.User)HttpContext.Current.Session["Email"];
-                                <a data-toggle="dropdown" href="#">
-                                    <span>@user.Email</span>
+                                <a class="parentButton" data-toggle="dropdown" href="#">
+                                    <span>@user.Email <i class="fa-solid fa-caret-down"></i></span>
+                                    @Html.ActionLink("Đăng xuất", "Logout", "Sign_in", new { @class = "sub-account", id = "logoutLink" })
                                 </a>
-                                @Html.ActionLink("Đăng xuất", "Logout", "Sign_in")
                             }
                             else
                             {
                                 @Html.ActionLink("Đăng nhập", "Sign_in", "Sign_in")
-                                @Html.ActionLink("Đăng ký", "Register", "Register")
                             }
                         </li>
                         <li>
