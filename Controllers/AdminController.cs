@@ -4,14 +4,32 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LapTrinhWebBanHang.Models;
+using LapTrinhWebBanHang.Services;
 
 namespace LapTrinhWebBanHang.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
-        //Thiếu check login, vì đang test nên chưa có thêm vô
         private WebsiteEntities4 db = new WebsiteEntities4(); // Sử dụng DbContext đã được tạo từ Entity Framework
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var email = Session["Email"] as string;
 
+            // Kiểm tra xem người dùng có phải là admin không
+            if (string.IsNullOrEmpty(email) || !UserServices.CheckAdmin(email))
+            {
+                // Chuyển hướng đến trang lỗi hoặc trang đăng nhập nếu không phải admin
+                filterContext.Result = new RedirectToRouteResult(
+                    new System.Web.Routing.RouteValueDictionary
+                    {
+                    { "controller", "Home" },
+                    { "action", "Index" }
+                    });
+            }
+
+            base.OnActionExecuting(filterContext);
+        }
         // GET: Admin
         public ActionResult Index()
         {

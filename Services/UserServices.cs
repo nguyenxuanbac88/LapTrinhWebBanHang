@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LapTrinhWebBanHang.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -22,7 +23,7 @@ namespace LapTrinhWebBanHang.Services
         }
         public static string GetMd5Hash(string input)
         {
-            using (MD5 md5 = MD5.Create())
+            using (MD5 md5 = MD5.Create())  
             {
                 byte[] inputBytes = Encoding.ASCII.GetBytes(input);
 
@@ -35,6 +36,19 @@ namespace LapTrinhWebBanHang.Services
                 }
                 return sb.ToString();
             }
+        }
+        public static bool CheckAdmin(string Email)
+        {
+            WebsiteEntities4 db = new WebsiteEntities4();
+            var isAdmin = db.Users
+                .Where(u => u.Email.ToLower() == Email.ToLower())
+                .Select(u => u.IsAdmin)
+                .FirstOrDefault();
+            if (isAdmin == 1)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
