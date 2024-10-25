@@ -4,13 +4,14 @@
     text-align: center;
 }
 
-input[type="email"] {
+.register-container > input[type="email"] {
     padding: 5px;
     margin-bottom: 10px;
     border: none;
     border-radius: 6px;
     position: relative;
     outline: none;
+    width: 250px;
 }
 
 .footer .voucher-container .submit {
@@ -24,12 +25,17 @@ input[type="email"] {
     margin-left: 6px;
 }
 
-.voucher-container .first-text h3 {
-    margin-top: 6px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #fff;
-}
+    .footer .voucher-container .submit a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .voucher-container .first-text h3 {
+        margin-top: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+    }
 
 .voucher-container .last-text span {
     font-size: 1rem;

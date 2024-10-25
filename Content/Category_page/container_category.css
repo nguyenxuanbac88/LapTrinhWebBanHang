@@ -15,6 +15,11 @@ a {
     color: black;
 }
 
+.fa-angle-down {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
 .link-option span {
     margin-left: 10%;
     font-size: 12px;
@@ -22,64 +27,39 @@ a {
     color: var(--my-color);
 }
 
-.content {
-    display: flex;
-}
-
 .slide img {
     width: 100%;
     margin-top: 60px;
 }
 
+.side-bar {
+    padding: 30px;
+}
+
 .content-left {
-    float: left;
-    width: 16%;
-    padding-top: 40px;
+    height: 600px;
+    overflow-y: auto;
 }
 
-    .content-left .container-left {
-        text-align: center;
-        padding: 12px 30px;
+    .content-left h4{
+        font-size: 1rem;
     }
-
-        .content-left .container-left h4 {
-            background-color: var(--my-color);
-            padding: 8px 0;
-            font-size: 24px;
-            font-weight: 600;
-            border-radius: 8px;
-        }
-
-
-.style-list {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
 
 .style-everyList {
-    margin: 2px 4px;
-    border: 1px solid black;
-    padding: 4px 8px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 2px;
+    display: flex;
+    font-size: 0.8rem;
 }
-
-    .style-everyList:hover a {
-        color: var(--my-color);
+    .style-everyList input{
+        width: 15px;
+        margin-right: 4px;
+        opacity: 0.2;
     }
 
-.content-right {
-    float: right;
-    width: 84%;
-    padding-top: 10px;
-}
 
-    .content-right .arrange {
-        opacity: 0.6;
-        margin-left: 10px;
-    }
+.content-right .arrange {
+    opacity: 0.6;
+    margin-left: 10px;
+}
 
     .content-right .container-products {
         padding: 20px;
@@ -145,3 +125,5 @@ a {
         .number-list li:hover {
             background-color: var(--my-color);
         }
+
+

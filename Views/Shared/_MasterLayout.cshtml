@@ -47,7 +47,7 @@
                         <li class="nav-item">
                             <a href="">TÌM NHANH<i class="ti-angle-down"></i></a>
                             <ul class="sub-nav">
-                                <li><a href="Per_page">Đinh thấp</a></li>
+                                <li>@Html.ActionLink("Đinh thấp", "CategoryPage", "Category")</li>
                                 <hr>
                                 <li><a href="">Đinh cao</a></li>
                                 <hr>
@@ -156,7 +156,7 @@
                 </div>
                 <div class="register-container col-md-4 col-12">
                     <input type="email" placeholder="Địa chỉ email của bạn" />
-                    <button type="submit" class="submit">Đăng Ký</button>
+                    <button class="submit">@Html.ActionLink("Đăng ký", "Register", "Register")</button>
                 </div>
                 <div class="last-text col-md-4 col-12">
                     <p><span>...Nhận ngay</span> VOUCHER 100K</p>

@@ -236,4 +236,18 @@ const web = {
     },
 };
 
+function toggleSection(sectionId) {
+    var section = document.getElementById(sectionId);
+    var arrow = section.previousElementSibling.querySelector(".arrow");
+
+    // Toggle class 'show' để ẩn hoặc hiện
+    if (section.classList.contains('show')) {
+        section.classList.remove('show');
+        arrow.textContent = "▼"; // Mũi tên chỉ xuống khi ẩn
+    } else {
+        section.classList.add('show');
+        arrow.textContent = "▲"; // Mũi tên chỉ lên khi hiện
+    }
+}
+
 web.start();

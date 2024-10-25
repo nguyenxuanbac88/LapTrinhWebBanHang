@@ -14,78 +14,66 @@
         <span>Giày bóng đá sân cỏ nhân tạo</span>
         <hr />
     </div>
-    <div class="content">
-        <div class="content-left">
-            <div class="container-left">
+    <div class="content row">
+        <div class="content-left col-md-2">
+            <div class="side-bar">
                 <div class="product-size">
-                    <h4>Kích thước</h4>
-                    <div class="list-size style-list">
-                        <li class="style-everyList"><a href="">35</a></li>
-                        <li class="style-everyList"><a href="">36</a></li>
-                        <li class="style-everyList"><a href="">37</a></li>
-                        <li class="style-everyList"><a href="">38</a></li>
-                        <li class="style-everyList"><a href="">39</a></li>
-                        <li class="style-everyList"><a href="">40</a></li>
-                        <li class="style-everyList"><a href="">41</a></li>
-                        <li class="style-everyList"><a href="">42</a></li>
-                        <li class="style-everyList"><a href="">43</a></li>
-                        <li class="style-everyList"><a href="">44</a></li>
-                    </div>
+                    <h4 onclick="toggleSection('size-section')">Kích thước <i class="fa-solid fa-angle-down"></i></h4>
+                    <ul id="size-section">
+                        <li class="style-everyList"><input type="checkbox" />35</li>
+                        <li class="style-everyList"><input type="checkbox" />36</li>
+                        <li class="style-everyList"><input type="checkbox" />37</li>
+                        <li class="style-everyList"><input type="checkbox" />38</li>
+                        <li class="style-everyList"><input type="checkbox" />39</li>
+                        <li class="style-everyList"><input type="checkbox" />40</li>
+                        <li class="style-everyList"><input type="checkbox" />41</li>
+                        <li class="style-everyList"><input type="checkbox" />42</li>
+                        <li class="style-everyList"><input type="checkbox" />43</li>
+                        <li class="style-everyList"><input type="checkbox" />44</li>
+                        <li class="style-everyList"><input type="checkbox" />45</li>
+                    </ul>
                 </div>
+
+                <!-- Chủng loại -->
                 <div class="product-type">
-                    <h4>Chủng loại</h4>
-                    <div class="list-type style-list">
-                        <li class="style-everyList"><a href="">Đinh TF</a></li>
-                    </div>
+                    <h4 onclick="toggleSection('type-section')">Chủng loại <i class="fa-solid fa-angle-down"></i></h4>
+                    <ul id="type-section">
+                        <li class="style-everyList"><input type="checkbox" />ĐINH TF</li>
+                        <li class="style-everyList"><input type="checkbox" />ĐINH FG</li>
+                    </ul>
                 </div>
+
+                <!-- Thương hiệu -->
                 <div class="product-brands">
-                    <h4>Thương hiệu</h4>
-                    <div class="list-brands style-list">
-                        <li class="style-everyList"><a href="">NIKE</a></li>
-                        <li class="style-everyList"><a href="">ADIDAS</a></li>
-                        <li class="style-everyList"><a href="">PUMA</a></li>
-                    </div>
+                    <h4 onclick="toggleSection('brands-section')">Thương hiệu <i class="fa-solid fa-angle-down"></i></h4>
+                    <ul id="brands-section">
+                        <li class="style-everyList"><input type="checkbox" />NIKE</li>
+                        <li class="style-everyList"><input type="checkbox" />ADIDAS</li>
+                        <li class="style-everyList"><input type="checkbox" />PUMA</li>
+                        <li class="style-everyList"><input type="checkbox" />MIZUNO</li>
+                    </ul>
                 </div>
+
+                <!-- Mức giá -->
                 <div class="product-price">
-                    <h4>Mức giá</h4>
-                    <div class="list-price style-list">
-                        <li class="style-everyList"><a href="">Dưới 500K</a></li>
-                        <li class="style-everyList"><a href="">500k - 1M</a></li>
-                        <li class="style-everyList"><a href="">1M - 2M</a></li>
-                        <li class="style-everyList"><a href="">Trên 2M</a></li>
-                    </div>
+                    <h4 onclick="toggleSection('price-section')">Mức giá <i class="fa-solid fa-angle-down"></i></h4>
+                    <ul id="price-section">
+                        <li class="style-everyList"><input type="checkbox" />Trên 500K</li>
+                        <li class="style-everyList"><input type="checkbox" />500k - 1tr</li>
+                        <li class="style-everyList"><input type="checkbox" />1tr - 2tr</li>
+                        <li class="style-everyList"><input type="checkbox" />Trên 2tr</li>
+                    </ul>
                 </div>
+
+                <!-- Màu sắc -->
                 <div class="product-color">
-                    <h4>Màu sắc</h4>
-                    <div class="list-color style-list">
-                        <li class="style-everyList" style="background-color: black; padding: 18px; cursor: pointer;"><a href=""></a></li>
-                        <li class="style-everyList" style="background-color: white; padding: 18px; cursor: pointer;"><a href=""></a></li>
-                        <li class="style-everyList" style="background-color: pink; padding: 18px; cursor: pointer; "><a href=""></a></li>
-                        <li class="style-everyList" style="background-color: red; padding: 18px; cursor: pointer; "><a href=""></a></li>
-                        <li class="style-everyList" style="background-color: green; padding: 18px; cursor: pointer; "><a href=""></a></li>
-                        <li class="style-everyList" style="background-color: orange; padding: 18px; cursor: pointer; "><a href=""></a></li>
-                        <li class="style-everyList" style="background-color: rgb(23, 192, 214); padding: 18px; cursor: pointer; "><a href=""></a></li>
-                        <li class="style-everyList" style="background-color: gray; padding: 18px; cursor: pointer; "><a href=""></a></li>
-                    </div>
-                </div>
-                <div class="product-height">
-                    <h4>Loại cổ</h4>
-                    <div class="list-height style-list">
-                        <li class="style-everyList"><a href="">Cổ cao</a></li>
-                        <li class="style-everyList"><a href="">Cổ thấp</a></li>
-                    </div>
-                </div>
-                <div class="product-detail">
-                    <h4>Loại dây buộc</h4>
-                    <div class="list-detail style-list">
-                        <li class="style-everyList"><a href="">Dây truyền thống</a></li>
-                        <li class="style-everyList"><a href="">Giấu dây</a></li>
-                        <li class="style-everyList"><a href="">Không dây</a></li>
-                    </div>
+                    <h4 onclick="toggleSection('color-section')">Màu sắc <i class="fa-solid fa-angle-down"></i></h4>
+                    <ul id="color-section">
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="content-right">
+        <div class="content-right col-md-10">
             <h3 style="text-align: center;">Có ... sản phẩm</h3>
             <div class="arrange">
                 <select name="arrange" id="arrange">

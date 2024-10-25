@@ -4,13 +4,22 @@
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
-
-<div class="form-container sign-up-container">
-    <form action="#">
-        <h1>Create Account</h1>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <input type="password" placeholder="ConfirmPassword" />
-        <button>Sign Up</button>
-    </form>
+<link rel="stylesheet" href="~/Content/Sign_in and register/Register.css" />
+<div class="container-regis row">
+    <div class="form-container col-md-12">
+        <form action="#">
+            <h5>TẠO TÀI KHOẢN MỚI</h5>
+            <p>Email</p>
+            <input type="email" placeholder="VD: NguyenVanA123@gmail.com" />
+            <p>Tên</p>
+            <input type="text" placeholder="Tên" />
+            <p>Họ</p>
+            <input type="text" placeholder="Họ" />
+            <p>Mật khẩu</p>
+            <input type="password" placeholder="Password" />
+            <p>Nhập lại mật khẩu</p>
+            <input type="password" placeholder="ConfirmPassword" />
+            <button>Sign Up</button>
+        </form>
+    </div>
 </div>
