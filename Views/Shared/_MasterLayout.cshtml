@@ -128,12 +128,12 @@
                                 var user = (LapTrinhWebBanHang.Models.User)HttpContext.Current.Session["Email"];
                                 <a class="parentButton" data-toggle="dropdown" href="#">
                                     <span>@user.Email <i class="fa-solid fa-caret-down"></i></span>
-                                    @Html.ActionLink("Đăng xuất", "Logout", "Sign_in", new { @class = "sub-account", id = "logoutLink" })
+                                    @Html.ActionLink("Đăng xuất", "Logout", "Account", new { @class = "sub-account", id = "logoutLink" })
                                 </a>
                             }
                             else
                             {
-                                @Html.ActionLink("Đăng nhập", "Sign_in", "Sign_in")
+                                @Html.ActionLink("Đăng nhập", "Sign_in", "Account")
                             }
                         </li>
                         <li>
@@ -156,7 +156,7 @@
                 </div>
                 <div class="register-container col-md-4 col-12">
                     <input type="email" placeholder="Địa chỉ email của bạn" />
-                    <button class="submit">@Html.ActionLink("Đăng ký", "Register", "Register")</button>
+                    <button class="submit">@Html.ActionLink("Đăng ký", "Register", "Account")</button>
                 </div>
                 <div class="last-text col-md-4 col-12">
                     <p><span>...Nhận ngay</span> VOUCHER 100K</p>
