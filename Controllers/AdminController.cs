@@ -94,6 +94,31 @@ namespace LapTrinhWebBanHang.Controllers
             return View(product);
         }
 
+        [HttpGet]
+        public JsonResult GetProduct(int id)
+        {
+            var product = db.Products
+                .Where(p => p.ProductID == id)
+                .Select(p => new
+                {
+                    p.ProductID,
+                    p.ProductName,
+                    p.Price,
+                    p.Description,
+                    p.ImageURL,
+                    p.CategoryID
+                })
+                .FirstOrDefault();
+
+            if (product == null)
+            {
+                return Json(new { success = false, message = "Product not found" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { success = true, data = product }, JsonRequestBehavior.AllowGet);
+        }
+
+
         // POST: Admin/EditProducts/5
         [HttpPost]
         [ValidateAntiForgeryToken]

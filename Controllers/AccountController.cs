@@ -23,7 +23,7 @@ namespace LapTrinhWebBanHang.Controllers
         {
             WebsiteEntities4 db = new WebsiteEntities4();
             {
-                string md5password = Md5.GetMd5Hash(password);
+                string md5password = UserServices.GetMd5Hash(password);
                 // Tìm người dùng trong cơ sở dữ liệu
                 var userInDb = db.Users.FirstOrDefault(u => u.Email.ToLower() == user.ToLower() && u.PasswordHash == md5password);
                 if (user.Length >= 10 && user.Length < 35)
@@ -71,7 +71,7 @@ namespace LapTrinhWebBanHang.Controllers
             {
                 if (password == confirmpassword)
                 {
-                    string md5password = Md5.GetMd5Hash(password);
+                    string md5password = UserServices.GetMd5Hash(password);
                     var _user = new User
                     {
                         Email = user,

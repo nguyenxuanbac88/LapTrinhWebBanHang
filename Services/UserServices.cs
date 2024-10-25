@@ -7,8 +7,19 @@ using System.Web;
 
 namespace LapTrinhWebBanHang.Services
 {
-    public class Md5
+    public class UserServices
     {
+        public string GetUserIP()
+        {
+            string ipAddress = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+            if (string.IsNullOrEmpty(ipAddress))
+            {
+                ipAddress = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            }
+
+            return ipAddress;
+        }
         public static string GetMd5Hash(string input)
         {
             using (MD5 md5 = MD5.Create())
