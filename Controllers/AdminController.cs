@@ -8,7 +8,6 @@ using LapTrinhWebBanHang.Services;
 
 namespace LapTrinhWebBanHang.Controllers
 {
-    [Authorize]
     public class AdminController : Controller
     {
         private WebsiteEntities4 db = new WebsiteEntities4(); // Sử dụng DbContext đã được tạo từ Entity Framework
@@ -16,20 +15,36 @@ namespace LapTrinhWebBanHang.Controllers
         {
             var email = Session["Email"] as string;
 
-            // Kiểm tra xem người dùng có phải là admin không
-            if (string.IsNullOrEmpty(email) || !UserServices.CheckAdmin(email))
+            if (string.IsNullOrEmpty(email))
             {
-                // Chuyển hướng đến trang lỗi hoặc trang đăng nhập nếu không phải admin
                 filterContext.Result = new RedirectToRouteResult(
                     new System.Web.Routing.RouteValueDictionary
                     {
-                    { "controller", "Home" },
-                    { "action", "Index" }
+                { "controller", "Account" }, // Tên controller cho trang đăng nhập
+                { "action", "Sign_in" }
                     });
+                return;
             }
+
+            // Kiểm tra quyền admin
+            if (!UserServices.CheckAdmin(email))
+            {
+                filterContext.Result = new RedirectToRouteResult(
+                    new System.Web.Routing.RouteValueDictionary
+                    {
+                    { "controller", "Error" },
+                    { "action", "Error" },
+                    { "statusCode", 403 },
+                    { "message", "Bạn không có quyền truy cập trang này." }
+                            });
+            }
+
 
             base.OnActionExecuting(filterContext);
         }
+
+
+
         // GET: Admin
         public ActionResult Index()
         {
@@ -68,20 +83,44 @@ namespace LapTrinhWebBanHang.Controllers
                 // Kiểm tra nếu có file ảnh được upload
                 if (ImageFile != null && ImageFile.ContentLength > 0)
                 {
-                    // Tạo tên file duy nhất cho ảnh
-                    string fileName = Path.GetFileNameWithoutExtension(ImageFile.FileName);
-                    string extension = Path.GetExtension(ImageFile.FileName);
-                    fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + extension;
+                    // Validate file extension to ensure it is an image
+                    string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
+                    string extension = Path.GetExtension(ImageFile.FileName).ToLower();
 
-                    // Đường dẫn lưu ảnh
-                    string path = Path.Combine(Server.MapPath("~/image/product-image/"), fileName);
+                    if (allowedExtensions.Contains(extension))
+                    {
+                        // Generate a unique file name with timestamp
+                        string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + extension;
 
-                    // Lưu ảnh vào thư mục đã chỉ định
-                    ImageFile.SaveAs(path);
+                        // Construct the file path for saving
+                        string path = Path.Combine(Server.MapPath("~/image/product-image/"), fileName);
 
-                    // Lưu tên file vào thuộc tính ImageURL của sản phẩm
-                    product.ImageURL = fileName;
+                        try
+                        {
+                            // Save the image file to the specified directory
+                            ImageFile.SaveAs(path);
+
+                            // Set the file name to the product's ImageURL property
+                            product.ImageURL = fileName;
+                        }
+                        catch (Exception ex)
+                        {
+                            // Log the exception and handle it as needed
+                            // Example: Log.Error("Failed to save image", ex);
+                            ViewBag.ErrorMessage = "There was an error saving the image. Please try again.";
+                        }
+                    }
+                    else
+                    {
+                        // Handle invalid file type
+                        ViewBag.ErrorMessage = "Invalid file type. Please upload a JPG, JPEG, PNG, or GIF image.";
+                    }
                 }
+                else
+                {
+                    ViewBag.ErrorMessage = "Please select an image to upload.";
+                }
+
 
                 // Thêm sản phẩm vào cơ sở dữ liệu
                 db.Products.Add(product);
@@ -137,6 +176,7 @@ namespace LapTrinhWebBanHang.Controllers
         }
 
 
+
         // POST: Admin/EditProducts/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -187,7 +227,7 @@ namespace LapTrinhWebBanHang.Controllers
             if (ModelState.IsValid)  // Kiểm tra xem dữ liệu trong model có hợp lệ hay không
             {
                 db.Categories.Add(category);
-                db.SaveChanges();  
+                db.SaveChanges();
                 return RedirectToAction("ManageCategory");
             }
 
