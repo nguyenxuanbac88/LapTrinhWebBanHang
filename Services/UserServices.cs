@@ -39,16 +39,19 @@ namespace LapTrinhWebBanHang.Services
         }
         public static bool CheckAdmin(string Email)
         {
-            WebsiteEntities4 db = new WebsiteEntities4();
-            var isAdmin = db.Users
-                .Where(u => u.Email.ToLower() == Email.ToLower())
-                .Select(u => u.IsAdmin)
-                .FirstOrDefault();
-            if (isAdmin == 1)
+            using (WebsiteEntities4 db = new WebsiteEntities4()) // Sử dụng 'using' để tự động giải phóng tài nguyên
             {
-                return true;
+                var isAdmin = db.Users
+                    .Where(u => u.Email.ToLower() == Email.ToLower())
+                    .Select(u => u.IsAdmin)
+                    .FirstOrDefault();
+                // Kiểm tra nếu không tìm thấy người dùng hoặc IsAdmin khác 1
+                if (isAdmin == 1)
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
     }
 }
