@@ -5,6 +5,9 @@ const newProductList = $(".new-products-list");
 const hotProductList = $(".hot-products-list");
 const saleProductList = $(".sale-products-list");
 const jerseyList = $(".jersey-list");
+const dropdownHeader = document.querySelector(".dropdown-header");
+const dropdown = document.querySelector(".dropdown");
+const filterButton = document.querySelector(".filter");
 
 const web = {
     newProducts: [
@@ -216,6 +219,8 @@ const web = {
         window.onscroll = function () {
             makeDivNav();
         }
+
+        // Di chuyển thanh NAV khi cuộn trang
         function makeDivNav() {
             var fixedNav = $(".nav");
             var navPosition = fixedNav.offsetTop;
@@ -225,6 +230,43 @@ const web = {
             } else {
                 fixedNav.classList.remove("fixed");
             }
+        }
+
+        if (dropdownHeader) {
+            dropdownHeader.addEventListener("click", function () {
+                this.parentNode.classList.toggle("open");
+            });
+        }
+
+        // Đóng menu khi nhấp ra ngoài
+        window.addEventListener("click", function (event) {
+            if (dropdown && !dropdown.contains(event.target)) {
+                dropdown.classList.remove("open");
+            }
+        });
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector(".content-left");
+            if (sidebar) { // Kiểm tra sự tồn tại của sidebar
+                sidebar.classList.toggle("collapsed"); // Chuyển đổi lớp collapsed
+
+                // Cập nhật kích thước cho content-right
+                const contentRight = document.querySelector(".content-right");
+                if (contentRight) { // Kiểm tra sự tồn tại của content-right
+                    if (sidebar.classList.contains('collapsed')) {
+                        contentRight.classList.add("col-12"); // content-right chiếm toàn bộ chiều rộng
+                        contentRight.classList.remove("col-md-10"); // Loại bỏ lớp col-md-10 nếu có
+                    } else {
+                        contentRight.classList.remove("col-12"); // Khi sidebar mở, khôi phục lớp col-10
+                        contentRight.classList.add("col-md-10"); // Trả về kích thước ban đầu
+                    }
+                }
+            }
+        }
+
+        // Thêm sự kiện cho nút Toggle
+        if (filterButton) { // Kiểm tra sự tồn tại của filterButton
+            filterButton.addEventListener("click", toggleSidebar);
         }
     },
     start: function () {
@@ -238,16 +280,20 @@ const web = {
 
 function toggleSection(sectionId) {
     var section = document.getElementById(sectionId);
-    var arrow = section.previousElementSibling.querySelector(".arrow");
+    var arrowIcon = section.previousElementSibling.querySelector(".fa-solid");
 
     // Toggle class 'show' để ẩn hoặc hiện
     if (section.classList.contains('show')) {
         section.classList.remove('show');
-        arrow.textContent = "▼"; // Mũi tên chỉ xuống khi ẩn
+        arrowIcon.classList.remove("fa-angle-up"); // Đổi về biểu tượng mũi tên xuống
+        arrowIcon.classList.add("fa-angle-down");
     } else {
         section.classList.add('show');
-        arrow.textContent = "▲"; // Mũi tên chỉ lên khi hiện
+        arrowIcon.classList.remove("fa-angle-down"); // Đổi thành biểu tượng mũi tên lên
+        arrowIcon.classList.add("fa-angle-up");
     }
 }
 
+
 web.start();
+

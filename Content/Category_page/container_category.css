@@ -9,16 +9,52 @@ li {
     cursor: pointer;
 }
 
+.border-bot {
+    border-bottom: 1px solid #ddd;
+}
+
+.dis-block{
+    display: block !important;
+}
+
 
 a {
     text-decoration: none;
     color: black;
 }
 
-.fa-angle-down {
-    font-size: 0.8rem;
-    opacity: 0.8;
+.header-content {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 10px;
+    position: relative;
+    position: relative;
 }
+
+    .header-content .filter{
+        margin-left: auto;
+        opacity: 0.6;
+        font-size: 0.9rem;
+        user-select: none;
+        cursor: pointer;
+    }
+
+        .header-content h3{
+            font-size: 1.2rem;
+            margin-top: 10px;
+            margin-left: 40px;
+        }
+
+
+
+    .fa-angle-down, .fa-angle-up {
+        font-size: 0.8rem;
+        opacity: 0.8;
+        float: right;
+        margin-top: 16px;
+    }
+
 
 .link-option span {
     margin-left: 10%;
@@ -32,38 +68,78 @@ a {
     margin-top: 60px;
 }
 
+#arrange {
+    opacity: 0.6;
+    font-size: 0.8rem;
+}
+
 .side-bar {
-    padding: 30px;
+    padding: 10px 20px 0 40px;
+    transform: translateX(0);
+    transition: transform 0.3s ease; /* Hiệu ứng trượt */
+}
+
+    .side-bar.open {
+        transform: translateX(-100%); /* Ẩn side bar sang bên trái */
+    }
+
+.collapsed {
+    display: none; /* Ẩn khi sidebar đóng */
 }
 
 .content-left {
-    height: 600px;
+    height: 500px;
     overflow-y: auto;
+    user-select: none;
 }
 
-    .content-left h4{
+.container-toggle{
+    cursor: pointer;
+}
+
+    .content-left h4 {
         font-size: 1rem;
+        margin: 10px 0 10px 10px;
+        display: inline-block;
+    }
+
+    .content-left .side-bar ul {
+        margin-left: 10px;
+        padding: 0;
     }
 
 .style-everyList {
-    display: flex;
     font-size: 0.8rem;
+    display: inline-block;
+    margin-right: 10px;
 }
-    .style-everyList input{
-        width: 15px;
+    .style-everyList input {
+        transform: scale(1.3);
         margin-right: 4px;
         opacity: 0.2;
     }
 
+        .style-everyList input:checked{
+            opacity: 1;
+        }
 
-.content-right .arrange {
-    opacity: 0.6;
-    margin-left: 10px;
+.product-color li {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 1px;
+    border: 1px solid gray;
+}
+
+.content-right {
+    width: 82%;
+    flex: 1;
 }
 
     .content-right .container-products {
         padding: 20px;
     }
+
 
     .content-right .product-image {
         overflow: hidden;
@@ -125,5 +201,73 @@ a {
         .number-list li:hover {
             background-color: var(--my-color);
         }
+
+
+.section-content {
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
+.btn{
+    width: 100%;
+}
+
+.btnSideBar{
+    float: right;
+}
+
+/* CSS cho dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    font-family: Arial, sans-serif;
+}
+
+.dropdown-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 40px;
+    user-select: none;
+}
+
+    .dropdown-header span.icon {
+        margin-left: 5px;
+    }
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 26%; /* Căn phải với thẻ cha */
+    background-color: white;
+    background-color: white;
+    border: none;
+    list-style-type: none;
+    padding: 10px;
+    margin: 0;
+    border-radius: 4px;
+    z-index: 1;
+    min-width: 100%;
+}
+
+    .dropdown-menu li {
+        padding: 8px 10px;
+        cursor: pointer;
+        font-size: 0.7rem;
+    }
+
+        .dropdown-menu li:hover {
+            opacity: 0.6;
+        }
+
+/* Hiển thị menu khi thẻ dropdown có lớp .open */
+.dropdown.open .dropdown-menu {
+    display: block;
+}
+
+
 
 

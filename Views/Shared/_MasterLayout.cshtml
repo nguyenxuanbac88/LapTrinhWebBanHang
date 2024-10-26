@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="~/Content/MasterLayout/subnav.css" />
     <link rel="stylesheet" href="~/Content/MasterLayout/style.css">
     <link rel="stylesheet" href="~/Content/MasterLayout/footer.css">
-    <link rel="stylesheet" href="~/Content/Home_page/Sign_in.css"/>
     <title>HANGMUSPORTS.VN</title>
 </head>
 <body>
@@ -125,12 +124,12 @@
                         <li class="account">
                             @if (HttpContext.Current.Session["Email"] != null)
                             {
-                                var user = (LapTrinhWebBanHang.Models.User)HttpContext.Current.Session["Email"];
+                                var email = HttpContext.Current.Session["Email"].ToString(); // Lấy email từ session
                                 <a class="parentButton" data-toggle="dropdown" href="#">
-                                    <span>@user.Email <i class="fa-solid fa-caret-down"></i></span>
+                                    <span>@email <i class="fa-solid fa-caret-down"></i></span>
                                     @Html.ActionLink("Đăng xuất", "Logout", "Account", new { @class = "sub-account", id = "logoutLink" })
-                                </a>
-                            }
+                                </a> 
+                             }
                             else
                             {
                                 @Html.ActionLink("Đăng nhập", "Sign_in", "Account")

@@ -219,7 +219,7 @@
     <Content Include="Content\Category_page\container_category.css" />
     <Content Include="Content\Home_page\container_homePage.css" />
     <Content Include="Content\Home_page\introduce_homePage.css" />
-    <Content Include="Content\Home_page\Sign_in.css" />
+    <Content Include="Content\Sign_in and register\Sign_in.css" />
     <Content Include="Content\MasterLayout\footer.css" />
     <Content Include="Content\MasterLayout\header.css" />
     <Content Include="Content\MasterLayout\style.css" />
