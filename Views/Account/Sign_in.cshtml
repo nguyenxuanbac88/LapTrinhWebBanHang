@@ -35,7 +35,7 @@
                     <p class="obligatory-text">* Yêu cầu bắt buộc</p>
                     <div class="container-btn">
                         <button class="btn-sign-in"><i class="fa-solid fa-unlock-keyhole"></i> Đăng nhập</button>
-                        <a class="support" href="#">Quên mật khẩu ?</a>
+                        @Html.ActionLink("Quên mật khẩu ?", "ForgetPassword","Account", new { @class = "support" })
                     </div>
                 </form>
             </div>

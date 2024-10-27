@@ -347,6 +347,10 @@
     <Content Include="Views\admin\CreateCategory.cshtml" />
     <Content Include="Views\Account\Sign_in.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\SendEmails.cshtml" />
+    <Content Include="Views\Account\ForgetPassword.cshtml" />
+    <Content Include="Views\Account\VerifyResetCode.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
