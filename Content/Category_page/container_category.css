@@ -29,12 +29,11 @@ a {
     align-items: center;
     margin-top: 10px;
     position: relative;
-    position: relative;
+    background: white;
 }
 
-    .header-content .filter{
+    .header-content .filter {
         margin-left: auto;
-        opacity: 0.6;
         font-size: 0.9rem;
         user-select: none;
         cursor: pointer;
@@ -68,10 +67,6 @@ a {
     margin-top: 60px;
 }
 
-#arrange {
-    opacity: 0.6;
-    font-size: 0.8rem;
-}
 
 .side-bar {
     padding: 10px 20px 0 40px;
@@ -223,7 +218,6 @@ a {
 .dropdown {
     position: relative;
     display: inline-block;
-    font-family: Arial, sans-serif;
 }
 
 .dropdown-header {
@@ -232,17 +226,13 @@ a {
     cursor: pointer;
     margin-right: 40px;
     user-select: none;
+    color: black;
 }
-
-    .dropdown-header span.icon {
-        margin-left: 5px;
-    }
 
 .dropdown-menu {
     display: none;
     position: absolute;
     right: 26%; /* Căn phải với thẻ cha */
-    background-color: white;
     background-color: white;
     border: none;
     list-style-type: none;
@@ -250,7 +240,6 @@ a {
     margin: 0;
     border-radius: 4px;
     z-index: 1;
-    min-width: 100%;
 }
 
     .dropdown-menu li {
@@ -267,6 +256,8 @@ a {
 .dropdown.open .dropdown-menu {
     display: block;
 }
+
+
 
 
 

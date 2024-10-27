@@ -8,6 +8,9 @@ const jerseyList = $(".jersey-list");
 const dropdownHeader = document.querySelector(".dropdown-header");
 const dropdown = document.querySelector(".dropdown");
 const filterButton = document.querySelector(".filter");
+const tabItems = document.querySelectorAll('.tab-item');
+const tabPanes = document.querySelectorAll('.tab-pane');
+const line = document.querySelector('.tabs .line');
 
 const web = {
     newProducts: [
@@ -232,19 +235,35 @@ const web = {
             }
         }
 
-        if (dropdownHeader) {
-            dropdownHeader.addEventListener("click", function () {
-                this.parentNode.classList.toggle("open");
-            });
+
+        // Sự kiện khi click vào các nút sẽ chuyển đổi các tab
+        const tabActive = document.querySelector('.tab-item.active');
+    
+        if (tabActive) { // Căn chỉnh đường kẻ dưới tab ban đầu
+            line.style.left = tabActive.offsetLeft + "px";
+            line.style.width = tabActive.offsetWidth + "px";
         }
 
-        // Đóng menu khi nhấp ra ngoài
-        window.addEventListener("click", function (event) {
-            if (dropdown && !dropdown.contains(event.target)) {
-                dropdown.classList.remove("open");
-            }
+        tabItems.forEach((tab, index) => { // Gán sự kiện click cho mỗi tab
+            const pane = tabPanes[index];
+
+            tab.addEventListener('click', function () {
+                // Xóa lớp active khỏi tất cả các tab và nội dung
+                document.querySelector('.tab-item.active').classList.remove('active');
+                document.querySelector('.tab-pane.active').classList.remove('active');
+
+                // Thêm lớp active vào tab và nội dung hiện tại
+                tab.classList.add('active');
+                pane.classList.add('active');
+
+                // Cập nhật vị trí và kích thước của đường kẻ dưới tab
+                line.style.left = tab.offsetLeft + "px";
+                line.style.width = tab.offsetWidth + "px";
+            });
         });
 
+
+        // Sự kiện khi click vào nút filter sẽ thêm/xóa thanh side bar
         function toggleSidebar() {
             const sidebar = document.querySelector(".content-left");
             if (sidebar) { // Kiểm tra sự tồn tại của sidebar
@@ -252,7 +271,6 @@ const web = {
 
                 // Cập nhật kích thước cho content-right
                 const contentRight = document.querySelector(".content-right");
-                if (contentRight) { // Kiểm tra sự tồn tại của content-right
                     if (sidebar.classList.contains('collapsed')) {
                         contentRight.classList.add("col-12"); // content-right chiếm toàn bộ chiều rộng
                         contentRight.classList.remove("col-md-10"); // Loại bỏ lớp col-md-10 nếu có
@@ -260,10 +278,8 @@ const web = {
                         contentRight.classList.remove("col-12"); // Khi sidebar mở, khôi phục lớp col-10
                         contentRight.classList.add("col-md-10"); // Trả về kích thước ban đầu
                     }
-                }
             }
         }
-
         // Thêm sự kiện cho nút Toggle
         if (filterButton) { // Kiểm tra sự tồn tại của filterButton
             filterButton.addEventListener("click", toggleSidebar);
@@ -293,6 +309,30 @@ function toggleSection(sectionId) {
         arrowIcon.classList.add("fa-angle-up");
     }
 }
+
+// Toggle hiển thị menu
+function toggleDropdown() {
+    const menu = document.querySelector(".dropdown-menu");
+    const header = document.querySelector(".dropdown-header");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+    header.classList.toggle("open");
+}
+
+// Thay đổi lựa chọn khi click vào một mục trong menu
+function selectOption(option) {
+    document.getElementById("selected-option").textContent = option;
+    toggleDropdown(); // Đóng menu sau khi chọn
+}
+
+// Đóng menu nếu click ra ngoài
+document.addEventListener("click", function (event) {
+    const dropdown = document.querySelector(".dropdown");
+    if (!dropdown.contains(event.target)) {
+        document.querySelector(".dropdown-menu").style.display = "none";
+        document.querySelector(".dropdown-header").classList.remove("open");
+    }
+});
+
 
 
 web.start();

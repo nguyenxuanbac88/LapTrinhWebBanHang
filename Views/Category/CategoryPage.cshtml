@@ -20,14 +20,15 @@
             <span class="filter-btn">Filter <i class="fa-solid fa-sliders"></i></span>
         </div>
         <div class="dropdown">
-            <div class="dropdown-header">
-                <span>Sort By <i style="margin: 6px 0 0 2px;" class="fa-solid fa-angle-down"></i></span>
+            <div class="dropdown-header" onclick="toggleDropdown()">
+                Sắp xếp<span style="opacity: 0.6" id="selected-option"></span>
+                <i style="margin: 0 0 0 2px;" class="fa-solid fa-angle-down icon"></i>
             </div>
             <ul class="dropdown-menu">
-                <li>Mới nhất</li>
-                <li>Cũ nhất</li>
-                <li>Giá: Cao - Thấp</li>
-                <li>Giá: Thấp - Cao</li>
+                <li onclick="selectOption(': Mới nhất')">Mới nhất</li>
+                <li onclick="selectOption(': Cũ nhất')">Cũ nhất</li>
+                <li onclick="selectOption(': Giá: Cao -> Thấp')">Giá: Cao -> Thấp</li>
+                <li onclick="selectOption(': Giá: Thấp -> Cao')">Giá: Thấp -> Cao</li>
             </ul>
         </div>
     </div>
@@ -113,7 +114,7 @@
         </div>
         <div class="content-right col-md-10">
             <div class="container-products row">
-                <div class="product-item col-xl-3 col-lg-4 sol-sm-4 col-6">
+                <div onclick="" class="product-item col-xl-3 col-lg-4 sol-sm-4 col-6">
                     <div class="product-image">
                         <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/5856a35a-fed0-476a-9b97-491356dc5c95/ZM+SUPERFLY+10+ELITE+F+FG.png" alt="" />
                     </div>
