@@ -1,0 +1,33 @@
+﻿@model LapTrinhWebBanHang.Models.User
+@{
+    ViewBag.Title = "Xác Nhận Mã";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<div class="main">
+    <div class="container row" id="container">
+        <div class="form-container verify-code-container col-md-6">
+            <form asp-controller="Account" asp-action="VerifyResetCode" method="post">
+                <h6>Xác Nhận Mã</h6>
+                <p>Vui lòng nhập mã xác nhận đã gửi đến email của bạn.</p>
+                <span>Mã xác nhận</span>
+                <input type="text" placeholder="Nhập mã xác nhận" name="resetCode" id="resetCode" required />
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div style="color: red;">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <p>@error.ErrorMessage</p>
+                        }
+                    </div>
+                }
+
+                <div class="container-btn">
+                    <button class="btn-verify-code"><i class="fa-solid fa-check"></i> Xác nhận </button>
+                    @Html.ActionLink("Quay lại", "ForgetPassword", "Account", new { @class = "support" })
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
