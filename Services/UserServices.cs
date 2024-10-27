@@ -50,15 +50,5 @@ namespace LapTrinhWebBanHang.Services
             }
             return false;
         }
-        public static string GenerateRandomCode(int length)
-        {
-            Random random = new Random();
-            string result = "";
-            for (int i = 0; i < length; i++)
-            {
-                result += random.Next(0, 10).ToString(); // Tạo số ngẫu nhiên từ 0 đến 9
-            }
-            return result; // Trả về chuỗi ngẫu nhiên
-        }
     }
 }
