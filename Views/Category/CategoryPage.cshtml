@@ -14,12 +14,33 @@
         <span>Giày bóng đá sân cỏ nhân tạo</span>
         <hr />
     </div>
+    <div class="header-content">
+        <h3>Có ... sản phẩm</h3>
+        <div class="filter">
+            <span class="filter-btn">Filter <i class="fa-solid fa-sliders"></i></span>
+        </div>
+        <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleDropdown()">
+                Sắp xếp<span style="opacity: 0.6" id="selected-option"></span>
+                <i style="margin: 0 0 0 2px;" class="fa-solid fa-angle-down icon"></i>
+            </div>
+            <ul class="dropdown-menu">
+                <li onclick="selectOption(': Mới nhất')">Mới nhất</li>
+                <li onclick="selectOption(': Cũ nhất')">Cũ nhất</li>
+                <li onclick="selectOption(': Giá: Cao -> Thấp')">Giá: Cao -> Thấp</li>
+                <li onclick="selectOption(': Giá: Thấp -> Cao')">Giá: Thấp -> Cao</li>
+            </ul>
+        </div>
+    </div>
     <div class="content row">
         <div class="content-left col-md-2">
             <div class="side-bar">
-                <div class="product-size">
-                    <h4 onclick="toggleSection('size-section')">Kích thước <i class="fa-solid fa-angle-down"></i></h4>
-                    <ul id="size-section">
+                <div class="product-size border-bot">
+                    <div onclick="toggleSection('size-section')" class="container-toggle">
+                        <h4>Kích thước</h4>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <ul id="size-section" class="section-content">
                         <li class="style-everyList"><input type="checkbox" />35</li>
                         <li class="style-everyList"><input type="checkbox" />36</li>
                         <li class="style-everyList"><input type="checkbox" />37</li>
@@ -30,64 +51,70 @@
                         <li class="style-everyList"><input type="checkbox" />42</li>
                         <li class="style-everyList"><input type="checkbox" />43</li>
                         <li class="style-everyList"><input type="checkbox" />44</li>
-                        <li class="style-everyList"><input type="checkbox" />45</li>
                     </ul>
                 </div>
 
                 <!-- Chủng loại -->
-                <div class="product-type">
-                    <h4 onclick="toggleSection('type-section')">Chủng loại <i class="fa-solid fa-angle-down"></i></h4>
-                    <ul id="type-section">
-                        <li class="style-everyList"><input type="checkbox" />ĐINH TF</li>
-                        <li class="style-everyList"><input type="checkbox" />ĐINH FG</li>
+                <div class="product-type border-bot">
+                    <div onclick="toggleSection('type-section')" class="container-toggle">
+                        <h4>Chủng loại</h4>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <ul id="type-section" class="section-content">
+                        <li class="style-everyList dis-block"><input type="checkbox" />ĐINH TF</li>
+                        <li class="style-everyList dis-block"><input type="checkbox" />ĐINH FG</li>
                     </ul>
                 </div>
 
                 <!-- Thương hiệu -->
-                <div class="product-brands">
-                    <h4 onclick="toggleSection('brands-section')">Thương hiệu <i class="fa-solid fa-angle-down"></i></h4>
-                    <ul id="brands-section">
-                        <li class="style-everyList"><input type="checkbox" />NIKE</li>
-                        <li class="style-everyList"><input type="checkbox" />ADIDAS</li>
-                        <li class="style-everyList"><input type="checkbox" />PUMA</li>
-                        <li class="style-everyList"><input type="checkbox" />MIZUNO</li>
+                <div class="product-brands border-bot">
+                    <div onclick="toggleSection('brands-section')" class="container-toggle">
+                        <h4>Thương hiệu</h4>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <ul id="brands-section" class="section-content">
+                        <li class="style-everyList dis-block"><input type="checkbox" />NIKE</li>
+                        <li class="style-everyList dis-block"><input type="checkbox" />ADIDAS</li>
+                        <li class="style-everyList dis-block"><input type="checkbox" />PUMA</li>
+                        <li class="style-everyList dis-block"><input type="checkbox" />MIZUNO</li>
                     </ul>
                 </div>
 
                 <!-- Mức giá -->
-                <div class="product-price">
-                    <h4 onclick="toggleSection('price-section')">Mức giá <i class="fa-solid fa-angle-down"></i></h4>
-                    <ul id="price-section">
-                        <li class="style-everyList"><input type="checkbox" />Trên 500K</li>
-                        <li class="style-everyList"><input type="checkbox" />500k - 1tr</li>
-                        <li class="style-everyList"><input type="checkbox" />1tr - 2tr</li>
-                        <li class="style-everyList"><input type="checkbox" />Trên 2tr</li>
+                <div class="product-price border-bot">
+                    <div onclick="toggleSection('price-section')" class="container-toggle">
+                        <h4>Giá</h4>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <ul id="price-section" class="section-content">
+                        <li class="style-everyList dis-block"><input type="checkbox" />Trên 500K</li>
+                        <li class="style-everyList dis-block"><input type="checkbox" />500k - 1tr</li>
+                        <li class="style-everyList dis-block"><input type="checkbox" />1tr - 2tr</li>
+                        <li class="style-everyList dis-block"><input type="checkbox" />Trên 2tr</li>
                     </ul>
                 </div>
 
                 <!-- Màu sắc -->
                 <div class="product-color">
-                    <h4 onclick="toggleSection('color-section')">Màu sắc <i class="fa-solid fa-angle-down"></i></h4>
-                    <ul id="color-section">
+                    <div onclick="toggleSection('color-section')" class="container-toggle">
+                        <h4>Màu sắc</h4>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <ul id="color-section" class="section-content">
+                        <li style="background-color: red;"></li>
+                        <li style="background-color: white;"></li>
+                        <li style="background-color: yellow;"></li>
+                        <li style="background-color: blue;"></li>
+                        <li style="background-color: green;"></li>
+                        <li style="background-color: gray;"></li>
+                        <li style="background-color: orangered;"></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="content-right col-md-10">
-            <h3 style="text-align: center;">Có ... sản phẩm</h3>
-            <div class="arrange">
-                <select name="arrange" id="arrange">
-                    <option value="">Sắp xếp</option>
-                    <option value="">A -> Z</option>
-                    <option value="">Z -> A</option>
-                    <option value="">Giá tăng dần</option>
-                    <option value="">Giá giảm dần</option>
-                    <option value="">Hàng mới nhất</option>
-                    <option value="">Hàng cũ nhất</option>
-                </select>
-            </div>
             <div class="container-products row">
-                <div class="product-item col-xl-3 col-lg-4 sol-sm-4 col-6">
+                <div onclick="" class="product-item col-xl-3 col-lg-4 sol-sm-4 col-6">
                     <div class="product-image">
                         <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/5856a35a-fed0-476a-9b97-491356dc5c95/ZM+SUPERFLY+10+ELITE+F+FG.png" alt="" />
                     </div>

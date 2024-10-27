@@ -1,42 +1,32 @@
 ﻿@model LapTrinhWebBanHang.Models.User
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Register</title>
-</head>
-<body>
-    <form action="#" method="post">
-        <h6>Đăng nhập</h6>
-        <p>Nếu đã có tài khoản vui lòng đăng nhập</p>
-        <span>Email</span>
-        <input type="email" placeholder="KhoaCho@123gmail.com" name="user" id="user" required />
-        <span>Mật khẩu</span>
-        <input type="password" placeholder="Password" name="password" id="password" required />
-        <span>Nhập lại mật khẩu</span>
-        <input type="password" placeholder="Confirmpassword" name="confirmpassword" id="confirmpassword" required />
-        @if (!ViewData.ModelState.IsValid)
-        {
-            <div style="color: red;">
-                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-                {
-                    <p>@error.ErrorMessage</p>
-                }
-            </div>
-        }
-        <p class="obligatory-text">* Yêu cầu bắt buộc</p>
-        <div class="container-btn">
-            <button class="btn-sign-in"><i class="fa-solid fa-unlock-keyhole"></i> Đăng kí</button>
+<form action="#" method="post">
+    <h6>Đăng nhập</h6>
+    <p>Nếu đã có tài khoản vui lòng đăng nhập</p>
+    <span>Email</span>
+    <input type="email" placeholder="KhoaCho@123gmail.com" name="user" id="user" required />
+    <span>Mật khẩu</span>
+    <input type="password" placeholder="Password" name="password" id="password" required />
+    <span>Nhập lại mật khẩu</span>
+    <input type="password" placeholder="Confirmpassword" name="confirmpassword" id="confirmpassword" required />
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div style="color: red;">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
         </div>
-    </form>  
-    <div>
-        @Html.ActionLink("Back to List", "Sign_in")
+    }
+    <p class="obligatory-text">* Yêu cầu bắt buộc</p>
+    <div class="container-btn">
+        <button class="btn-sign-in"><i class="fa-solid fa-unlock-keyhole"></i> Đăng kí</button>
     </div>
-</body>
-</html>
+</form>
+<div>
+    @Html.ActionLink("Back to List", "Sign_in")
+</div>

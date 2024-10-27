@@ -130,8 +130,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
+    <Compile Include="Controllers\ProductPageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,9 +219,11 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Category_page\container_category.css" />
+    <Content Include="Content\Error\Error.css" />
     <Content Include="Content\Home_page\container_homePage.css" />
     <Content Include="Content\Home_page\introduce_homePage.css" />
-    <Content Include="Content\Home_page\Sign_in.css" />
+    <Content Include="Content\Product_Page\container_productPage.css" />
+    <Content Include="Content\Sign_in and register\Sign_in.css" />
     <Content Include="Content\MasterLayout\footer.css" />
     <Content Include="Content\MasterLayout\header.css" />
     <Content Include="Content\MasterLayout\style.css" />
@@ -245,6 +249,18 @@
     <Content Include="Image\product-image\sale_product\giay adidas x speedportal 1 fg solar green.jpg" />
     <Content Include="Image\product-image\sale_product\x crazyfast 3 fg bright royal gy7428 0.jpg" />
     <Content Include="Image\product-image\sale_product\X FG Pink GZ5126 01 standard.jpg" />
+    <Content Include="Image\product_page\AnhDoSizeGiay.png" />
+    <Content Include="Image\product_page\AnhQuangCao.png" />
+    <Content Include="Image\product_page\NikeMerSup10Mbappe\ZMSUPERFLY10ELITEKMFG%281%29.png" />
+    <Content Include="Image\product_page\NikeMerSup10Mbappe\ZMSUPERFLY10ELITEKMFG%2810%29.png" />
+    <Content Include="Image\product_page\NikeMerSup10Mbappe\ZMSUPERFLY10ELITEKMFG%282%29.png" />
+    <Content Include="Image\product_page\NikeMerSup10Mbappe\ZMSUPERFLY10ELITEKMFG%283%29.png" />
+    <Content Include="Image\product_page\NikeMerSup10Mbappe\ZMSUPERFLY10ELITEKMFG%284%29.png" />
+    <Content Include="Image\product_page\NikeMerSup10Mbappe\ZMSUPERFLY10ELITEKMFG%285%29.png" />
+    <Content Include="Image\product_page\NikeMerSup10Mbappe\ZMSUPERFLY10ELITEKMFG%286%29.png" />
+    <Content Include="Image\product_page\NikeMerSup10Mbappe\ZMSUPERFLY10ELITEKMFG%287%29.png" />
+    <Content Include="Image\product_page\NikeMerSup10Mbappe\ZMSUPERFLY10ELITEKMFG%288%29.png" />
+    <Content Include="Image\product_page\NikeMerSup10Mbappe\ZMSUPERFLY10ELITEKMFG%289%29.png" />
     <Content Include="Image\thumbnail\3-1722856929-183514avatar.png" />
     <Content Include="Image\thumbnail\AdidasPack\AdidasHeatspawnPack.jpg" />
     <Content Include="Image\thumbnail\AdidasPack\AdidasUniforiaPack.jpg" />
@@ -347,9 +363,11 @@
     <Content Include="Views\admin\CreateCategory.cshtml" />
     <Content Include="Views\Account\Sign_in.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\ProductPage\ProductPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
