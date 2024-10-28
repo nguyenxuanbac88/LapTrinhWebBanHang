@@ -30,7 +30,7 @@ namespace LapTrinhWebBanHang.Controllers
         [HttpPost]
         public ActionResult Sign_in(string user, string password)
         {
-            
+
             if (string.IsNullOrWhiteSpace(user) || string.IsNullOrWhiteSpace(password))
             {
                 ModelState.AddModelError("", "Vui lòng nhập cả email và mật khẩu");
@@ -55,7 +55,7 @@ namespace LapTrinhWebBanHang.Controllers
                 if (userInDb != null)
                 {
 
-                    Session["Email"] = userInDb;
+                    Session["Email"] = userInDb.Email;
                     return RedirectToAction("Home_page", "HomePage");
                 }
                 else
@@ -135,6 +135,10 @@ namespace LapTrinhWebBanHang.Controllers
         }
         public ActionResult ForgetPassword()
         {
+            if (Session["Email"] != null)
+            {
+                return RedirectToAction("Home_page", "HomePage");
+            }
             return View();
         }
         [HttpPost]

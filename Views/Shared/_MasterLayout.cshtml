@@ -124,16 +124,14 @@
                         <li class="account">
                             @if (HttpContext.Current.Session["Email"] != null)
                             {
-                                var user = (LapTrinhWebBanHang.Models.User)HttpContext.Current.Session["Email"];
-                                <a class="parentButton" data-toggle="dropdown" href="#">
-                                    <span>@user.Email <i class="fa-solid fa-caret-down"></i></span>
-                                    @Html.ActionLink("Đăng xuất", "Logout", "Account")
-                                </a> 
-                             }
-                            else
-                            {
-                                @Html.ActionLink("Đăng nhập", "Sign_in", "Account")
-                            }
+                                var email = HttpContext.Current.Session["Email"] as string;
+                        <a class="parentButton" data-toggle="dropdown" href="#">
+                            <span>@email <i class="fa-solid fa-caret-down"></i></span>
+                            @Html.ActionLink("Đăng xuất", "Logout", "Account")
+                        </a> }
+                                    else
+                                    {
+                        @Html.ActionLink("Đăng nhập", "Sign_in", "Account")}
                         </li>
                         <li>
                             <div class="shopping-cart">
