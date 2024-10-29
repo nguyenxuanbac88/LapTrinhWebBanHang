@@ -11,11 +11,13 @@ using System.Net.Mail;
 using System.Net;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Web.Helpers;
 
 namespace LapTrinhWebBanHang.Controllers
 {
     public class AccountController : Controller
     {
+
         // GET: Account
 
         public ActionResult Sign_in()
@@ -30,7 +32,7 @@ namespace LapTrinhWebBanHang.Controllers
         [HttpPost]
         public ActionResult Sign_in(string user, string password)
         {
-
+            
             if (string.IsNullOrWhiteSpace(user) || string.IsNullOrWhiteSpace(password))
             {
                 ModelState.AddModelError("", "Vui lòng nhập cả email và mật khẩu");
@@ -51,13 +53,18 @@ namespace LapTrinhWebBanHang.Controllers
                 string md5password = UserServices.GetMd5Hash(password);
                 // Tìm người dùng trong cơ sở dữ liệu
                 var userInDb = db.Users.FirstOrDefault(u => u.Email.ToLower() == user.ToLower() && u.PasswordHash == md5password);
-
+                if (userInDb.IsEmailVerified == false)
+                {
+                    ModelState.AddModelError("", "Vui lòng vào email để xác thực tài khoản");
+                    return View();
+                }
                 if (userInDb != null)
                 {
 
                     Session["Email"] = userInDb.Email;
                     return RedirectToAction("Home_page", "HomePage");
                 }
+               
                 else
                 {
                     ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng.");
@@ -85,7 +92,7 @@ namespace LapTrinhWebBanHang.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Register(string user, string password, string confirmpassword)
+        public async Task<ActionResult> Register(string user, string password, string confirmpassword)
         {
             if (string.IsNullOrWhiteSpace(user) || string.IsNullOrWhiteSpace(password))
             {
@@ -109,25 +116,32 @@ namespace LapTrinhWebBanHang.Controllers
                 {
                     if (password == confirmpassword)
                     {
+                        string token = UserServices.GetMd5Hash(UserServices.GenerateRandomCode(15));
+                        string Ip = UserServices.GetUserIP();
                         string md5password = UserServices.GetMd5Hash(password);
+                       
                         var _user = new User
                         {
                             Email = user,
                             PasswordHash = md5password,
+                            TokenPassword=token,
+                            IsEmailVerified=false,
+                            Ip = Ip
                         };
                         db.Users.Add(_user);
                         db.SaveChanges();
-                        ModelState.AddModelError("", "đăng kí thành công");
+                        await SendEmail.EmailSenderAsync(user, "Xác thực tài khoản", $"http://localhost:50375/verify/{token}");
+                        ModelState.AddModelError("", "Đăng kí thành công,vui lòng vào email để xác thực tài khoản");
                     }
                     else
                     {
-                        ModelState.AddModelError("", "mật khẩu confirm không đúng với mật khẩu đã nhập");
+                        ModelState.AddModelError("", "Mật khẩu confirm không đúng với mật khẩu đã nhập");
                     }
 
                 }
                 else
                 {
-                    ModelState.AddModelError("", "tài khoản đã được sử dụng vui lòng nhập tài khoản khác");
+                    ModelState.AddModelError("", "Tài khoản đã được sử dụng vui lòng nhập tài khoản khác");
                 }
             }
 
@@ -241,6 +255,27 @@ namespace LapTrinhWebBanHang.Controllers
                 return View();
             }
         }
+        public ActionResult Verify(string code)
+        {
+            using (WebsiteEntities4 db = new WebsiteEntities4())
+            {
+                var user = db.Users.FirstOrDefault(u => u.TokenPassword == code);
+
+                if (user != null)
+                {
+                    user.TokenPassword = null;
+                    user.IsEmailVerified = true;
+                    db.SaveChanges();
+                    return Content("bạn đã xác thực email thành công");
+                }
+                else
+                {
+                    // Chuyển hướng đến trang lỗi nếu mã không hợp lệ
+                    return RedirectToAction("Error", "Error", new { statusCode = 404, message = "Liên kết không tồn tại" });
+                }
+            }
+        }
+
 
     }
 }

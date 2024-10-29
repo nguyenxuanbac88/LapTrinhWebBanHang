@@ -10,7 +10,7 @@ namespace LapTrinhWebBanHang.Services
 {
     public class UserServices
     {
-        public string GetUserIP()
+        public static string GetUserIP()
         {
             string ipAddress = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
 
