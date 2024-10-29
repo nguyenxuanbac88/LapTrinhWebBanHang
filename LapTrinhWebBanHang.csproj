@@ -367,6 +367,8 @@
     <Content Include="Views\Account\ForgetPassword.cshtml" />
     <Content Include="Views\Account\VerifyResetCode.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\admin\Shared\_MasterLayout.cshtml" />
+    <Content Include="Views\admin\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

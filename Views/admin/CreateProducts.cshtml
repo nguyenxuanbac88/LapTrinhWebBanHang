@@ -1,5 +1,8 @@
 ﻿@model LapTrinhWebBanHang.Models.Product
-@{ Layout = null; }
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/admin/Shared/_MasterLayout.cshtml";
+}
 <h2>Thêm sản phẩm mới</h2>
 
 @using (Html.BeginForm("CreateProducts", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
