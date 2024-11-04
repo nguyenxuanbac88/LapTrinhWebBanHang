@@ -10,6 +10,7 @@ namespace LapTrinhWebBanHang.Controllers
 {
     public class HomePageController : Controller
     {
+        private WebsiteEntities4 db = new WebsiteEntities4(); // Sử dụng DbContext đã được tạo từ Entity Framework
         // GET: HomePage
         public ActionResult Home_page()
         {
@@ -19,7 +20,24 @@ namespace LapTrinhWebBanHang.Controllers
 
             return View();
         }
-       
+        [HttpGet]
+        public JsonResult GetAllProducts()
+        {
+            var products = db.Products
+                .Select(p => new
+                {
+                    p.ProductID,
+                    p.ProductName,
+                    p.Price,
+                    p.ImageURL,
+                    p.CategoryID
+
+                })
+                .ToList();
+
+            return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }
