@@ -3,9 +3,9 @@
 This project is a **Shoe Selling Website** developed as a final course project. The website allows users to browse, search, and purchase various types of shoes, with an admin interface for product management. It is built using **HTML**, **ASP.NET (C#)**, **JavaScript**, and **LINQ** for database interactions.
 
 ## Project Members
-1. LAM TAN THANH - Frontend Development (HTML/CSS/JavaScript)
-2. TRAN DUY KHOA - Backend Development (ASP.NET C# and LINQ)
-3. NGUYEN XUAN BAC - Database Management and Backend Development (ASP.NET C# and LINQ)
+1. NGUYEN XUAN BAC - Database Management and Backend Development (ASP.NET C# and LINQ)
+2. LAM TAN THANH - Frontend Development (HTML/CSS/JavaScript)
+3. TRAN DUY KHOA - Backend Development (ASP.NET C# and LINQ)
 4. NGUYEN NGOC MINH THU - Testing, Documentation, and Report Writing
 
 ## Features
