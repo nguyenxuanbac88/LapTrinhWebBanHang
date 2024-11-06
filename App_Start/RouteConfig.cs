@@ -13,6 +13,13 @@ namespace LapTrinhWebBanHang
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Cấu hình route cho webhook
+            routes.MapRoute(
+                name: "PaymentWebhook",
+                url: "api/webhook/payment",
+                defaults: new { controller = "Webhook", action = "PaymentNotification" }
+            );  
+
             // Route cho trang chủ
             routes.MapRoute(
                 name: "HomePage",
