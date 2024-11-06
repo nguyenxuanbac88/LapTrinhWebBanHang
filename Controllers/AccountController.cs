@@ -119,14 +119,16 @@ namespace LapTrinhWebBanHang.Controllers
                         string token = UserServices.GetMd5Hash(UserServices.GenerateRandomCode(15));
                         string Ip = UserServices.GetUserIP();
                         string md5password = UserServices.GetMd5Hash(password);
-                       
+
                         var _user = new User
                         {
                             Email = user,
                             PasswordHash = md5password,
-                            TokenPassword=token,
-                            IsEmailVerified=false,
-                            Ip = Ip
+                            TokenPassword = token,
+                            IsEmailVerified = false,
+                            Ip = Ip,
+                            Stt = 0,
+                            IsAdmin = 0
                         };
                         db.Users.Add(_user);
                         db.SaveChanges();
