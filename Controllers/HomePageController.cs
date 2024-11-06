@@ -37,7 +37,5 @@ namespace LapTrinhWebBanHang.Controllers
 
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
-
-
     }
 }
