@@ -3,30 +3,47 @@
 @{
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
-
-<form action="#" method="post">
-    <h6>Đăng nhập</h6>
-    <p>Nếu đã có tài khoản vui lòng đăng nhập</p>
-    <span>Email</span>
-    <input type="email" placeholder="KhoaCho@123gmail.com" name="user" id="user" required />
-    <span>Mật khẩu</span>
-    <input type="password" placeholder="Password" name="password" id="password" required />
-    <span>Nhập lại mật khẩu</span>
-    <input type="password" placeholder="Confirmpassword" name="confirmpassword" id="confirmpassword" required />
-    @if (!ViewData.ModelState.IsValid)
-    {
-        <div style="color: red;">
-            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-            {
-                <p>@error.ErrorMessage</p>
-            }
+<link rel="stylesheet" href="~/Content/Sign_in and register/Register.css"/>
+<div class="container-register">
+    <form action="#" method="post">
+        <h6>Đăng nhập</h6>
+        <p>Nếu đã có tài khoản vui lòng đăng nhập</p>
+        <span>Email</span>
+        <input type="email" placeholder="KhoaCho@123gmail.com" name="user" id="user" required />
+        <span>Mật khẩu</span>
+        <input type="password" placeholder="Password" name="password" id="password" required />
+        <span>Nhập lại mật khẩu</span>
+        <input type="password" placeholder="Confirmpassword" name="confirmpassword" id="confirmpassword" required />
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div style="color: red;">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <p>@error.ErrorMessage</p>
+                }
+            </div>
+        }
+        <p class="obligatory-text">* Yêu cầu bắt buộc</p>
+        <div class="container-btn">
+            <button class="btn-sign-in"><i class="fa-solid fa-unlock-keyhole"></i> Đăng kí</button>
         </div>
-    }
-    <p class="obligatory-text">* Yêu cầu bắt buộc</p>
-    <div class="container-btn">
-        <button class="btn-sign-in"><i class="fa-solid fa-unlock-keyhole"></i> Đăng kí</button>
+    </form>
+    <div class="ear-l"></div>
+    <div class="ear-r"></div>
+    <div class="panda-face">
+        <div class="blush-l"></div>
+        <div class="blush-r"></div>
+        <div class="eye-l">
+            <div class="eyeball-l"></div>
+        </div>
+        <div class="eye-r">
+            <div class="eyeball-r"></div>
+        </div>
+        <div class="nose"></div>
+        <div class="mouth"></div>
     </div>
-</form>
-<div>
-    @Html.ActionLink("Back to List", "Sign_in")
+    <div class="hand-l"></div>
+    <div class="hand-r"></div>
+    <div class="paw-l"></div>
+    <div class="paw-r"></div>
 </div>

@@ -1,1 +1,75 @@
 ﻿
+.container-register {
+    position: relative;
+    width: 400px;
+    font-family: "Poppins", sans-serif;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+form {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 30px 40px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+h6 {
+    margin: 0;
+    font-size: 1.25em;
+    color: #333;
+    font-weight: 600;
+}
+
+p {
+    font-size: 0.9em;
+    color: #666;
+}
+
+span {
+    font-size: 0.85em;
+    color: #333;
+}
+
+.obligatory-text{
+    color: red;
+    font-size: 0.7rem;
+}
+
+.container-register [type="email"],
+.container-register input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 2px 8px;
+    margin-bottom: 20px;
+    font-size: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        outline: none;
+        border-color: #3083f5;
+    }
+
+.container-btn {
+    text-align: center;
+}
+
+.btn-sign-in {
+    background-color: #3083f5;
+    color: #fff;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .btn-sign-in:hover {
+        background-color: #265bbd;
+    }
+
+
+
