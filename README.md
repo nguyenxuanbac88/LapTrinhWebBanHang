@@ -31,4 +31,4 @@ This project is a **Shoe Selling Website** developed as a final course project. 
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo-url.git
+   git clone https://github.com/nguyenxuanbac88/LapTrinhWebBanHang.git
