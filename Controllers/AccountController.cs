@@ -53,23 +53,24 @@ namespace LapTrinhWebBanHang.Controllers
                 string md5password = UserServices.GetMd5Hash(password);
                 // Tìm người dùng trong cơ sở dữ liệu
                 var userInDb = db.Users.FirstOrDefault(u => u.Email.ToLower() == user.ToLower() && u.PasswordHash == md5password);
-                if (userInDb.IsEmailVerified == false)
-                {
-                    ModelState.AddModelError("", "Vui lòng vào email để xác thực tài khoản");
-                    return View();
-                }
+
                 if (userInDb != null)
                 {
+                    if (userInDb.IsEmailVerified == false)
+                    {
+                        ModelState.AddModelError("", "Vui lòng vào email để xác thực tài khoản");
+                        return View();
+                    }
 
                     Session["Email"] = userInDb.Email;
                     return RedirectToAction("Home_page", "HomePage");
                 }
-               
                 else
                 {
                     ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng.");
                     return View();
                 }
+
 
             }
 
