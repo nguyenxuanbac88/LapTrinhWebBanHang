@@ -13,18 +13,28 @@ namespace LapTrinhWebBanHang
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Route cho trang chủ
             routes.MapRoute(
-               name: "Verify",
-               url: "verify/{code}",
-               defaults: new { controller = "Account", action = "Verify" }
-           );
+                name: "HomePage",
+                url: "",
+                defaults: new { controller = "HomePage", action = "Home_page" }
+            );
+
+            // Route cho xác thực mã
+            routes.MapRoute(
+                name: "Verify",
+                url: "verify/{code}",
+                defaults: new { controller = "Account", action = "Verify" }
+            );
+
+            // Route mặc định
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-           
         }
+
 
     }
 }
