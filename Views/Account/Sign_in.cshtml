@@ -3,7 +3,7 @@
     ViewBag.Title = "Sign_in";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
-<link href="~/Content/Sign_in and register/Sign_in.css" rel="stylesheet" />
+<link href="~/Content/Account/Sign_in.css" rel="stylesheet" />
 <div class="container">
     <div class="row">
         <!-- Cột dành cho Form đăng nhập -->
@@ -24,10 +24,9 @@
                             }
                         </div>
                     }
-                    <p style="color: red; font-size: 0.8rem;">* Yêu cầu bắt buộc</p>
                     <div class="container-btn">
-                        <button class="btn-sign-in"><i class="fa-solid fa-unlock-keyhole"></i> Đăng nhập</button>
                         @Html.ActionLink("Quên mật khẩu?", "ForgetPassword")
+                        <button class="btn-sign-in"><i class="fa-solid fa-unlock-keyhole"></i> Đăng nhập</button>
                     </div>
                 </form>
             </div>
