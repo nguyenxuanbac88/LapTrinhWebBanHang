@@ -125,13 +125,22 @@
                             @if (HttpContext.Current.Session["Email"] != null)
                             {
                                 var email = HttpContext.Current.Session["Email"] as string;
-                        <a class="parentButton" data-toggle="dropdown" href="#">
-                            <span>@email <i class="fa-solid fa-caret-down"></i></span>
-                            @Html.ActionLink("Đăng xuất", "Logout", "Account")
-                        </a> }
-                                    else
-                                    {
-                        @Html.ActionLink("Đăng nhập", "Sign_in", "Account")}
+                                <div class="dropdown">
+                                    <a class="parentButton dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+                                        <span>@email</span>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        @Html.ActionLink("Đăng xuất", "Logout", "Account")
+                                    </div>
+                                </div> }
+                            else
+                            {
+                                <div class="container-acc">
+                                    @Html.ActionLink("Đăng nhập", "Sign_in", "Account")
+                                    <p>/</p>
+                                    @Html.ActionLink("Đăng ký", "Register", "Account")
+                                </div>
+                            }
                         </li>
                         <li>
                             <div class="shopping-cart">
@@ -146,66 +155,61 @@
         @RenderBody()
 
         <!--  footer -->
-        <div id="footer" class="footer">
-            <div class="voucher-container row">
-                <div class="first-text col-md-4 col-12">
-                    <h3><i class="fa-solid fa-envelope"></i> ĐĂNG KÝ NHẬN VOUCHER</h3>
-                </div>
-                <div class="register-container col-md-4 col-12">
-                    <input type="email" placeholder="Địa chỉ email của bạn" />
-                    <button class="submit">@Html.ActionLink("Đăng ký", "Register", "Account")</button>
-                </div>
-                <div class="last-text col-md-4 col-12">
-                    <p><span>...Nhận ngay</span> VOUCHER 100K</p>
+    <div id="footer" class="footer">
+        <div class="contact-footer row">
+            <div class="ourself col-md-3 col-6">
+                <h3>VỀ CHÚNG TÔI</h3>
+                <img src="https://hali.vn/wp-content/uploads/2020/01/logo-MU.jpg" alt="" />
+                <div class="socials-list">
+                    <a href="https://www.facebook.com/ltt2712?locale=vi_VN"
+                       target="_blank">
+                        <img src="https://th.bing.com/th/id/R.e790c25db5e52838040686612b1a732c?rik=uVuLX4sResGMKA&riu=http%3a%2f%2fpngimg.com%2fuploads%2ffacebook_logos%2ffacebook_logos_PNG19757.png&ehk=JL234rPBfx%2bf3tobhEVbPdNgJiWOhk251WyRwRAg940%3d&risl=&pid=ImgRaw&r=0"
+                             alt="" />
+                    </a>
+                    <a href="https://www.instagram.com/_ltt_2712/" target="_blank">
+                        <img src="https://th.bing.com/th/id/OIP.4yOhxJCs2K0_hNHRpteMmgHaHZ?rs=1&pid=ImgDetMain" alt="" />
+                    </a>
+                    <a href="https://github.com/ltthanh2712" target="_blank">
+                        <img src="https://bitemycoin.com/wp-content/uploads/2018/06/GitHub-Logo.png" alt="" />
+                    </a>
+                    <a href="https://twitter.com/" target="_blank">
+                        <img src="https://th.bing.com/th/id/OIP.ZweGejPwbT5wwshQ2-8qUQHaHa?rs=1&pid=ImgDetMain" alt="" />
+                    </a>
                 </div>
             </div>
-            <div class="contact-footer row">
-                <div class="ourself col-md-3 col-6">
-                    <h3>VỀ CHÚNG TÔI</h3>
-                    <img src="https://hali.vn/wp-content/uploads/2020/01/logo-MU.jpg" alt="" />
-                    <div class="socials-list">
-                        <a href="https://www.facebook.com/ltt2712?locale=vi_VN"
-                           target="_blank">
-                            <img src="https://th.bing.com/th/id/R.e790c25db5e52838040686612b1a732c?rik=uVuLX4sResGMKA&riu=http%3a%2f%2fpngimg.com%2fuploads%2ffacebook_logos%2ffacebook_logos_PNG19757.png&ehk=JL234rPBfx%2bf3tobhEVbPdNgJiWOhk251WyRwRAg940%3d&risl=&pid=ImgRaw&r=0"
-                                 alt="" />
-                        </a>
-                        <a href="https://www.instagram.com/_ltt_2712/" target="_blank">
-                            <img src="https://th.bing.com/th/id/OIP.4yOhxJCs2K0_hNHRpteMmgHaHZ?rs=1&pid=ImgDetMain" alt="" />
-                        </a>
-                        <a href="https://github.com/ltthanh2712" target="_blank">
-                            <img src="https://bitemycoin.com/wp-content/uploads/2018/06/GitHub-Logo.png" alt="" />
-                        </a>
-                        <a href="https://twitter.com/" target="_blank">
-                            <img src="https://th.bing.com/th/id/OIP.ZweGejPwbT5wwshQ2-8qUQHaHa?rs=1&pid=ImgDetMain" alt="" />
-                        </a>
-                    </div>
-                </div>
-                <div class="info col-md-3 col-6">
-                    <h3 style="margin-left: 24px;">THÔNG TIN</h3>
-                    <ul>
-                        <li><a href="">Chính sách thanh toán</a></li>
-                        <li><a href="">Chính sách giao nhận</a></li>
-                        <li><a href="">Chính sách đổi trả</a></li>
-                        <li><a href="">Chính sách bảo hành</a></li>
-                        <li><a href="">Chính sách bảo mật</a></li>
-                    </ul>
-                </div>
-                <div class="map col-md-3 col-6">
-                    <h3>BẢN ĐỒ</h3>
-                    <img src="~/Image/thumbnail/map.png" alt="" />
-                </div>
-                <div class="contact-address col-md-3 col-6">
-                    <h3>LIÊN HỆ</h3>
-                    <p>
-                        <i class="fa-solid fa-location-dot"></i>806 QL22, ấp Mỹ Hoà 3, Hóc
-                        Môn, Hồ Chí Minh, Việt Nam
-                    </p>
-                    <p>Hotline free: 0123456789</p>
-                    <p>Zalo: 0123456789</p>
-                    <p>MU VÔ ĐỐI</p>
-                </div>
+            <div class="info col-md-3 col-6">
+                <h3 style="margin-left: 24px;">CHÍNH SÁCH</h3>
+                <ul>
+                    <li><a href="">Chính sách thanh toán</a></li>
+                    <li><a href="">Chính sách giao nhận</a></li>
+                    <li><a href="">Chính sách đổi trả</a></li>
+                    <li><a href="">Chính sách bảo hành</a></li>
+                    <li><a href="">Chính sách bảo mật</a></li>
+                    <li><a href="">Chính sách trả góp</a></li>
+                    <li><a href="">Chương trình khách hàng thân thiết</a></li>
+                </ul>
+            </div>
+            <div class="map col-md-3 col-6">
+                <h3>BẢN ĐỒ</h3>
+                <img src="~/Image/thumbnail/map.png" alt="" />
+            </div>
+            <div class="contact-address col-md-3 col-6">
+                <h3>LIÊN HỆ</h3>
+                <p>
+                    <i class="fa-solid fa-location-dot"></i>CN1: 806 QL22, ấp Mỹ Hoà 3, Hóc
+                    Môn, Hồ Chí Minh, Việt Nam <br />
+                    <br />
+                    <i class="fa-solid fa-location-dot"></i>CN2: 828 Đ. Sư Vạn Hạnh, Phường 12, Quận 10, Hồ Chí Minh, Việt Nam <br />
+                    <br />
+                    <i class="fa-solid fa-location-dot"></i>CN3: 52-70 Ba Gia, Phường 7, Tân Bình, Hồ Chí Minh, Việt Nam
+
+                </p>
+                <p>Hotline free: 0123456789</p>
+                <p>Zalo: 0123456789</p>
+                <p>MU VÔ ĐỐI</p>
             </div>
         </div>
+    </div>
         <script src="~/Scripts/home_page/main.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </div>

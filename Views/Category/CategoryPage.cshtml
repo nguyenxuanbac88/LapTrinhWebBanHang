@@ -114,46 +114,20 @@
         </div>
         <div class="content-right col-md-10">
             <div class="container-products row">
-                <div onclick="" class="product-item col-xl-3 col-lg-4 sol-sm-4 col-6">
-                    <div class="product-image">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/5856a35a-fed0-476a-9b97-491356dc5c95/ZM+SUPERFLY+10+ELITE+F+FG.png" alt="" />
+                @for (int i = 0; i < 8; i++)
+                {
+                    <div onclick="window.location.href='@Url.Action("ProductPage", "ProductPage")'" class="product-item col-xl-3 col-lg-4 sol-sm-4 col-6">
+                        <div class="add-cart">+</div>
+                        <div class="product-image">
+                            <img src="~/Image/product-image/sale_product/Adidas X SpeedFlow 1 FG Meterorite.jpg" alt="" />
+                        </div>
+                        <div class="product-content">
+                            <h6>Nike Air Zoom Mercurial Vapor 16 Pro TF</h6>
+                            <p class="description-product">Pink Foam/Black</p>
+                            <p class="price">2,150,000</p>
+                        </div>
                     </div>
-                    <div class="product-content">
-                        <h6>Nike Air Zoom Mercurial Vapor 16 Pro TF</h6>
-                        <p class="description-product">Pink Foam/Black</p>
-                        <p class="price">2,150,000</p>
-                    </div>
-                </div>
-                <div class="product-item col-xl-3 col-lg-4 sol-sm-4 col-6">
-                    <div class="product-image">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/5856a35a-fed0-476a-9b97-491356dc5c95/ZM+SUPERFLY+10+ELITE+F+FG.png" alt="" />
-                    </div>
-                    <div class="product-content">
-                        <h6>Nike Air Zoom Mercurial Vapor 16 Pro TF</h6>
-                        <p class="description-product">Pink Foam/Black</p>
-                        <p class="price">2,150,000</p>
-                    </div>
-                </div>
-                <div class="product-item col-xl-3 col-lg-4 sol-sm-4 col-6">
-                    <div class="product-image">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/5856a35a-fed0-476a-9b97-491356dc5c95/ZM+SUPERFLY+10+ELITE+F+FG.png" alt="" />
-                    </div>
-                    <div class="product-content">
-                        <h6>Nike Air Zoom Mercurial Vapor 16 Pro TF</h6>
-                        <p class="description-product">Pink Foam/Black</p>
-                        <p class="price">2,150,000</p>
-                    </div>
-                </div>
-                <div class="product-item col-xl-3 col-lg-4 sol-sm-4 col-6">
-                    <div class="product-image">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/5856a35a-fed0-476a-9b97-491356dc5c95/ZM+SUPERFLY+10+ELITE+F+FG.png" alt="" />
-                    </div>
-                    <div class="product-content">
-                        <h6>Nike Air Zoom Mercurial Vapor 16 Pro TF</h6>
-                        <p class="description-product">Pink Foam/Black</p>
-                        <p class="price">2,150,000</p>
-                    </div>
-                </div>
+                }
             </div>
             <div class="number-list">
                 <ul>

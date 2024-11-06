@@ -256,6 +256,15 @@
     <Content Include="Image\thumbnail\3-1722856929-183514avatar.png" />
     <Content Include="Image\thumbnail\AdidasPack\AdidasHeatspawnPack.jpg" />
     <Content Include="Image\thumbnail\AdidasPack\AdidasUniforiaPack.jpg" />
+    <Content Include="Image\thumbnail\AdidasPack\AdidasWhitePack.jpg" />
+    <Content Include="Image\thumbnail\bannerMain.png" />
+    <Content Include="Image\thumbnail\brand_banner_1_11zon.png" />
+    <Content Include="Image\thumbnail\brand_banner_2.jpg" />
+    <Content Include="Image\thumbnail\brand_banner_3.jpg" />
+    <Content Include="Image\thumbnail\brand_banner_4.jpg" />
+    <Content Include="Image\thumbnail\instruct 2.jpg" />
+    <Content Include="Image\thumbnail\instruct 3.jpg" />
+    <Content Include="Image\thumbnail\instruct 4.jpg" />
     <Content Include="Image\thumbnail\JerseyThumb\MUjersey.jpg" />
     <Content Include="Image\thumbnail\JerseyThumb\TOTjersey.jpg" />
     <Content Include="Image\thumbnail\map.png" />
@@ -269,6 +278,7 @@
     <Content Include="Image\thumbnail\PhongThayDo3.jpg" />
     <Content Include="Image\thumbnail\PhongThayDoMU.jpg" />
     <Content Include="Image\thumbnail\PhongTrungBay.jpg" />
+    <Content Include="Image\thumbnail\PumaPack\PumaLightsOutPack.jpg" />
     <Content Include="Image\thumbnail\PumaPack\PumaRushPack.jpg" />
     <Content Include="Image\thumbnail\thumb3.jpg" />
     <Content Include="Image\thumbnail\thumb4jpg.jpg" />
@@ -299,6 +309,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\home_page\main.js" />
     <Content Include="Scripts\home_page\RegisterAndSignIn.js" />
+    <Content Include="Image\thumbnail\desktop.ini" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

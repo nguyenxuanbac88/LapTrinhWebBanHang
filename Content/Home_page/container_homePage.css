@@ -34,7 +34,7 @@
         display: block;
     }
 
-        .product-item .product-image img:hover {
+        .product-item:hover .product-image img {
             transform: scale(1.1);
         }
 
