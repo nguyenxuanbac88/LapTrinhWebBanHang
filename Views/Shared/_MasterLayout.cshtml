@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Liên kết Font Awesome -->
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/Content/bootstrap.css"
-          rel="stylesheet" />
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+    <!-- Các liên kết CSS của Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap Bundle JS (bao gồm Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Các tệp CSS -->
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/MasterLayout/header.css" />
     <link rel="stylesheet" href="~/Content/MasterLayout/subnav.css" />
     <link rel="stylesheet" href="~/Content/MasterLayout/style.css">
@@ -44,14 +48,7 @@
                             <p>@Html.ActionLink("HANGMUSPORTS.VN", "Home_Page", "HomePage")</p>
                         </li>
                         <li class="nav-item">
-                            <a href="">TÌM NHANH<i class="ti-angle-down"></i></a>
-                            <ul class="sub-nav">
-                                <li onclick="this.querySelector('a').click()">@Html.ActionLink("Đinh thấp", "CategoryPage", "Category")</li>
-                                <hr>
-                                <li onclick="this.querySelector('a').click()"><a href="">Đinh cao</a></li>
-                                <hr>
-                                <li onclick="this.querySelector('a').click()"><a href="">Futsal</a></li>
-                            </ul>
+                            @Html.ActionLink("TẤT CẢ", "CategoryPage", "Category")
                         </li>
                         <li class="nav-item">
                             <a href="">NIKE<i class="ti-angle-down"></i></a>
@@ -96,18 +93,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="">ÁO ĐẤU<i class="ti-angle-down"></i></a>
-                            <ul class="sub-nav">
-                                <li onclick="this.querySelector('a').click()"><a href="">ÁO ĐẤU MU</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="">PHỤ KIỆN<i class="ti-angle-down"></i></a>
-                            <ul class="sub-nav">
-                                <li onclick="this.querySelector('a').click()"><a href="">Tất dệt kim</a></li>
-                                <hr>
-                                <li onclick="this.querySelector('a').click()"><a href="">Áo lót tay dài</a></li>
-                            </ul>
+                            <a href="#jersey">ÁO ĐẤU<i class="ti-angle-down"></i></a>
                         </li>
                         <li class="nav-item">
                             <a href="#instruct">HƯỚNG DẪN<i class="ti-angle-down"></i></a>
@@ -126,13 +112,14 @@
                             {
                                 var email = HttpContext.Current.Session["Email"] as string;
                                 <div class="dropdown">
-                                    <a class="parentButton dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+                                    <a class="parentButton dropdown-toggle" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
                                         <span>@email</span>
                                     </a>
                                     <div class="dropdown-menu">
-                                        @Html.ActionLink("Đăng xuất", "Logout", "Account")
+                                        @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
                                     </div>
-                                </div> }
+                                </div>
+                            }
                             else
                             {
                                 <div class="container-acc">
@@ -211,7 +198,6 @@
         </div>
     </div>
         <script src="~/Scripts/home_page/main.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </div>
 </body>
 </html>

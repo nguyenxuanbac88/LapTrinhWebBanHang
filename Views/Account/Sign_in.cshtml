@@ -3,36 +3,28 @@
     ViewBag.Title = "Sign_in";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Sign_in</title>
-    <link href="~/Content/Sign_in and register/Sign_in.css" rel="stylesheet" type="text/css" />
-
-</head>
-<body>
-    <div class="main">
-        <div class="container row" id="container">
-            <div class="form-container sign-in-container col-md-6">
+<link href="~/Content/Sign_in and register/Sign_in.css" rel="stylesheet" />
+<div class="container">
+    <div class="row">
+        <!-- Cột dành cho Form đăng nhập -->
+        <div class="col-md-7 d-flex justify-content-center align-items-center">
+            <div class="form-container sign-in-container">
                 <form action="#" method="post">
                     <h6>Đăng nhập</h6>
-                    <p>Nếu đã có tài khoản vui lòng đăng nhập</p>
-                    <span>Email</span>
+                    <label for="user">Email</label>
                     <input type="email" placeholder="KhoaCho@123gmail.com" name="user" id="user" required />
-                    <span>Mật khẩu</span>
+                    <label for="password">Password</label>
                     <input type="password" placeholder="Password" name="password" id="password" required />
                     @if (!ViewData.ModelState.IsValid)
                     {
-                        <div style="color: red;">
+                        <div style="color: red; font-size: 0.8rem;">
                             @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
                             {
                                 <p>@error.ErrorMessage</p>
                             }
                         </div>
                     }
-                    <p class="obligatory-text">* Yêu cầu bắt buộc</p>
+                    <p style="color: red; font-size: 0.8rem;">* Yêu cầu bắt buộc</p>
                     <div class="container-btn">
                         <button class="btn-sign-in"><i class="fa-solid fa-unlock-keyhole"></i> Đăng nhập</button>
                         @Html.ActionLink("Quên mật khẩu?", "ForgetPassword")
@@ -40,16 +32,97 @@
                 </form>
             </div>
 
-            <div class="new-customer col-md-6">
-                <span>KHÁCH HÀNG MỚI</span>
-                <p>Bằng cách tạo một tài khoản với cửa hàng của chúng tôi , bạn sẽ có thể thực hiện những quy trình mua hàng nhanh hơn , lưu trữ nhiều địa chỉ gửi hàng , xem và theo dõi đơn đặt hàng của bạn trong tài khoản của bạn và nhiều hơn nữa .</p>
-                <button onclick="this.querySelector('a').click()" class="btn-sign-up"><i class="fa-solid fa-user-plus"></i> @Html.ActionLink("Đăng ký", "Register")</button>
+            @*<div class="ear-l"></div>
+                <div class="ear-r"></div>
+                <div class="panda-face">
+                    <div class="blush-l"></div>
+                    <div class="blush-r"></div>
+                    <div class="eye-l">
+                        <div class="eyeball-l"></div>
+                    </div>
+                    <div class="eye-r">
+                        <div class="eyeball-r"></div>
+                    </div>
+                    <div class="nose"></div>
+                    <div class="mouth"></div>
+                </div>
+                <div class="hand-l"></div>
+                <div class="hand-r"></div>
+                <div class="paw-l"></div>
+                <div class="paw-r"></div>*@
+        </div>
+
+        @*Cột dành cho Lá cờ*@
+        <div class="col-md-5 d-flex justify-content-center align-items-center">
+            <div id="container-flag">
+                <div id="pole"></div>
+                <div id="flag"></div>
             </div>
         </div>
     </div>
+</div>
+<script>
+    const flagEl = document.getElementById("flag");
+    const rows = 30;
+    const columns = 50;
+    const generateUnit = (columnNum, rowNum) => {
+        const flagUnit = document.createElement("div");
+        flagUnit.classList.add("flag-unit");
 
+        // Cập nhật kích thước ngôi sao
+        const centerRow = Math.floor(rows / 2);
+        const centerColumn = Math.floor(columns / 2);
 
-    <script src="~/Scripts/home_page/RegisterAndSignIn.js"></script>
-</body>
-</html>
+        // Thu nhỏ các điểm của ngôi sao bằng cách giảm tỉ lệ các giá trị trong array starOutlinePoints
+        const starOutlinePoints = [
+            [0, -8],  // giảm khoảng cách theo trục y
+            [3, -2],  // giảm khoảng cách theo trục y và x
+            [8, -2],  // giảm khoảng cách theo trục y và x
+            [3, 1],   // giảm khoảng cách theo trục y
+            [5, 7],   // giảm khoảng cách theo trục y
+            [0, 4],   // giảm khoảng cách theo trục y
+            [-5, 7],  // giảm khoảng cách theo trục y
+            [-3, 1],  // giảm khoảng cách theo trục y và x
+            [-8, -2], // giảm khoảng cách theo trục y và x
+            [-3, -2]  // giảm khoảng cách theo trục y
+        ];
+
+        // Kiểm tra xem một điểm có nằm trong ngôi sao không
+        const isInsideStar = (columnNum, rowNum) => {
+            const points = starOutlinePoints.map(([dx, dy]) => [
+                centerColumn + dx,
+                centerRow + dy
+            ]);
+            const [x, y] = [columnNum, rowNum];
+            let inside = false;
+            for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+                const [xi, yi] = points[i];
+                const [xj, yj] = points[j];
+                const intersect =
+                    yi > y !== yj > y && x < (xj - xi) * (y - yi) / (yj - yi) + xi;
+                if (intersect) inside = !inside;
+            }
+            return inside;
+        };
+
+        if (isInsideStar(columnNum, rowNum)) {
+            flagUnit.style.background = "yellow";
+        }
+
+        flagUnit.style.setProperty("animation-delay", `${columnNum * 10}ms`);
+        flagUnit.style.setProperty("--displacement", `${columnNum / 4}px`);
+
+        const column = document.getElementById(`column-${columnNum}`);
+        column.innerHTML += flagUnit.outerHTML;
+    };
+
+    for (let i = 0; i < columns; i++) {
+        flagEl.innerHTML += `<div class="column" id="column-${i}"></div>`;
+        for (let j = 0; j < rows; j++) {
+            generateUnit(i, j);
+        }
+    }
+
+</script>
+
 
