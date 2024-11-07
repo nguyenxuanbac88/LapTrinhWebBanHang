@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="~/Content/MasterLayout/subnav.css" />
     <link rel="stylesheet" href="~/Content/MasterLayout/style.css">
     <link rel="stylesheet" href="~/Content/MasterLayout/footer.css">
+    <link rel="stylesheet" href="~/Content/MasterLayout/responsive.css" />
     <title>HANGMUSPORTS.VN</title>
 </head>
 <body>
@@ -37,56 +38,25 @@
             </div>
 
             <!-- NAV -->
-            <div class="nav">
-                <div class="list-nav">
-                    <ul>
-                        <li>
-                            <img src="~/Image/thumbnail/logo-MU.jpg"/>
-                            <p>@Html.ActionLink("HANGMUSPORTS.VN", "Home_Page", "HomePage")</p>
-                        </li>
+            <nav class="nav navbar navbar-expand-xl navbar-light bg-light">
+                <li class="logo-web">
+                    <a href="@Url.Action("Home_Page", "HomePage")">
+                        <img src="~/Image/thumbnail/logo-MU.jpg" alt="Logo" />
+                        <p>HANGMUSPORTS.VN</p>
+                    </a>
+                </li>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse list-nav" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">@Html.ActionLink("TẤT CẢ", "CategoryPage", "Category")</li>
                         <li class="nav-item">
-                            @Html.ActionLink("TẤT CẢ", "CategoryPage", "Category")
-                        </li>
-                        <li class="nav-item">
-                            <a href="">NIKE<i class="ti-angle-down"></i></a>
+                            <a href="">THƯƠNG HIỆU<i class="ti-angle-down"></i></a>
                             <ul class="sub-nav">
-                                <li onclick="this.querySelector('a').click()"><a href="">Mercurial</a></li>
-                                <hr>
-                                <li onclick="this.querySelector('a').click()"><a href="">Phantom</a></li>
-                                <hr>
-                                <li onclick="this.querySelector('a').click()"><a href="">Tiempo</a></li>
-                                <hr>
-                                <li onclick="this.querySelector('a').click()"><a href="">Magista</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="">ADIDAS<i class="ti-angle-down"></i></a>
-                            <ul class="sub-nav">
-                                <li onclick="this.querySelector('a').click()"><a href="">Adidas X</a></li>
-                                <hr>
-                                <li onclick="this.querySelector('a').click()"><a href="">Copa</a></li>
-                                <hr>
-                                <li onclick="this.querySelector('a').click()"><a href="">Predator</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="">PUMA<i class="ti-angle-down"></i></a>
-                            <ul class="sub-nav">
-                                <li onclick="this.querySelector('a').click()"><a href="">Future</a></li>
-                                <hr>
-                                <li onclick="this.querySelector('a').click()"><a href="">Ultra</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="">MIZUNO<i class="ti-angle-down"></i></a>
-                            <ul class="sub-nav">
-                                <li onclick="this.querySelector('a').click()"><a href="">Alpha</a></li>
-                                <hr>
-                                <li onclick="this.querySelector('a').click()"><a href="">Monarcida</a></li>
-                                <hr>
-                                <li onclick="this.querySelector('a').click()"><a href="">Morelia</a></li>
-                                <hr>
-                                <li onclick="this.querySelector('a').click()"><a href="">Rebula</a></li>
+                                <li onclick="this.querySelector('a').click()"><a href="">Nike</a></li>
+                                <li onclick="this.querySelector('a').click()"><a href="">Adidas</a></li>
+                                <li onclick="this.querySelector('a').click()"><a href="">Puma</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -107,13 +77,22 @@
                         <li class="account">
                             @if (HttpContext.Current.Session["Email"] != null)
                             {
-                                var email = HttpContext.Current.Session["Email"] as string;
+                                var email =
+                            HttpContext.Current.Session["Email"] as string;
                                 <div class="dropdown">
-                                    <a class="parentButton dropdown-toggle" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+                                    <a class="parentButton dropdown-toggle"
+                                       data-bs-toggle="dropdown"
+                                       href="#"
+                                       aria-haspopup="true"
+                                       aria-expanded="false">
                                         <span>@email</span>
                                     </a>
                                     <div class="dropdown-menu">
-                                        @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new
+                                        {
+                                            @class =
+                                        "dropdown-item"
+                                        })
                                     </div>
                                 </div>
                             }
@@ -133,7 +112,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </nav>
         </div>
 
         @RenderBody()

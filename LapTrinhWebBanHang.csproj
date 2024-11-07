@@ -216,6 +216,7 @@
     <Content Include="Content\Error\Error.css" />
     <Content Include="Content\Home_page\container_homePage.css" />
     <Content Include="Content\Home_page\introduce_homePage.css" />
+    <Content Include="Content\MasterLayout\responsive.css" />
     <Content Include="Content\Product_Page\container_productPage.css" />
     <Content Include="Content\Account\Sign_in.css" />
     <Content Include="Content\MasterLayout\footer.css" />

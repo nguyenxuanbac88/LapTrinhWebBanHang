@@ -1,0 +1,45 @@
+﻿
+@media (max-width: 1200px){
+
+
+    html, body {
+        overflow-x: hidden;
+    }
+
+    .navbar-nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        background-color: white;
+        margin: 0;
+        padding-bottom: 10px;
+    }
+
+    .nav .logo-web p {
+        margin-top: 10px;
+    }
+
+    .list-nav{
+        margin: 0;
+    }
+
+        .navbar-nav  .nav-item {
+            padding-bottom: 0;
+        }
+
+    /* Khi nhấn vào nút toggle, navbar-nav sẽ hiển thị */
+    .navbar-collapse.collapse.show {
+        display: block;
+    }
+
+    /* Đảm bảo button navbar-toggler hiển thị */
+    .navbar-toggler {
+        display: block;
+    }
+
+    .search-bar button {
+        position: absolute;
+        right: 0;
+    }
+}
