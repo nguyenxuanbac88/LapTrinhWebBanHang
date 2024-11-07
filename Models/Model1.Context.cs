@@ -38,6 +38,7 @@ namespace LapTrinhWebBanHang.Models
         public virtual DbSet<ProductStock> ProductStocks { get; set; }
         public virtual DbSet<Promotion> Promotions { get; set; }
         public virtual DbSet<Size> Sizes { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
 }
