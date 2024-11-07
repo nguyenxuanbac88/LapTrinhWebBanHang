@@ -17,11 +17,10 @@ namespace LapTrinhWebBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
+            this.ImageProducts = new HashSet<ImageProduct>();
             this.OrderDetails = new HashSet<OrderDetail>();
-            this.ProductColors = new HashSet<ProductColor>();
             this.ProductPromotions = new HashSet<ProductPromotion>();
-            this.ProductSizes = new HashSet<ProductSize>();
-            this.Stocks = new HashSet<Stock>();
+            this.ProductStocks = new HashSet<ProductStock>();
         }
     
         public int ProductID { get; set; }
@@ -33,14 +32,12 @@ namespace LapTrinhWebBanHang.Models
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual ICollection<ImageProduct> ImageProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductColor> ProductColors { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductPromotion> ProductPromotions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductSize> ProductSizes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Stock> Stocks { get; set; }
+        public virtual ICollection<ProductStock> ProductStocks { get; set; }
     }
 }
