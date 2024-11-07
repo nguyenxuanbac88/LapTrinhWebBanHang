@@ -1,12 +1,11 @@
-﻿@model IEnumerable<LapTrinhWebBanHang.Models.Product>
-
+﻿@model IEnumerable<LapTrinhWebBanHang.Models.ProductViewModel>
 
 @{
-    ViewBag.Title = "Dashboard";
+    ViewBag.Title = "Quản lý sản phẩm";
     Layout = "~/Views/admin/Shared/_MasterLayout.cshtml";
 }
-<h2>Quản lý sản phẩm</h2>
 
+<h2>Quản lý sản phẩm</h2>
 
 <p>
     <a href="@Url.Action("CreateProducts", "Admin")" class="btn btn-success">Thêm sản phẩm mới</a>
@@ -19,9 +18,13 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.ProductName)</th>
-            <th>@Html.DisplayNameFor(model => model.Price)</th>
-            <th>@Html.DisplayNameFor(model => model.CategoryID)</th>
+            <th>ID sản phẩm</th>
+            <th>Ảnh chính</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Danh mục</th>
+            <th>Màu sắc & Kích thước</th>
+            <th>Ảnh phụ</th>
             <th>Thao tác</th>
         </tr>
     </thead>
@@ -29,12 +32,46 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.ProductName</td>
-                <td>@item.Price</td>
-                <td>@item.CategoryID</td> <!-- Nếu có bảng Categories, hiển thị tên danh mục thay vì ID -->
+                <!-- Hiển thị ID sản phẩm -->
+                <td>@item.Product.ProductID</td>
+
+                <!-- Hiển thị ảnh chính -->
                 <td>
-                    <a href="@Url.Action("EditProducts", "Admin", new { id = item.ProductID })" class="btn btn-primary">Sửa</a>
-                    <a href="@Url.Action("DeleteProducts", "Admin", new { id = item.ProductID })" class="btn btn-danger">Xóa</a>
+                    <img src="~/image/product-image/@item.Product.ImageURL" alt="Ảnh chính" style="width:50px; height:auto;" />
+                </td>
+
+                <!-- Hiển thị tên sản phẩm -->
+                <td>@item.Product.ProductName</td>
+
+                <!-- Hiển thị giá sản phẩm -->
+                <td>@string.Format("{0:N0}", item.Product.Price)</td>
+
+
+                <!-- Hiển thị tên danh mục -->
+                <td>@item.CategoryName</td>
+
+                <!-- Hiển thị màu sắc và kích thước -->
+                <td>
+                    @foreach (var stock in item.ProductStocks)
+                    {
+                        <div>
+                            Màu: @stock.ColorID, Kích thước: @stock.SizeValue, SL: @stock.Quantity
+                        </div>
+                    }
+                </td>
+
+                <!-- Hiển thị ảnh phụ -->
+                <td>
+                    @foreach (var img in item.ExistingImages)
+                    {
+                        <img src="~/image/product-image/@img.ImageURL" alt="Ảnh phụ" style="width:50px; height:auto; margin-right: 5px;" />
+                    }
+                </td>
+
+                <!-- Thao tác chỉnh sửa và xóa sản phẩm -->
+                <td>
+                    <a href="@Url.Action("EditProducts", "Admin", new { id = item.Product.ProductID })" class="btn btn-primary">Sửa</a>
+                    <a href="@Url.Action("DeleteProducts", "Admin", new { id = item.Product.ProductID })" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">Xóa</a>
                 </td>
             </tr>
         }

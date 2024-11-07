@@ -1,41 +1,54 @@
-﻿@model LapTrinhWebBanHang.Models.Product
-@{
-    ViewBag.Title = "Dashboard";
-    Layout = "~/Views/admin/Shared/_MasterLayout.cshtml";
-}
-<h2>Thêm sản phẩm mới</h2>
+﻿@model LapTrinhWebBanHang.Models.ProductViewModel
+@{ Layout = null; }
 
-@using (Html.BeginForm("CreateProducts", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ProductName)
-        @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+    <div>
+        <label>Product Name</label>
+        @Html.TextBoxFor(m => m.Product.ProductName)
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Price)
-        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+    <div>
+        <label>Price</label>
+        @Html.TextBoxFor(m => m.Product.Price)
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Description)
-        @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", rows = 4 } })
+    <div>
+        <label>Description</label>
+        @Html.TextAreaFor(m => m.Product.Description)
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ImageURL)
-        <input type="file" name="ImageFile" class="form-control" />
+    <div>
+        <label>Category</label>
+        @Html.DropDownList("Product.CategoryID", ViewBag.Categories as SelectList, "-- Select Category --")
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.CategoryID)
-        @Html.DropDownList("CategoryID", (SelectList)ViewBag.Categories, "Chọn danh mục", new { @class = "form-control" })
+    <div>
+        <label>Image (Main)</label>
+        <input type="file" name="ImageFile" />
     </div>
 
-    <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+    <div>
+        <label>Additional Images</label>
+        <input type="file" name="AdditionalImages" multiple="multiple" />
+    </div>
+
+    <div>
+        <label>Color</label>
+        @Html.DropDownListFor(m => m.SelectedColorID, new SelectList(Model.Colors, "ColorID", "ColorName"), "-- Select Color --")
+    </div>
+
+    <div>
+        <label>Size</label>
+        @Html.DropDownListFor(m => m.SelectedSizeID, new SelectList(Model.Sizes, "SizeID", "SizeValue"), "-- Select Size --")
+    </div>
+
+    <div>
+        <label>Quantity</label>
+        @Html.TextBoxFor(m => m.Quantity)
+    </div>
+
+    <button type="submit">Add Product</button>
 }
-<div>
-    @Html.ActionLink("Back to List", "ManageProducts")
-</div>

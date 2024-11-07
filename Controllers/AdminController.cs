@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -11,37 +12,37 @@ namespace LapTrinhWebBanHang.Controllers
     public class AdminController : Controller
     {
         private WebsiteEntities4 db = new WebsiteEntities4(); // Sử dụng DbContext đã được tạo từ Entity Framework
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            var email = Session["Email"] as string;
+        //protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        //{
+        //    var email = Session["Email"] as string;
 
-            if (string.IsNullOrEmpty(email))
-            {
-                filterContext.Result = new RedirectToRouteResult(
-                    new System.Web.Routing.RouteValueDictionary
-                    {
-                { "controller", "Account" }, // Tên controller cho trang đăng nhập
-                { "action", "Sign_in" }
-                    });
-                return;
-            }
+        //    if (string.IsNullOrEmpty(email))
+        //    {
+        //        filterContext.Result = new RedirectToRouteResult(
+        //            new System.Web.Routing.RouteValueDictionary
+        //            {
+        //        { "controller", "Account" }, // Tên controller cho trang đăng nhập
+        //        { "action", "Sign_in" }
+        //            });
+        //        return;
+        //    }
 
-            // Kiểm tra quyền admin
-            if (!UserServices.CheckAdmin(email))
-            {
-                filterContext.Result = new RedirectToRouteResult(
-                    new System.Web.Routing.RouteValueDictionary
-                    {
-                    { "controller", "Error" },
-                    { "action", "Error" },
-                    { "statusCode", 403 },
-                    { "message", "Bạn không có quyền truy cập trang này." }
-                            });
-            }
+        //    // Kiểm tra quyền admin
+        //    if (!UserServices.CheckAdmin(email))
+        //    {
+        //        filterContext.Result = new RedirectToRouteResult(
+        //            new System.Web.Routing.RouteValueDictionary
+        //            {
+        //            { "controller", "Error" },
+        //            { "action", "Error" },
+        //            { "statusCode", 403 },
+        //            { "message", "Bạn không có quyền truy cập trang này." }
+        //                    });
+        //    }
 
 
-            base.OnActionExecuting(filterContext);
-        }
+        //    base.OnActionExecuting(filterContext);
+        //}
 
 
 
@@ -54,8 +55,50 @@ namespace LapTrinhWebBanHang.Controllers
         // GET: Admin/ManageProducts
         public ActionResult ManageProducts()
         {
-            var products = db.Products.ToList();  // Lấy danh sách tất cả sản phẩm
-            return View(products); // Trả về view với danh sách sản phẩm
+            // Bước 1: Lấy tất cả sản phẩm
+            var products = db.Products.ToList();
+
+            // Bước 2: Tạo danh sách ProductViewModel cho mỗi sản phẩm
+            var productViewModels = new List<ProductViewModel>();
+
+            foreach (var product in products)
+            {
+                var productViewModel = new ProductViewModel
+                {
+                    Product = product,
+                    // Lấy tên danh mục
+                    CategoryName = db.Categories
+                        .Where(c => c.CategoryID == product.CategoryID)
+                        .Select(c => c.CategoryName)
+                        .FirstOrDefault(),
+                    // Lấy danh sách ProductStocks và bao gồm SizeValue
+                    ProductStocks = db.ProductStocks
+                        .Where(ps => ps.ProductID == product.ProductID)
+                        .Select(ps => new ProductStockViewModel
+                        {
+                            ProductStockID = ps.ProductStockID,
+                            ProductID = (int)ps.ProductID,
+                            ColorID = (int)ps.ColorID,
+                            // Lấy SizeValue từ bảng Sizes dựa trên SizeID
+                            SizeValue = db.Sizes
+                                .Where(s => s.SizeID == ps.SizeID)
+                                .Select(s => s.SizeValue)
+                                .FirstOrDefault(),
+                            Quantity = (int)ps.Quantity
+                        })
+                        .ToList(),
+                    // Lấy danh sách ảnh phụ
+                    ExistingImages = db.ImageProducts
+                        .Where(img => img.ProductsID == product.ProductID)
+                        .ToList()
+                };
+
+                // Thêm ProductViewModel vào danh sách
+                productViewModels.Add(productViewModel);
+            }
+
+            // Bước 3: Trả về danh sách ProductViewModel vào view
+            return View(productViewModels);
         }
 
         // GET: Admin/ManageProducts
@@ -68,70 +111,93 @@ namespace LapTrinhWebBanHang.Controllers
         // GET: Admin/CreateProducts
         public ActionResult CreateProducts()
         {
-            // Đưa danh mục (Categories) vào ViewBag nếu cần dùng
+            var model = new ProductViewModel
+            {
+                Colors = db.Colors.ToList(),
+                Sizes = db.Sizes.ToList()
+            };
             ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName");
-            return View();
+            return View(model);
         }
 
         // POST: Admin/CreateProducts
-        [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult CreateProducts(Product product, HttpPostedFileBase ImageFile)
+        //[ValidateAntiForgeryToken]
+        public ActionResult CreateProducts(ProductViewModel model, HttpPostedFileBase ImageFile)
         {
             if (ModelState.IsValid)
             {
-                // Kiểm tra nếu có file ảnh được upload
+                // Khai báo allowedExtensions ở đầu
+                string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
+
+                // Xử lý ảnh chính
                 if (ImageFile != null && ImageFile.ContentLength > 0)
                 {
-                    // Validate file extension to ensure it is an image
-                    string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
                     string extension = Path.GetExtension(ImageFile.FileName).ToLower();
-
                     if (allowedExtensions.Contains(extension))
                     {
-                        // Generate a unique file name with timestamp
                         string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + extension;
-
-                        // Construct the file path for saving
                         string path = Path.Combine(Server.MapPath("~/image/product-image/"), fileName);
-
-                        try
-                        {
-                            // Save the image file to the specified directory
-                            ImageFile.SaveAs(path);
-
-                            // Set the file name to the product's ImageURL property
-                            product.ImageURL = fileName;
-                        }
-                        catch (Exception ex)
-                        {
-                            // Log the exception and handle it as needed
-                            // Example: Log.Error("Failed to save image", ex);
-                            ViewBag.ErrorMessage = "There was an error saving the image. Please try again.";
-                        }
+                        ImageFile.SaveAs(path);
+                        model.Product.ImageURL = fileName;
                     }
                     else
                     {
-                        // Handle invalid file type
                         ViewBag.ErrorMessage = "Invalid file type. Please upload a JPG, JPEG, PNG, or GIF image.";
+                        model.Colors = db.Colors.ToList();
+                        model.Sizes = db.Sizes.ToList();
+                        return View(model);
                     }
                 }
-                else
-                {
-                    ViewBag.ErrorMessage = "Please select an image to upload.";
-                }
 
-
-                // Thêm sản phẩm vào cơ sở dữ liệu
-                db.Products.Add(product);
+                // Thêm sản phẩm vào bảng Products
+                db.Products.Add(model.Product);
                 db.SaveChanges();
+
+                // Thêm thông tin sản phẩm vào bảng ProductStock
+                var productStock = new ProductStock
+                {
+                    ProductID = model.Product.ProductID,
+                    ColorID = model.SelectedColorID,
+                    SizeID = model.SelectedSizeID,
+                    Quantity = model.Quantity
+                };
+                db.ProductStocks.Add(productStock);
+                db.SaveChanges();
+
+                // Xử lý và lưu ảnh phụ
+                if (model.AdditionalImages != null && model.AdditionalImages.Count > 0)
+                {
+                    foreach (var additionalImage in model.AdditionalImages)
+                    {
+                        if (additionalImage != null && additionalImage.ContentLength > 0)
+                        {
+                            string extension = Path.GetExtension(additionalImage.FileName).ToLower();
+                            if (allowedExtensions.Contains(extension))
+                            {
+                                string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_sub" + extension;
+                                string path = Path.Combine(Server.MapPath("~/image/product-image/"), fileName);
+                                additionalImage.SaveAs(path);
+
+                                var imageProduct = new ImageProduct
+                                {
+                                    ProductsID = model.Product.ProductID,
+                                    ImageURL = fileName
+                                };
+                                db.ImageProducts.Add(imageProduct);
+                            }
+                        }
+                    }
+                    db.SaveChanges();
+                }
 
                 return RedirectToAction("ManageProducts");
             }
 
-            // Nếu có lỗi, trả lại view với dữ liệu đã nhập
             ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName");
-            return View(product);
+            model.Colors = db.Colors.ToList();
+            model.Sizes = db.Sizes.ToList();
+            return View(model);
         }
 
 
@@ -212,11 +278,37 @@ namespace LapTrinhWebBanHang.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            // Tìm sản phẩm
             Product product = db.Products.Find(id);
-            db.Products.Remove(product);  // Xóa sản phẩm
-            db.SaveChanges();  // Lưu
+
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Xóa các bản ghi liên quan trong ProductStock
+            var productStocks = db.ProductStocks.Where(ps => ps.ProductID == id).ToList();
+            foreach (var stock in productStocks)
+            {
+                db.ProductStocks.Remove(stock);
+            }
+
+            // Xóa các bản ghi liên quan trong ImageProducts
+            var imageProducts = db.ImageProducts.Where(img => img.ProductsID == id).ToList();
+            foreach (var image in imageProducts)
+            {
+                db.ImageProducts.Remove(image);
+            }
+
+            // Sau khi xóa các bản ghi liên quan, xóa sản phẩm chính
+            db.Products.Remove(product);
+
+            // Lưu thay đổi
+            db.SaveChanges();
+
             return RedirectToAction("ManageProducts");
         }
+
 
 
         // POST: Admin/CreateProducts
