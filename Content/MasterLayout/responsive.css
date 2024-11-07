@@ -1,13 +1,15 @@
 ﻿
-@media (max-width: 1200px){
-
-
-    html, body {
-        overflow-x: hidden;
+@media (max-width: 1024px){
+    .add-cart {
+        display: block !important;
     }
 
+
+        html, body {
+            overflow-x: hidden;
+        }
+
     .navbar-nav {
-        display: none;
         width: 100%;
         flex-direction: column;
         gap: 0;
@@ -16,9 +18,13 @@
         padding-bottom: 10px;
     }
 
-    .nav .logo-web p {
-        margin-top: 10px;
-    }
+        .navbar-nav .nav-item a{
+            font-size: 1rem;
+        }
+
+        .nav .logo-web p {
+            margin-top: 10px;
+        }
 
     .list-nav{
         margin: 0;
@@ -26,14 +32,14 @@
 
         .navbar-nav  .nav-item {
             padding-bottom: 0;
+            margin: 10px 15px;
+
         }
 
-    /* Khi nhấn vào nút toggle, navbar-nav sẽ hiển thị */
     .navbar-collapse.collapse.show {
         display: block;
     }
 
-    /* Đảm bảo button navbar-toggler hiển thị */
     .navbar-toggler {
         display: block;
     }
@@ -41,5 +47,92 @@
     .search-bar button {
         position: absolute;
         right: 0;
+    }
+
+    .account{
+        position: relative;
+        margin-left: 10% !important;
+        margin-top: 20px;
+    }
+
+    .container-acc {
+        font-size: 1rem;
+    }
+
+    .shopping-cart{
+        font-size: 1.5rem;
+        border-radius: 20px;
+    }
+
+    .content-left {
+        height: auto;
+        overflow-y: auto;
+        user-select: none;
+    }
+
+    .product-page .content-left .img-main img {
+        width: 300px;
+    }
+
+    .product-page .content-left .list-img{
+        height: 400px;
+    }
+
+    .product-page .content-right img {
+        width: 250px;
+    }
+
+    .product-page .tab-item {
+        width: 233px;
+    }
+}
+
+@media (max-width: 770px) {
+
+    .commit {
+        display: none;
+    }
+
+    .fa-angle-down, .fa-angle-up {
+        display: none;
+    }
+
+    .category-page .content-left {
+        height: 250px !important;
+    }
+
+    .category-page h3{
+        font-size: 1rem !important;
+    }
+
+    .product-page .content-mid {
+        padding: 20px 20px;
+    }
+
+    .product-page .tab-item{
+        width: 100px;
+    }
+
+    .product-page .tab-pane{
+        width: 330px;
+    }
+
+    .product-page .tab-pane img{
+        width: 300px !important;
+    }
+
+    .product-page .slick-prev,
+    .product-page .slick-next,
+    .product-page .fa-arrow-left,
+    .product-page .fa-arrow-right{
+        display: none;
+    }
+
+    .product-page .content-left .img-main img {
+        width: 250px;
+    }
+
+    .product-page .content-left .list-img {
+        height: 320px;
     }
 }

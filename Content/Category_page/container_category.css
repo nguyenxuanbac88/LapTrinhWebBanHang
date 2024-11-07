@@ -94,7 +94,7 @@ a {
     }
 
 .collapsed {
-    display: none; /* Ẩn khi sidebar đóng */
+    display: none;
 }
 
 .content-left {

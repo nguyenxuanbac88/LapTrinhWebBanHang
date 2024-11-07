@@ -149,20 +149,28 @@
         margin-right: 6px;
     }
 
-.nav .list-nav .shopping-cart {
-    position: absolute;
-    right: 20px;
-    top: 10px;
+.shopping-cart {
+    position: fixed;
     background-color: #000;
     color: #fff;
-    padding: 8px;
+    padding: 10px;
     border-radius: 16px;
     cursor: pointer;
+    z-index: 99;
+    top: 80%;
+    right: 2%;
+}
+
+
+.account {
+    position: absolute;
+    right: 1%;
+    top: 35%;
 }
 
 .container-acc {
     display: flex;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
 }
 
     .container-acc a {
@@ -178,12 +186,6 @@
     right: 140px;
 }
 
-
-.account {
-    position: absolute;
-    right: 5%;
-    top: 35%;
-}
 
 .nav .parentButton {
     color: #333;
