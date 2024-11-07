@@ -12,13 +12,12 @@ namespace LapTrinhWebBanHang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductSize
+    public partial class ImageProduct
     {
-        public int ProductSizeID { get; set; }
-        public Nullable<int> ProductID { get; set; }
-        public Nullable<int> SizeID { get; set; }
+        public int IdImage { get; set; }
+        public int ProductsID { get; set; }
+        public string ImageURL { get; set; }
     
         public virtual Product Product { get; set; }
-        public virtual Size Size { get; set; }
     }
 }

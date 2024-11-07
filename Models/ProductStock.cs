@@ -12,13 +12,24 @@ namespace LapTrinhWebBanHang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductColor
+    public partial class ProductStock
     {
-        public int ProductColorID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ProductStock()
+        {
+            this.InventoryLogs = new HashSet<InventoryLog>();
+        }
+    
+        public int ProductStockID { get; set; }
         public Nullable<int> ProductID { get; set; }
         public Nullable<int> ColorID { get; set; }
+        public Nullable<int> SizeID { get; set; }
+        public Nullable<int> Quantity { get; set; }
     
         public virtual Color Color { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InventoryLog> InventoryLogs { get; set; }
         public virtual Product Product { get; set; }
+        public virtual Size Size { get; set; }
     }
 }

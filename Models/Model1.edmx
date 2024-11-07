@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WebsiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="WebsiteModel4.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AddressUser">
           <Key>
             <PropertyRef Name="IdAddress" />
@@ -30,7 +30,26 @@
             <PropertyRef Name="ColorID" />
           </Key>
           <Property Name="ColorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Color" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ColorName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ImageProducts">
+          <Key>
+            <PropertyRef Name="IdImage" />
+          </Key>
+          <Property Name="IdImage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductsID" Type="int" Nullable="false" />
+          <Property Name="ImageURL" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InventoryLog">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductStockID" Type="int" />
+          <Property Name="QuantityAdded" Type="bigint" />
+          <Property Name="DateAdded" Type="datetime2" Precision="7" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="UserID" Type="int" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -48,8 +67,9 @@
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
-          <Property Name="OrderDate" Type="date" Nullable="false" />
           <Property Name="AddressID" Type="int" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="Status" Type="int" />
         </EntityType>
         <EntityType Name="Payments">
           <Key>
@@ -58,18 +78,10 @@
           <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderID" Type="int" />
           <Property Name="PaymentAmount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+          <Property Name="PaymentDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="PaymentMethod" Type="int" />
           <Property Name="PaymentStatus" Type="int" />
           <Property Name="TransactionID" Type="nvarchar" MaxLength="255" />
-        </EntityType>
-        <EntityType Name="ProductColors">
-          <Key>
-            <PropertyRef Name="ProductColorID" />
-          </Key>
-          <Property Name="ProductColorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProductID" Type="int" />
-          <Property Name="ColorID" Type="int" />
         </EntityType>
         <EntityType Name="ProductPromotions">
           <Key>
@@ -90,13 +102,15 @@
           <Property Name="ImageURL" Type="nvarchar" MaxLength="255" />
           <Property Name="CategoryID" Type="int" />
         </EntityType>
-        <EntityType Name="ProductSizes">
+        <EntityType Name="ProductStock">
           <Key>
-            <PropertyRef Name="ProductSizeID" />
+            <PropertyRef Name="ProductStockID" />
           </Key>
-          <Property Name="ProductSizeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductStockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductID" Type="int" />
+          <Property Name="ColorID" Type="int" />
           <Property Name="SizeID" Type="int" />
+          <Property Name="Quantity" Type="int" />
         </EntityType>
         <EntityType Name="Promotions">
           <Key>
@@ -115,19 +129,7 @@
             <PropertyRef Name="SizeID" />
           </Key>
           <Property Name="SizeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Size" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Stock">
-          <Key>
-            <PropertyRef Name="StockID" />
-          </Key>
-          <Property Name="StockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProductID" Type="int" />
-          <Property Name="StockType" Type="nvarchar" MaxLength="50" />
-          <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="TransactionDate" Type="datetime" />
-          <Property Name="WarehouseLocation" Type="nvarchar" MaxLength="100" />
-          <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+          <Property Name="SizeValue" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -150,13 +152,11 @@
           <Property Name="IsEmailVerified" Type="bit" />
           <Property Name="TokenPassword" Type="nvarchar" MaxLength="255" />
           <Property Name="Stt" Type="int" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" />
           <Property Name="Ip" Type="varchar" MaxLength="20" />
         </EntityType>
-        <Association Name="FK_AddressUser_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="addressuser_iduser_foreign">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="AddressUser" Type="Self.AddressUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
@@ -167,10 +167,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderDetails_Orders">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="imageproducts_productsid_foreign">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ImageProducts" Type="Self.ImageProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ImageProducts">
+              <PropertyRef Name="ProductsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="inventorylog_productstockid_foreign">
+          <End Role="ProductStock" Type="Self.ProductStock" Multiplicity="0..1" />
+          <End Role="InventoryLog" Type="Self.InventoryLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductStock">
+              <PropertyRef Name="ProductStockID" />
+            </Principal>
+            <Dependent Role="InventoryLog">
+              <PropertyRef Name="ProductStockID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="orderdetails_orderid_foreign">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">
@@ -181,10 +203,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderDetails_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="orderdetails_productid_foreign">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -195,7 +215,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Orders_AddressUser">
+        <Association Name="orders_addressid_foreign">
           <End Role="AddressUser" Type="Self.AddressUser" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -207,7 +227,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Orders_Users">
+        <Association Name="orders_userid_foreign">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -219,10 +239,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Payments_Orders">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="payments_orderid_foreign">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
           <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">
@@ -233,38 +251,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductColors_Colors">
-          <End Role="Colors" Type="Self.Colors" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ProductColors" Type="Self.ProductColors" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Colors">
-              <PropertyRef Name="ColorID" />
-            </Principal>
-            <Dependent Role="ProductColors">
-              <PropertyRef Name="ColorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductColors_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ProductColors" Type="Self.ProductColors" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="ProductColors">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductPromotions_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="productpromotions_productid_foreign">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
           <End Role="ProductPromotions" Type="Self.ProductPromotions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -275,10 +263,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductPromotions_Promotions">
-          <End Role="Promotions" Type="Self.Promotions" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="productpromotions_promotionid_foreign">
+          <End Role="Promotions" Type="Self.Promotions" Multiplicity="0..1" />
           <End Role="ProductPromotions" Type="Self.ProductPromotions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Promotions">
@@ -289,10 +275,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Products_Categories">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="products_categoryid_foreign">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
@@ -303,126 +287,120 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductSizes_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ProductSizes" Type="Self.ProductSizes" Multiplicity="*" />
+        <Association Name="productstock_colorid_foreign">
+          <End Role="Colors" Type="Self.Colors" Multiplicity="0..1" />
+          <End Role="ProductStock" Type="Self.ProductStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colors">
+              <PropertyRef Name="ColorID" />
+            </Principal>
+            <Dependent Role="ProductStock">
+              <PropertyRef Name="ColorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productstock_productid_foreign">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="ProductStock" Type="Self.ProductStock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
               <PropertyRef Name="ProductID" />
             </Principal>
-            <Dependent Role="ProductSizes">
+            <Dependent Role="ProductStock">
               <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductSizes_Sizes">
-          <End Role="Sizes" Type="Self.Sizes" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ProductSizes" Type="Self.ProductSizes" Multiplicity="*" />
+        <Association Name="productstock_sizeid_foreign">
+          <End Role="Sizes" Type="Self.Sizes" Multiplicity="0..1" />
+          <End Role="ProductStock" Type="Self.ProductStock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sizes">
               <PropertyRef Name="SizeID" />
             </Principal>
-            <Dependent Role="ProductSizes">
+            <Dependent Role="ProductStock">
               <PropertyRef Name="SizeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Stock_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="Stock">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="WebsiteModelStoreContainer">
+        <EntityContainer Name="WebsiteModel4StoreContainer">
           <EntitySet Name="AddressUser" EntityType="Self.AddressUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Colors" EntityType="Self.Colors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImageProducts" EntityType="Self.ImageProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InventoryLog" EntityType="Self.InventoryLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductColors" EntityType="Self.ProductColors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductPromotions" EntityType="Self.ProductPromotions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductSizes" EntityType="Self.ProductSizes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductStock" EntityType="Self.ProductStock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Promotions" EntityType="Self.Promotions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sizes" EntityType="Self.Sizes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_AddressUser_Users" Association="Self.FK_AddressUser_Users">
+          <AssociationSet Name="addressuser_iduser_foreign" Association="Self.addressuser_iduser_foreign">
             <End Role="Users" EntitySet="Users" />
             <End Role="AddressUser" EntitySet="AddressUser" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
+          <AssociationSet Name="imageproducts_productsid_foreign" Association="Self.imageproducts_productsid_foreign">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ImageProducts" EntitySet="ImageProducts" />
+          </AssociationSet>
+          <AssociationSet Name="inventorylog_productstockid_foreign" Association="Self.inventorylog_productstockid_foreign">
+            <End Role="ProductStock" EntitySet="ProductStock" />
+            <End Role="InventoryLog" EntitySet="InventoryLog" />
+          </AssociationSet>
+          <AssociationSet Name="orderdetails_orderid_foreign" Association="Self.orderdetails_orderid_foreign">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Products" Association="Self.FK_OrderDetails_Products">
+          <AssociationSet Name="orderdetails_productid_foreign" Association="Self.orderdetails_productid_foreign">
             <End Role="Products" EntitySet="Products" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_Orders_AddressUser" Association="Self.FK_Orders_AddressUser">
+          <AssociationSet Name="orders_addressid_foreign" Association="Self.orders_addressid_foreign">
             <End Role="AddressUser" EntitySet="AddressUser" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+          <AssociationSet Name="orders_userid_foreign" Association="Self.orders_userid_foreign">
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_Payments_Orders" Association="Self.FK_Payments_Orders">
+          <AssociationSet Name="payments_orderid_foreign" Association="Self.payments_orderid_foreign">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Payments" EntitySet="Payments" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductColors_Colors" Association="Self.FK_ProductColors_Colors">
-            <End Role="Colors" EntitySet="Colors" />
-            <End Role="ProductColors" EntitySet="ProductColors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductColors_Products" Association="Self.FK_ProductColors_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductColors" EntitySet="ProductColors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductPromotions_Products" Association="Self.FK_ProductPromotions_Products">
+          <AssociationSet Name="productpromotions_productid_foreign" Association="Self.productpromotions_productid_foreign">
             <End Role="Products" EntitySet="Products" />
             <End Role="ProductPromotions" EntitySet="ProductPromotions" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductPromotions_Promotions" Association="Self.FK_ProductPromotions_Promotions">
+          <AssociationSet Name="productpromotions_promotionid_foreign" Association="Self.productpromotions_promotionid_foreign">
             <End Role="Promotions" EntitySet="Promotions" />
             <End Role="ProductPromotions" EntitySet="ProductPromotions" />
           </AssociationSet>
-          <AssociationSet Name="FK_Products_Categories" Association="Self.FK_Products_Categories">
+          <AssociationSet Name="products_categoryid_foreign" Association="Self.products_categoryid_foreign">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductSizes_Products" Association="Self.FK_ProductSizes_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductSizes" EntitySet="ProductSizes" />
+          <AssociationSet Name="productstock_colorid_foreign" Association="Self.productstock_colorid_foreign">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="ProductStock" EntitySet="ProductStock" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductSizes_Sizes" Association="Self.FK_ProductSizes_Sizes">
+          <AssociationSet Name="productstock_productid_foreign" Association="Self.productstock_productid_foreign">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductStock" EntitySet="ProductStock" />
+          </AssociationSet>
+          <AssociationSet Name="productstock_sizeid_foreign" Association="Self.productstock_sizeid_foreign">
             <End Role="Sizes" EntitySet="Sizes" />
-            <End Role="ProductSizes" EntitySet="ProductSizes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stock_Products" Association="Self.FK_Stock_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Stock" EntitySet="Stock" />
+            <End Role="ProductStock" EntitySet="ProductStock" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="WebsiteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="WebsiteModel4" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AddressUser">
           <Key>
             <PropertyRef Name="IdAddress" />
@@ -435,8 +413,8 @@
           <Property Name="Town" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Block" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="SpecificAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="Self.FK_AddressUser_Users" FromRole="AddressUser" ToRole="Users" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_AddressUser" FromRole="AddressUser" ToRole="Orders" />
+          <NavigationProperty Name="User" Relationship="Self.addressuser_iduser_foreign" FromRole="AddressUser" ToRole="Users" />
+          <NavigationProperty Name="Orders" Relationship="Self.orders_addressid_foreign" FromRole="AddressUser" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -444,15 +422,36 @@
           </Key>
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Categories" FromRole="Categories" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="Self.products_categoryid_foreign" FromRole="Categories" ToRole="Products" />
         </EntityType>
         <EntityType Name="Color">
           <Key>
             <PropertyRef Name="ColorID" />
           </Key>
           <Property Name="ColorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Color1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ProductColors" Relationship="Self.FK_ProductColors_Colors" FromRole="Colors" ToRole="ProductColors" />
+          <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductStocks" Relationship="Self.productstock_colorid_foreign" FromRole="Colors" ToRole="ProductStock" />
+        </EntityType>
+        <EntityType Name="ImageProduct">
+          <Key>
+            <PropertyRef Name="IdImage" />
+          </Key>
+          <Property Name="IdImage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductsID" Type="Int32" Nullable="false" />
+          <Property Name="ImageURL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.imageproducts_productsid_foreign" FromRole="ImageProducts" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="InventoryLog">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductStockID" Type="Int32" />
+          <Property Name="QuantityAdded" Type="Int64" />
+          <Property Name="DateAdded" Type="DateTime" Precision="7" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="ProductStock" Relationship="Self.inventorylog_productstockid_foreign" FromRole="InventoryLog" ToRole="ProductStock" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -463,8 +462,8 @@
           <Property Name="ProductID" Type="Int32" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="UnitPrice" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetails_Orders" FromRole="OrderDetails" ToRole="Orders" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_OrderDetails_Products" FromRole="OrderDetails" ToRole="Products" />
+          <NavigationProperty Name="Order" Relationship="Self.orderdetails_orderid_foreign" FromRole="OrderDetails" ToRole="Orders" />
+          <NavigationProperty Name="Product" Relationship="Self.orderdetails_productid_foreign" FromRole="OrderDetails" ToRole="Products" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -472,12 +471,13 @@
           </Key>
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" />
-          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="AddressID" Type="Int32" />
-          <NavigationProperty Name="AddressUser" Relationship="Self.FK_Orders_AddressUser" FromRole="Orders" ToRole="AddressUser" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Orders" FromRole="Orders" ToRole="OrderDetails" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
-          <NavigationProperty Name="Payments" Relationship="Self.FK_Payments_Orders" FromRole="Orders" ToRole="Payments" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="AddressUser" Relationship="Self.orders_addressid_foreign" FromRole="Orders" ToRole="AddressUser" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.orderdetails_orderid_foreign" FromRole="Orders" ToRole="OrderDetails" />
+          <NavigationProperty Name="User" Relationship="Self.orders_userid_foreign" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="Payments" Relationship="Self.payments_orderid_foreign" FromRole="Orders" ToRole="Payments" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -486,21 +486,11 @@
           <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderID" Type="Int32" />
           <Property Name="PaymentAmount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="PaymentMethod" Type="Int32" />
           <Property Name="PaymentStatus" Type="Int32" />
           <Property Name="TransactionID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Payments_Orders" FromRole="Payments" ToRole="Orders" />
-        </EntityType>
-        <EntityType Name="ProductColor">
-          <Key>
-            <PropertyRef Name="ProductColorID" />
-          </Key>
-          <Property Name="ProductColorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductID" Type="Int32" />
-          <Property Name="ColorID" Type="Int32" />
-          <NavigationProperty Name="Color" Relationship="Self.FK_ProductColors_Colors" FromRole="ProductColors" ToRole="Colors" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductColors_Products" FromRole="ProductColors" ToRole="Products" />
+          <NavigationProperty Name="Order" Relationship="Self.payments_orderid_foreign" FromRole="Payments" ToRole="Orders" />
         </EntityType>
         <EntityType Name="ProductPromotion">
           <Key>
@@ -509,8 +499,8 @@
           <Property Name="ProductPromotionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductID" Type="Int32" />
           <Property Name="PromotionID" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductPromotions_Products" FromRole="ProductPromotions" ToRole="Products" />
-          <NavigationProperty Name="Promotion" Relationship="Self.FK_ProductPromotions_Promotions" FromRole="ProductPromotions" ToRole="Promotions" />
+          <NavigationProperty Name="Product" Relationship="Self.productpromotions_productid_foreign" FromRole="ProductPromotions" ToRole="Products" />
+          <NavigationProperty Name="Promotion" Relationship="Self.productpromotions_promotionid_foreign" FromRole="ProductPromotions" ToRole="Promotions" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -522,22 +512,25 @@
           <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="ImageURL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CategoryID" Type="Int32" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Products" FromRole="Products" ToRole="OrderDetails" />
-          <NavigationProperty Name="ProductColors" Relationship="Self.FK_ProductColors_Products" FromRole="Products" ToRole="ProductColors" />
-          <NavigationProperty Name="ProductPromotions" Relationship="Self.FK_ProductPromotions_Products" FromRole="Products" ToRole="ProductPromotions" />
-          <NavigationProperty Name="ProductSizes" Relationship="Self.FK_ProductSizes_Products" FromRole="Products" ToRole="ProductSizes" />
-          <NavigationProperty Name="Stocks" Relationship="Self.FK_Stock_Products" FromRole="Products" ToRole="Stock" />
+          <NavigationProperty Name="Category" Relationship="Self.products_categoryid_foreign" FromRole="Products" ToRole="Categories" />
+          <NavigationProperty Name="ImageProducts" Relationship="Self.imageproducts_productsid_foreign" FromRole="Products" ToRole="ImageProducts" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.orderdetails_productid_foreign" FromRole="Products" ToRole="OrderDetails" />
+          <NavigationProperty Name="ProductPromotions" Relationship="Self.productpromotions_productid_foreign" FromRole="Products" ToRole="ProductPromotions" />
+          <NavigationProperty Name="ProductStocks" Relationship="Self.productstock_productid_foreign" FromRole="Products" ToRole="ProductStock" />
         </EntityType>
-        <EntityType Name="ProductSize">
+        <EntityType Name="ProductStock">
           <Key>
-            <PropertyRef Name="ProductSizeID" />
+            <PropertyRef Name="ProductStockID" />
           </Key>
-          <Property Name="ProductSizeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductStockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductID" Type="Int32" />
+          <Property Name="ColorID" Type="Int32" />
           <Property Name="SizeID" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductSizes_Products" FromRole="ProductSizes" ToRole="Products" />
-          <NavigationProperty Name="Size" Relationship="Self.FK_ProductSizes_Sizes" FromRole="ProductSizes" ToRole="Sizes" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Color" Relationship="Self.productstock_colorid_foreign" FromRole="ProductStock" ToRole="Colors" />
+          <NavigationProperty Name="InventoryLogs" Relationship="Self.inventorylog_productstockid_foreign" FromRole="ProductStock" ToRole="InventoryLog" />
+          <NavigationProperty Name="Product" Relationship="Self.productstock_productid_foreign" FromRole="ProductStock" ToRole="Products" />
+          <NavigationProperty Name="Size" Relationship="Self.productstock_sizeid_foreign" FromRole="ProductStock" ToRole="Sizes" />
         </EntityType>
         <EntityType Name="Promotion">
           <Key>
@@ -550,28 +543,15 @@
           <Property Name="DiscountPercentage" Type="Decimal" Precision="5" Scale="2" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="ProductPromotions" Relationship="Self.FK_ProductPromotions_Promotions" FromRole="Promotions" ToRole="ProductPromotions" />
+          <NavigationProperty Name="ProductPromotions" Relationship="Self.productpromotions_promotionid_foreign" FromRole="Promotions" ToRole="ProductPromotions" />
         </EntityType>
         <EntityType Name="Size">
           <Key>
             <PropertyRef Name="SizeID" />
           </Key>
           <Property Name="SizeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Size1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ProductSizes" Relationship="Self.FK_ProductSizes_Sizes" FromRole="Sizes" ToRole="ProductSizes" />
-        </EntityType>
-        <EntityType Name="Stock">
-          <Key>
-            <PropertyRef Name="StockID" />
-          </Key>
-          <Property Name="StockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductID" Type="Int32" />
-          <Property Name="StockType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="TransactionDate" Type="DateTime" Precision="3" />
-          <Property Name="WarehouseLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Stock_Products" FromRole="Stock" ToRole="Products" />
+          <Property Name="SizeValue" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductStocks" Relationship="Self.productstock_sizeid_foreign" FromRole="Sizes" ToRole="ProductStock" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -594,15 +574,13 @@
           <Property Name="IsEmailVerified" Type="Boolean" />
           <Property Name="TokenPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Stt" Type="Int32" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="7" />
           <Property Name="Ip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AddressUsers" Relationship="Self.FK_AddressUser_Users" FromRole="Users" ToRole="AddressUser" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="AddressUsers" Relationship="Self.addressuser_iduser_foreign" FromRole="Users" ToRole="AddressUser" />
+          <NavigationProperty Name="Orders" Relationship="Self.orders_userid_foreign" FromRole="Users" ToRole="Orders" />
         </EntityType>
-        <Association Name="FK_AddressUser_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="addressuser_iduser_foreign">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="AddressUser" Type="Self.AddressUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
@@ -613,7 +591,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Orders_AddressUser">
+        <Association Name="orders_addressid_foreign">
           <End Role="AddressUser" Type="Self.AddressUser" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -625,10 +603,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Products_Categories">
-          <End Role="Categories" Type="Self.Category" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="products_categoryid_foreign">
+          <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Products" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
@@ -639,24 +615,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductColors_Colors">
-          <End Role="Colors" Type="Self.Color" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ProductColors" Type="Self.ProductColor" Multiplicity="*" />
+        <Association Name="productstock_colorid_foreign">
+          <End Role="Colors" Type="Self.Color" Multiplicity="0..1" />
+          <End Role="ProductStock" Type="Self.ProductStock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Colors">
               <PropertyRef Name="ColorID" />
             </Principal>
-            <Dependent Role="ProductColors">
+            <Dependent Role="ProductStock">
               <PropertyRef Name="ColorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderDetails_Orders">
-          <End Role="Orders" Type="Self.Order" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="imageproducts_productsid_foreign">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="ImageProducts" Type="Self.ImageProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ImageProducts">
+              <PropertyRef Name="ProductsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="inventorylog_productstockid_foreign">
+          <End Role="ProductStock" Type="Self.ProductStock" Multiplicity="0..1" />
+          <End Role="InventoryLog" Type="Self.InventoryLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductStock">
+              <PropertyRef Name="ProductStockID" />
+            </Principal>
+            <Dependent Role="InventoryLog">
+              <PropertyRef Name="ProductStockID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="orderdetails_orderid_foreign">
+          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
           <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">
@@ -667,10 +663,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderDetails_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="orderdetails_productid_foreign">
+          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
           <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -681,7 +675,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Orders_Users">
+        <Association Name="orders_userid_foreign">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -693,10 +687,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Payments_Orders">
-          <End Role="Orders" Type="Self.Order" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="payments_orderid_foreign">
+          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
           <End Role="Payments" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">
@@ -707,24 +699,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductColors_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ProductColors" Type="Self.ProductColor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="ProductColors">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductPromotions_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="productpromotions_productid_foreign">
+          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
           <End Role="ProductPromotions" Type="Self.ProductPromotion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -735,10 +711,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductPromotions_Promotions">
-          <End Role="Promotions" Type="Self.Promotion" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="productpromotions_promotionid_foreign">
+          <End Role="Promotions" Type="Self.Promotion" Multiplicity="0..1" />
           <End Role="ProductPromotions" Type="Self.ProductPromotion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Promotions">
@@ -749,44 +723,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductSizes_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ProductSizes" Type="Self.ProductSize" Multiplicity="*" />
+        <Association Name="productstock_productid_foreign">
+          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductStock" Type="Self.ProductStock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
               <PropertyRef Name="ProductID" />
             </Principal>
-            <Dependent Role="ProductSizes">
+            <Dependent Role="ProductStock">
               <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Stock_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="Stock">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductSizes_Sizes">
-          <End Role="Sizes" Type="Self.Size" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ProductSizes" Type="Self.ProductSize" Multiplicity="*" />
+        <Association Name="productstock_sizeid_foreign">
+          <End Role="Sizes" Type="Self.Size" Multiplicity="0..1" />
+          <End Role="ProductStock" Type="Self.ProductStock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sizes">
               <PropertyRef Name="SizeID" />
             </Principal>
-            <Dependent Role="ProductSizes">
+            <Dependent Role="ProductStock">
               <PropertyRef Name="SizeID" />
             </Dependent>
           </ReferentialConstraint>
@@ -795,73 +751,73 @@
           <EntitySet Name="AddressUsers" EntityType="Self.AddressUser" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Colors" EntityType="Self.Color" />
+          <EntitySet Name="ImageProducts" EntityType="Self.ImageProduct" />
+          <EntitySet Name="InventoryLogs" EntityType="Self.InventoryLog" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Payments" EntityType="Self.Payment" />
-          <EntitySet Name="ProductColors" EntityType="Self.ProductColor" />
           <EntitySet Name="ProductPromotions" EntityType="Self.ProductPromotion" />
           <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="ProductSizes" EntityType="Self.ProductSize" />
+          <EntitySet Name="ProductStocks" EntityType="Self.ProductStock" />
           <EntitySet Name="Promotions" EntityType="Self.Promotion" />
           <EntitySet Name="Sizes" EntityType="Self.Size" />
-          <EntitySet Name="Stocks" EntityType="Self.Stock" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_AddressUser_Users" Association="Self.FK_AddressUser_Users">
+          <AssociationSet Name="addressuser_iduser_foreign" Association="Self.addressuser_iduser_foreign">
             <End Role="Users" EntitySet="Users" />
             <End Role="AddressUser" EntitySet="AddressUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Orders_AddressUser" Association="Self.FK_Orders_AddressUser">
+          <AssociationSet Name="orders_addressid_foreign" Association="Self.orders_addressid_foreign">
             <End Role="AddressUser" EntitySet="AddressUsers" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_Products_Categories" Association="Self.FK_Products_Categories">
+          <AssociationSet Name="products_categoryid_foreign" Association="Self.products_categoryid_foreign">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductColors_Colors" Association="Self.FK_ProductColors_Colors">
+          <AssociationSet Name="productstock_colorid_foreign" Association="Self.productstock_colorid_foreign">
             <End Role="Colors" EntitySet="Colors" />
-            <End Role="ProductColors" EntitySet="ProductColors" />
+            <End Role="ProductStock" EntitySet="ProductStocks" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
+          <AssociationSet Name="imageproducts_productsid_foreign" Association="Self.imageproducts_productsid_foreign">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ImageProducts" EntitySet="ImageProducts" />
+          </AssociationSet>
+          <AssociationSet Name="inventorylog_productstockid_foreign" Association="Self.inventorylog_productstockid_foreign">
+            <End Role="ProductStock" EntitySet="ProductStocks" />
+            <End Role="InventoryLog" EntitySet="InventoryLogs" />
+          </AssociationSet>
+          <AssociationSet Name="orderdetails_orderid_foreign" Association="Self.orderdetails_orderid_foreign">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Products" Association="Self.FK_OrderDetails_Products">
+          <AssociationSet Name="orderdetails_productid_foreign" Association="Self.orderdetails_productid_foreign">
             <End Role="Products" EntitySet="Products" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+          <AssociationSet Name="orders_userid_foreign" Association="Self.orders_userid_foreign">
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_Payments_Orders" Association="Self.FK_Payments_Orders">
+          <AssociationSet Name="payments_orderid_foreign" Association="Self.payments_orderid_foreign">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Payments" EntitySet="Payments" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductColors_Products" Association="Self.FK_ProductColors_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductColors" EntitySet="ProductColors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductPromotions_Products" Association="Self.FK_ProductPromotions_Products">
+          <AssociationSet Name="productpromotions_productid_foreign" Association="Self.productpromotions_productid_foreign">
             <End Role="Products" EntitySet="Products" />
             <End Role="ProductPromotions" EntitySet="ProductPromotions" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductPromotions_Promotions" Association="Self.FK_ProductPromotions_Promotions">
+          <AssociationSet Name="productpromotions_promotionid_foreign" Association="Self.productpromotions_promotionid_foreign">
             <End Role="Promotions" EntitySet="Promotions" />
             <End Role="ProductPromotions" EntitySet="ProductPromotions" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductSizes_Products" Association="Self.FK_ProductSizes_Products">
+          <AssociationSet Name="productstock_productid_foreign" Association="Self.productstock_productid_foreign">
             <End Role="Products" EntitySet="Products" />
-            <End Role="ProductSizes" EntitySet="ProductSizes" />
+            <End Role="ProductStock" EntitySet="ProductStocks" />
           </AssociationSet>
-          <AssociationSet Name="FK_Stock_Products" Association="Self.FK_Stock_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Stock" EntitySet="Stocks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductSizes_Sizes" Association="Self.FK_ProductSizes_Sizes">
+          <AssociationSet Name="productstock_sizeid_foreign" Association="Self.productstock_sizeid_foreign">
             <End Role="Sizes" EntitySet="Sizes" />
-            <End Role="ProductSizes" EntitySet="ProductSizes" />
+            <End Role="ProductStock" EntitySet="ProductStocks" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -869,9 +825,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WebsiteModelStoreContainer" CdmEntityContainer="WebsiteEntities4">
+        <EntityContainerMapping StorageEntityContainer="WebsiteModel4StoreContainer" CdmEntityContainer="WebsiteEntities4">
           <EntitySetMapping Name="AddressUsers">
-            <EntityTypeMapping TypeName="WebsiteModel.AddressUser">
+            <EntityTypeMapping TypeName="WebsiteModel4.AddressUser">
               <MappingFragment StoreEntitySet="AddressUser">
                 <ScalarProperty Name="IdAddress" ColumnName="IdAddress" />
                 <ScalarProperty Name="IdUser" ColumnName="IdUser" />
@@ -885,7 +841,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="WebsiteModel.Category">
+            <EntityTypeMapping TypeName="WebsiteModel4.Category">
               <MappingFragment StoreEntitySet="Categories">
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
@@ -893,15 +849,36 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Colors">
-            <EntityTypeMapping TypeName="WebsiteModel.Color">
+            <EntityTypeMapping TypeName="WebsiteModel4.Color">
               <MappingFragment StoreEntitySet="Colors">
                 <ScalarProperty Name="ColorID" ColumnName="ColorID" />
-                <ScalarProperty Name="Color1" ColumnName="Color" />
+                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImageProducts">
+            <EntityTypeMapping TypeName="WebsiteModel4.ImageProduct">
+              <MappingFragment StoreEntitySet="ImageProducts">
+                <ScalarProperty Name="IdImage" ColumnName="IdImage" />
+                <ScalarProperty Name="ProductsID" ColumnName="ProductsID" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InventoryLogs">
+            <EntityTypeMapping TypeName="WebsiteModel4.InventoryLog">
+              <MappingFragment StoreEntitySet="InventoryLog">
+                <ScalarProperty Name="LogID" ColumnName="LogID" />
+                <ScalarProperty Name="ProductStockID" ColumnName="ProductStockID" />
+                <ScalarProperty Name="QuantityAdded" ColumnName="QuantityAdded" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="WebsiteModel.OrderDetail">
+            <EntityTypeMapping TypeName="WebsiteModel4.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
                 <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -912,17 +889,18 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="WebsiteModel.Order">
+            <EntityTypeMapping TypeName="WebsiteModel4.Order">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Payments">
-            <EntityTypeMapping TypeName="WebsiteModel.Payment">
+            <EntityTypeMapping TypeName="WebsiteModel4.Payment">
               <MappingFragment StoreEntitySet="Payments">
                 <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -934,17 +912,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProductColors">
-            <EntityTypeMapping TypeName="WebsiteModel.ProductColor">
-              <MappingFragment StoreEntitySet="ProductColors">
-                <ScalarProperty Name="ProductColorID" ColumnName="ProductColorID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ProductPromotions">
-            <EntityTypeMapping TypeName="WebsiteModel.ProductPromotion">
+            <EntityTypeMapping TypeName="WebsiteModel4.ProductPromotion">
               <MappingFragment StoreEntitySet="ProductPromotions">
                 <ScalarProperty Name="ProductPromotionID" ColumnName="ProductPromotionID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
@@ -953,7 +922,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="WebsiteModel.Product">
+            <EntityTypeMapping TypeName="WebsiteModel4.Product">
               <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
@@ -964,17 +933,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProductSizes">
-            <EntityTypeMapping TypeName="WebsiteModel.ProductSize">
-              <MappingFragment StoreEntitySet="ProductSizes">
-                <ScalarProperty Name="ProductSizeID" ColumnName="ProductSizeID" />
+          <EntitySetMapping Name="ProductStocks">
+            <EntityTypeMapping TypeName="WebsiteModel4.ProductStock">
+              <MappingFragment StoreEntitySet="ProductStock">
+                <ScalarProperty Name="ProductStockID" ColumnName="ProductStockID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
                 <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Promotions">
-            <EntityTypeMapping TypeName="WebsiteModel.Promotion">
+            <EntityTypeMapping TypeName="WebsiteModel4.Promotion">
               <MappingFragment StoreEntitySet="Promotions">
                 <ScalarProperty Name="PromotionID" ColumnName="PromotionID" />
                 <ScalarProperty Name="PromotionName" ColumnName="PromotionName" />
@@ -987,28 +958,15 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sizes">
-            <EntityTypeMapping TypeName="WebsiteModel.Size">
+            <EntityTypeMapping TypeName="WebsiteModel4.Size">
               <MappingFragment StoreEntitySet="Sizes">
                 <ScalarProperty Name="SizeID" ColumnName="SizeID" />
-                <ScalarProperty Name="Size1" ColumnName="Size" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Stocks">
-            <EntityTypeMapping TypeName="WebsiteModel.Stock">
-              <MappingFragment StoreEntitySet="Stock">
-                <ScalarProperty Name="StockID" ColumnName="StockID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="StockType" ColumnName="StockType" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
-                <ScalarProperty Name="WarehouseLocation" ColumnName="WarehouseLocation" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="SizeValue" ColumnName="SizeValue" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="WebsiteModel.sysdiagram">
+            <EntityTypeMapping TypeName="WebsiteModel4.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -1019,7 +977,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="WebsiteModel.User">
+            <EntityTypeMapping TypeName="WebsiteModel4.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="IdUser" ColumnName="IdUser" />
                 <ScalarProperty Name="Email" ColumnName="Email" />

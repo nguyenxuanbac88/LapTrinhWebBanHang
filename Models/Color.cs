@@ -17,13 +17,13 @@ namespace LapTrinhWebBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Color()
         {
-            this.ProductColors = new HashSet<ProductColor>();
+            this.ProductStocks = new HashSet<ProductStock>();
         }
     
         public int ColorID { get; set; }
-        public string Color1 { get; set; }
+        public string ColorName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductColor> ProductColors { get; set; }
+        public virtual ICollection<ProductStock> ProductStocks { get; set; }
     }
 }

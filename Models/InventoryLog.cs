@@ -12,16 +12,15 @@ namespace LapTrinhWebBanHang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Stock
+    public partial class InventoryLog
     {
-        public int StockID { get; set; }
-        public Nullable<int> ProductID { get; set; }
-        public string StockType { get; set; }
-        public int Quantity { get; set; }
-        public Nullable<System.DateTime> TransactionDate { get; set; }
-        public string WarehouseLocation { get; set; }
-        public string Notes { get; set; }
+        public int LogID { get; set; }
+        public Nullable<int> ProductStockID { get; set; }
+        public Nullable<long> QuantityAdded { get; set; }
+        public Nullable<System.DateTime> DateAdded { get; set; }
+        public Nullable<int> SupplierID { get; set; }
+        public Nullable<int> UserID { get; set; }
     
-        public virtual Product Product { get; set; }
+        public virtual ProductStock ProductStock { get; set; }
     }
 }
