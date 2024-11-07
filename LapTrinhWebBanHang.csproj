@@ -195,6 +195,7 @@
   <ItemGroup>
     <Content Include="Content\Account\ForgetPassword.css" />
     <Content Include="Content\Account\ResetPassword.css" />
+    <Content Include="Content\Account\VerifyResetCode.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
