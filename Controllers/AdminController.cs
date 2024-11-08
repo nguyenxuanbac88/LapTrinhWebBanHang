@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -201,62 +202,99 @@ namespace LapTrinhWebBanHang.Controllers
         }
 
 
-        // GET: Admin/EditProducts/5
         public ActionResult EditProducts(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
+
+            // Lấy sản phẩm từ cơ sở dữ liệu
             Product product = db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
-            return View(product);
-        }
 
-        [HttpGet]
-        public JsonResult GetProduct(int id)
-        {
-            var product = db.Products
-                .Where(p => p.ProductID == id)
-                .Select(p => new
-                {
-                    p.ProductID,
-                    p.ProductName,
-                    p.Price,
-                    p.Description,
-                    p.ImageURL,
-                    p.CategoryID
-                })
-                .FirstOrDefault();
-
-            if (product == null)
+            // Tạo ViewModel và truyền dữ liệu vào ViewModel
+            var model = new ProductViewModel
             {
-                return Json(new { success = false, message = "Product not found" }, JsonRequestBehavior.AllowGet);
-            }
+                Product = product,
+                SelectedColorID = (int)(db.ProductStocks.FirstOrDefault(ps => ps.ProductID == product.ProductID)?.ColorID),
+                SelectedSizeID = (int)(db.ProductStocks.FirstOrDefault(ps => ps.ProductID == product.ProductID)?.SizeID),
+                Quantity = db.ProductStocks.FirstOrDefault(ps => ps.ProductID == product.ProductID)?.Quantity ?? 0,
+                Colors = db.Colors.ToList(),
+                Sizes = db.Sizes.ToList()
+            };
 
-            return Json(new { success = true, data = product }, JsonRequestBehavior.AllowGet);
+            // Truyền danh sách Categories cho ViewBag để hiển thị trong dropdown
+            ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
+
+            return View(model);
         }
 
-
-
-        // POST: Admin/EditProducts/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProducts(Product product)
+        public ActionResult EditProducts(ProductViewModel model, HttpPostedFileBase ImageFile)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = System.Data.Entity.EntityState.Modified;  // Đánh dấu sản phẩm để cập nhật
-                db.SaveChanges();  // Lưu 
+                // Xử lý ảnh chính nếu có file mới
+                string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
+                if (ImageFile != null && ImageFile.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(ImageFile.FileName).ToLower();
+                    if (allowedExtensions.Contains(extension))
+                    {
+                        string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + extension;
+                        string path = Path.Combine(Server.MapPath("~/image/product-image/"), fileName);
+                        ImageFile.SaveAs(path);
+                        model.Product.ImageURL = fileName;
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "Invalid file type. Please upload a JPG, JPEG, PNG, or GIF image.";
+                        model.Colors = db.Colors.ToList();
+                        model.Sizes = db.Sizes.ToList();
+                        return View(model);
+                    }
+                }
+
+                // Cập nhật thông tin sản phẩm
+                db.Entry(model.Product).State = EntityState.Modified;
+
+                // Cập nhật ProductStock
+                var productStock = db.ProductStocks.FirstOrDefault(ps => ps.ProductID == model.Product.ProductID);
+                if (productStock != null)
+                {
+                    productStock.ColorID = model.SelectedColorID;
+                    productStock.SizeID = model.SelectedSizeID;
+                    productStock.Quantity = model.Quantity;
+                    db.Entry(productStock).State = EntityState.Modified;
+                }
+                else
+                {
+                    // Nếu ProductStock chưa tồn tại, tạo mới
+                    db.ProductStocks.Add(new ProductStock
+                    {
+                        ProductID = model.Product.ProductID,
+                        ColorID = model.SelectedColorID,
+                        SizeID = model.SelectedSizeID,
+                        Quantity = model.Quantity
+                    });
+                }
+
+                db.SaveChanges();
                 return RedirectToAction("ManageProducts");
             }
-            ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
-            return View(product);
+
+            // Truyền lại dữ liệu cho View nếu có lỗi
+            ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName", model.Product.CategoryID);
+            model.Colors = db.Colors.ToList();
+            model.Sizes = db.Sizes.ToList();
+            return View(model);
         }
+
 
         // GET: Admin/DeleteProducts/5
         public ActionResult DeleteProducts(int? id)
@@ -348,5 +386,29 @@ namespace LapTrinhWebBanHang.Controllers
 
             return View(category); // Pass the single category to the view
         }
+        [HttpGet]
+        public JsonResult GetProduct(int id)
+        {
+            var product = db.Products
+                .Where(p => p.ProductID == id)
+                .Select(p => new
+                {
+                    p.ProductID,
+                    p.ProductName,
+                    p.Price,
+                    p.Description,
+                    p.ImageURL,
+                    p.CategoryID
+                })
+                .FirstOrDefault();
+
+            if (product == null)
+            {
+                return Json(new { success = false, message = "Product not found" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { success = true, data = product }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
