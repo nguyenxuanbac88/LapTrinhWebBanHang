@@ -21,7 +21,7 @@ namespace LapTrinhWebBanHang.Controllers
             return View();
         }
         [HttpGet]
-        public JsonResult GetAllProducts()
+        public ActionResult GetAllProducts()
         {
             var products = db.Products
                 .Select(p => new
@@ -30,7 +30,6 @@ namespace LapTrinhWebBanHang.Controllers
                     p.ProductName,
                     p.Price,
                     p.ImageURL,
-                    // Truy vấn lấy tên danh mục từ bảng Categories
                     CategoryName = db.Categories
                         .Where(c => c.CategoryID == p.CategoryID)
                         .Select(c => c.CategoryName)
@@ -38,8 +37,9 @@ namespace LapTrinhWebBanHang.Controllers
                 })
                 .ToList();
 
-            return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
+            return View(products); // Trả về View với model là danh sách sản phẩm
         }
+
 
     }
 }
