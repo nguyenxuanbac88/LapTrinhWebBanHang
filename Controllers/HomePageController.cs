@@ -30,12 +30,16 @@ namespace LapTrinhWebBanHang.Controllers
                     p.ProductName,
                     p.Price,
                     p.ImageURL,
-                    p.CategoryID
-
+                    // Truy vấn lấy tên danh mục từ bảng Categories
+                    CategoryName = db.Categories
+                        .Where(c => c.CategoryID == p.CategoryID)
+                        .Select(c => c.CategoryName)
+                        .FirstOrDefault()
                 })
                 .ToList();
 
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
+
     }
 }
