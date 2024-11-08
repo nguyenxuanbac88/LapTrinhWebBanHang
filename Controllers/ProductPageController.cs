@@ -16,6 +16,26 @@ namespace LapTrinhWebBanHang.Controllers
             return View();
         }
 
+        /*Note dành riêng cho dev frontEnd sử dụng
+         {
+              "success": true,
+              "data": {
+                "ProductID": 1,
+                "ProductName": "Product A",
+                "Price": 100.00,
+                "Description": "Description of Product A",
+                "ImageURL": "/images/productA.jpg",
+                "CategoryID": 2,
+                "IsDiscounted": true,
+                "DiscountAmount": 10.00,
+                "DiscountPercentage": null,
+                "SupplementaryImages": [
+                  "/images/productA_1.jpg",
+                  "/images/productA_2.jpg"
+                ]
+              }
+            }
+         */
         [HttpGet]
         public JsonResult GetProduct(int id)
         {
@@ -28,7 +48,37 @@ namespace LapTrinhWebBanHang.Controllers
                     p.Price,
                     p.Description,
                     p.ImageURL,
-                    p.CategoryID
+                    p.CategoryID,
+                    // Kiểm tra nếu sản phẩm có khuyến mãi đang hoạt động
+                    IsDiscounted = db.ProductPromotions
+                        .Any(pp => pp.ProductID == p.ProductID &&
+                                   db.Promotions.Any(pr => pr.PromotionID == pp.PromotionID &&
+                                                           pr.StartDate <= DateTime.Now &&
+                                                           pr.EndDate >= DateTime.Now)),
+                    // Lấy chi tiết khuyến mãi nếu có
+                    DiscountAmount = db.ProductPromotions
+                        .Where(pp => pp.ProductID == p.ProductID)
+                        .Select(pp => db.Promotions
+                            .Where(pr => pr.PromotionID == pp.PromotionID &&
+                                         pr.StartDate <= DateTime.Now &&
+                                         pr.EndDate >= DateTime.Now)
+                            .Select(pr => pr.DiscountAmount)
+                            .FirstOrDefault())
+                        .FirstOrDefault(),
+                    DiscountPercentage = db.ProductPromotions
+                        .Where(pp => pp.ProductID == p.ProductID)
+                        .Select(pp => db.Promotions
+                            .Where(pr => pr.PromotionID == pp.PromotionID &&
+                                         pr.StartDate <= DateTime.Now &&
+                                         pr.EndDate >= DateTime.Now)
+                            .Select(pr => pr.DiscountPercentage)
+                            .FirstOrDefault())
+                        .FirstOrDefault(),
+                    // Lấy danh sách ảnh phụ
+                    SupplementaryImages = db.ImageProducts
+                        .Where(img => img.ProductsID == p.ProductID)
+                        .Select(img => img.ImageURL)
+                        .ToList()
                 })
                 .FirstOrDefault();
 
@@ -39,6 +89,7 @@ namespace LapTrinhWebBanHang.Controllers
 
             return Json(new { success = true, data = product }, JsonRequestBehavior.AllowGet);
         }
+
 
     }
 }

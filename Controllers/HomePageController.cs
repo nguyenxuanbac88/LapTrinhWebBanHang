@@ -50,6 +50,7 @@ namespace LapTrinhWebBanHang.Controllers
                     p.ProductName,
                     p.Price,
                     p.ImageURL,
+                    p.Description,
                     // Truy vấn lấy tên danh mục từ bảng Categories
                     CategoryName = db.Categories
                         .Where(c => c.CategoryID == p.CategoryID)
@@ -60,6 +61,84 @@ namespace LapTrinhWebBanHang.Controllers
 
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetAllProductsPromotion()
+        {
+            /* ghi chú dành riêng cho FrontEnd
+                  {
+                  "success": true,
+                  "data": [
+                    {
+                      "ProductID": 1,
+                      "ProductName": "Product A",
+                      "Price": 100.00,
+                      "ImageURL": "/images/productA.jpg",
+                      "Description": "Description",
+                      "IsDiscounted": true,
+                      "DiscountAmount": 10.00,
+                      "DiscountPercentage": null
+                    },
+                    {
+                      "ProductID": 2,
+                      "ProductName": "Product B",
+                      "Price": 150.00,
+                      "ImageURL": "/images/productB.jpg",
+                      "Description": "Description",
+                      "IsDiscounted": false,
+                      "DiscountAmount": null,
+                      "DiscountPercentage": null
+                    },
+                    {
+                      "ProductID": 3,
+                      "ProductName": "Product C",
+                      "Price": 200.00,
+                      "ImageURL": "/images/productC.jpg",
+                      "Description": "Description",
+                      "IsDiscounted": true,
+                      "DiscountAmount": null,
+                      "DiscountPercentage": 15.0
+                    }
+                  ]
+                }
+
+*/
+            var products = db.Products
+             .Select(p => new
+             {
+                 p.ProductID,
+                 p.ProductName,
+                 p.Price,
+                 p.ImageURL,
+                 p.Description,
+                 // Kiểm tra nếu sản phẩm có khuyến mãi đang hoạt động
+                 IsDiscounted = db.ProductPromotions
+                     .Any(pp => pp.ProductID == p.ProductID &&
+                                db.Promotions.Any(pr => pr.PromotionID == pp.PromotionID &&
+                                                        pr.StartDate <= DateTime.Now &&
+                                                        pr.EndDate >= DateTime.Now)),
+                 // Lấy chi tiết khuyến mãi nếu có
+                 DiscountAmount = db.ProductPromotions
+                     .Where(pp => pp.ProductID == p.ProductID)
+                     .Select(pp => db.Promotions
+                         .Where(pr => pr.PromotionID == pp.PromotionID &&
+                                      pr.StartDate <= DateTime.Now &&
+                                      pr.EndDate >= DateTime.Now)
+                         .Select(pr => pr.DiscountAmount)
+                         .FirstOrDefault())
+                     .FirstOrDefault(),
+                 DiscountPercentage = db.ProductPromotions
+                     .Where(pp => pp.ProductID == p.ProductID)
+                     .Select(pp => db.Promotions
+                         .Where(pr => pr.PromotionID == pp.PromotionID &&
+                                      pr.StartDate <= DateTime.Now &&
+                                      pr.EndDate >= DateTime.Now)
+                         .Select(pr => pr.DiscountPercentage)
+                         .FirstOrDefault())
+                     .FirstOrDefault()
+             })
+             .ToList();
+            return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }
