@@ -410,5 +410,101 @@ namespace LapTrinhWebBanHang.Controllers
             return Json(new { success = true, data = product }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult AddPromotion()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult AddPromotion(string promotionName, string description, decimal? discountAmount, decimal? discountPercentage, DateTime startDate, DateTime endDate)
+        {
+            // Kiểm tra tính hợp lệ của dữ liệu
+            if (string.IsNullOrWhiteSpace(promotionName) || startDate >= endDate)
+            {
+                ModelState.AddModelError("", "Invalid promotion data");
+                return View();
+            }
+
+            // Tạo đối tượng Promotion mới
+            var newPromotion = new Promotion
+            {
+                PromotionName = promotionName,
+                Description = description,
+                DiscountAmount = discountAmount,
+                DiscountPercentage = discountPercentage,
+                StartDate = startDate,
+                EndDate = endDate
+            };
+
+            // Thêm chương trình khuyến mãi vào bảng Promotions
+            db.Promotions.Add(newPromotion);
+            db.SaveChanges();
+
+            // Chuyển hướng về danh sách hoặc trang khác nếu cần
+            return RedirectToAction("PromotionList"); // hoặc bất kỳ action nào bạn muốn chuyển tới
+        }
+        [HttpGet]
+        public ActionResult PromotionList()
+        {
+            var promotions = db.Promotions.ToList();
+            return View(promotions);
+        }
+
+        [HttpGet]
+        public ActionResult EditPromotion(int id)
+        {
+            var promotion = db.Promotions
+                .Where(p => p.PromotionID == id)
+                .Select(p => new PromotionViewModel
+                {
+                    PromotionID = p.PromotionID,
+                    PromotionName = p.PromotionName,
+                    Description = p.Description,
+                    DiscountAmount = p.DiscountAmount,
+                    DiscountPercentage = p.DiscountPercentage,
+                    StartDate = p.StartDate,
+                    EndDate = p.EndDate
+                })
+                .FirstOrDefault();
+
+            if (promotion == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(promotion);
+
+        }
+
+        [HttpPost]
+       // [ValidateAntiForgeryToken]
+        public ActionResult EditPromotion(PromotionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var promotion = db.Promotions.Find(model.PromotionID);
+                if (promotion == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Cập nhật các trường
+                promotion.PromotionName = model.PromotionName;
+                promotion.Description = model.Description;
+                promotion.DiscountAmount = model.DiscountAmount;
+                promotion.DiscountPercentage = model.DiscountPercentage;
+                promotion.StartDate = model.StartDate;
+                promotion.EndDate = model.EndDate;
+
+                db.SaveChanges();
+
+                // Chuyển hướng về danh sách khuyến mãi sau khi lưu
+                return RedirectToAction("PromotionList", "Admin");
+            }
+            return View(model);
+        }
+
     }
 }
