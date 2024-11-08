@@ -40,6 +40,26 @@ namespace LapTrinhWebBanHang.Controllers
             return View(products); // Trả về View với model là danh sách sản phẩm
         }
 
+        [HttpGet]
+        public JsonResult GetAllProductsJson()
+        {
+            var products = db.Products
+                .Select(p => new
+                {
+                    p.ProductID,
+                    p.ProductName,
+                    p.Price,
+                    p.ImageURL,
+                    // Truy vấn lấy tên danh mục từ bảng Categories
+                    CategoryName = db.Categories
+                        .Where(c => c.CategoryID == p.CategoryID)
+                        .Select(c => c.CategoryName)
+                        .FirstOrDefault()
+                })
+                .ToList();
+
+            return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }
