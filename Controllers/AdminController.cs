@@ -50,6 +50,14 @@ namespace LapTrinhWebBanHang.Controllers
         // GET: Admin
         public ActionResult Dashboard()
         {
+            //lấy số dư tháng hiện tại và truyền vào ViewBag
+            ViewBag.CurrentMonthBalance = GetCurrentMonthBalance();
+            //Lấy số dư năm hiện tại 
+            ViewBag.CurrentYearBalance = GetCurrentYearBalance();
+            //Lấy số lượng đơn hàng tháng hiện tại
+            ViewBag.CurrentMonthOrderCount = GetCurrentMonthOrderCount();
+            //Tính tổng số người dùng
+            ViewBag.CurrentTotalUserCount = GetTotalUserCount();
             return View();
         }
 
@@ -578,5 +586,52 @@ namespace LapTrinhWebBanHang.Controllers
             return RedirectToAction("PromotionList");
         }
 
+        public decimal GetCurrentMonthBalance()
+        {
+                var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                var endDate = startDate.AddMonths(1);
+
+                var currentMonthBalance = db.Orders
+                    .Where(o => o.OrderDate >= startDate && o.OrderDate < endDate)
+                    .SelectMany(o => o.OrderDetails)
+                    .Sum(od => (decimal?)od.Quantity * od.UnitPrice) ?? 0; 
+
+                return currentMonthBalance;
+        }
+
+        public decimal GetCurrentYearBalance()
+        {
+                var startOfYear = new DateTime(DateTime.Now.Year, 1, 1);
+                var startOfNextYear = startOfYear.AddYears(1);
+
+                var currentYearBalance = db.Orders
+                    .Where(o => o.OrderDate >= startOfYear && o.OrderDate < startOfNextYear)
+                    .SelectMany(o => o.OrderDetails)
+                    .Sum(od => (decimal?)od.Quantity * od.UnitPrice) ?? 0; 
+
+                return currentYearBalance;
+        }
+        public int GetCurrentMonthOrderCount()
+        {
+            var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var endDate = startDate.AddMonths(1);
+
+            // Đếm số lượng đơn hàng trong khoảng thời gian từ ngày đầu tiên đến cuối tháng hiện tại
+            int orderCount = db.Orders?
+                .Where(o => o.OrderDate >= startDate && o.OrderDate < endDate)
+                .Count() ?? 0;
+
+            return orderCount;
+        }
+        public int GetTotalUserCount()
+        {
+            // Đếm tổng số người dùng trong bảng Users
+            int userCount = db.Users.Count();
+            return userCount;
+        }
+        public ActionResult Orders()
+        {
+            return View();
+        }
     }
 }

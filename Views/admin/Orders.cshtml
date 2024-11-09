@@ -1,0 +1,164 @@
+﻿@model LapTrinhWebBanHang.Models.ProductViewModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/admin/Shared/_MasterLayout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- DataTables and jQuery from CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+</head>
+
+
+
+<div class="mb-3 row flex">
+    <div class="col-md-2">
+        <label for="type" class="form-label">Loại</label>
+        <select name="type" id="type" class="form-control">
+            <option value="">NIKE</option>
+            <option value="buy">ADIDAS</option>
+            <option value="sell">PUMA</option>
+            <option value="sell">ÁO ĐẤU</option>
+        </select>
+    </div>
+    <!-- Loại giao dịch -->
+    <div class="col-md-2">
+        <label for="type" class="form-label">Trạng Thái</label>
+        <select name="type" id="type" class="form-control">
+            <option value="buy">Đã Thanh Toán</option>
+            <option value="sell">Chờ Thanh Toán</option>
+            <option value="sell">Đã Huỷ</option>
+        </select>
+    </div>
+
+    <!-- Tài khoản -->
+    <div class="col-md-2">
+        <label for="username" class="form-label">Tài khoản</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Nhập tài khoản">
+    </div>
+
+    <!-- Ngày bắt đầu -->
+    <div class="col-md-2">
+        <label for="start_date" class="form-label">Ngày bắt đầu</label>
+        <input type="date" class="form-control" id="start_date" name="start_date">
+    </div>
+
+    <!-- Ngày kết thúc -->
+    <div class="col-md-2">
+        <label for="end_date" class="form-label">Ngày kết thúc</label>
+        <input type="date" class="form-control" id="end_date" name="end_date">
+    </div>
+    <!-- Tổng tiền -->
+    <div class="col-md-2 text-center">
+        <label for="total_amount" class="form-label">Tổng Tiền</label>
+        <input type="text" class="form-control" id="total_amount" name="total_amount" disabled placeholder="1.530.120">
+    </div>
+</div>
+<div class="text-center">
+    <button class="btn btn-primary">Lọc dữ liệu</button>
+</div>
+<!-- DataTales Example -->
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Lịch Sử Đơn Hàng</h6>
+
+    </div>
+    <div class="card-body">
+        <!-- Topbar Search -->
+        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                       aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tài Khoản</th>
+                        <th>Mã Đơn Hàng</th>
+                        <th>Nội Dung</th>
+                        <th>Địa chỉ</th>
+                        <th>Số Điện Thoại</th>
+                        <th>Tổng Tiền</th>
+                        <th>Trạng Thái</th>
+                        <th>Thời Gian</th>
+                        <th>Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>user01</td>
+                        <td>ORD001</td>
+                        <td>Mua giày Nike</td>
+                        <td>123 Đường ABC, TP.HCM</td>
+                        <td>0123456789</td>
+                        <td>1.200.000</td>
+                        <td>Đã Thanh Toán</td>
+                        <td>2023-11-10</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">Chi tiết</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>user02</td>
+                        <td>ORD002</td>
+                        <td>Mua giày Adidas</td>
+                        <td>456 Đường XYZ, Hà Nội</td>
+                        <td>0987654321</td>
+                        <td>1.500.000</td>
+                        <td>Chờ Thanh Toán</td>
+                        <td>2023-11-11</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">Chi tiết</button>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#dataTable').DataTable({
+            "paging": true,
+            "pageLength": 5,
+            "lengthMenu": [5, 10, 20, 50],
+            "language": {
+                "lengthMenu": "Hiển thị _MENU_ dòng mỗi trang",
+                "zeroRecords": "Không tìm thấy dữ liệu phù hợp",
+                "info": "Hiển thị _START_ đến _END_ của _TOTAL_ dòng",
+                "infoEmpty": "Không có dữ liệu",
+                "infoFiltered": "(lọc từ _MAX_ tổng số dòng)",
+                "paginate": {
+                    "first": "Đầu",
+                    "last": "Cuối",
+                    "next": "Sau",
+                    "previous": "Trước"
+                }
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>
