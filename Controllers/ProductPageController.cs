@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,11 +11,24 @@ namespace LapTrinhWebBanHang.Controllers
     public class ProductPageController : Controller
     {
         private WebsiteEntities4 db = new WebsiteEntities4(); // Sử dụng DbContext đã được tạo từ Entity Framework
-        // GET: ProductPage
-        public ActionResult ProductPage()
+                                                              // GET: ProductPage
+        public ActionResult ProductPage(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var product = db.Products.Find(id); // db là context của Entity Framework
+
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(product); // Truyền sản phẩm vào View
         }
+
 
         /*Note dành riêng cho dev frontEnd sử dụng
          {
@@ -36,6 +50,8 @@ namespace LapTrinhWebBanHang.Controllers
               }
             }
          */
+
+
         [HttpGet]
         public JsonResult GetProduct(int id)
         {
@@ -89,7 +105,5 @@ namespace LapTrinhWebBanHang.Controllers
 
             return Json(new { success = true, data = product }, JsonRequestBehavior.AllowGet);
         }
-
-
     }
 }
