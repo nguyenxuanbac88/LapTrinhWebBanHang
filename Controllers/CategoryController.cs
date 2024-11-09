@@ -70,7 +70,7 @@ namespace LapTrinhWebBanHang.Controllers
 
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult SortProductCateGory(int? IdCategory)
+        public ActionResult GetAllProducts(int? IdCategory)
         {
             // Lấy danh sách sản phẩm từ cơ sở dữ liệu, có kiểm tra điều kiện categoryId
             var products = db.Products

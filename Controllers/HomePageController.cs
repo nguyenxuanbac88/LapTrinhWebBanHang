@@ -41,9 +41,12 @@ namespace LapTrinhWebBanHang.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetAllProductsJson()
+        public JsonResult GetAllProductsJson(int? idCategory)
         {
+            // Lấy danh sách sản phẩm từ cơ sở dữ liệu, có kiểm tra điều kiện idCategory
             var products = db.Products
+                .Where(p => !idCategory.HasValue || p.CategoryID == idCategory) // Nếu có idCategory, lọc theo ID, nếu không lấy tất cả
+                .OrderBy(p => p.CategoryID) // Sắp xếp theo CategoryID
                 .Select(p => new
                 {
                     p.ProductID,
@@ -59,8 +62,10 @@ namespace LapTrinhWebBanHang.Controllers
                 })
                 .ToList();
 
+            // Trả về dữ liệu JSON
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult GetAllProductsPromotion()
         {
             /* ghi chú dành riêng cho FrontEnd
