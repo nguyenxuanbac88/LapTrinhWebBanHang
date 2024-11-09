@@ -30,23 +30,33 @@ namespace LapTrinhWebBanHang.Controllers
         {
             if (Session["Email"] == null)
             {
-                // Nếu chưa đăng nhập, chuyển hướng về trang đăng nhập
                 return RedirectToAction("Sign_in", "Account");
             }
 
-            // Thêm sản phẩm vào giỏ hàng
             var cart = GetCartFromSession();
-            cart.AddItem(new CartItem
+
+            // Giả sử bạn có một phương thức để lấy sản phẩm từ cơ sở dữ liệu
+            using (var db = new WebsiteEntities4())
             {
-                ProductID = productId,
-                Quantity = quantity
-            });
+                var product = db.Products.FirstOrDefault(p => p.ProductID == productId);
+                if (product != null)
+                {
+                    cart.AddItem(new CartItem
+                    {
+                        ProductID = product.ProductID,
+                        ProductName = product.ProductName,
+                        Price = product.Price,
+                        Quantity = quantity,
+                        ImageUrl = product.ImageURL
+                    });
+                    SaveCartToSession(cart);
+                }
+            }
 
-            // Cập nhật giỏ hàng vào session
-            SaveCartToSession(cart);
-
-            return RedirectToAction("Index"); // Quay lại giỏ hàng
+            // Trả về partial view giỏ hàng để cập nhật số lượng
+            return PartialView("CartSummary", cart);
         }
+
 
         // Xóa sản phẩm khỏi giỏ hàng
         public ActionResult RemoveFromCart(int productId)

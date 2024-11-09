@@ -10,12 +10,7 @@
     <div class="slide">
         <img src="https://bizweb.dktcdn.net/100/108/842/collections/giay-bong-da-dinh-thap-tf.jpg?v=1499702390127" alt="" />
     </div>
-    <div class="link-option">
-        <span>Giày bóng đá sân cỏ nhân tạo</span>
-        <hr />
-    </div>
     <div class="header-content">
-        <h3>Có ... sản phẩm</h3>
         <div class="filter">
             <span class="filter-btn">Filter <i class="fa-solid fa-sliders"></i></span>
         </div>
@@ -113,21 +108,7 @@
             </div>
         </div>
         <div class="content-right col-xl-10 col-md-9">
-            <div class="container-products row">
-                @for (int i = 0; i < 8; i++)
-                {
-                    <div onclick="window.location.href='@Url.Action("ProductPage", "ProductPage")'" class="product-item col-xl-3 col-lg-4 sol-sm-4 col-6">
-                        <div class="add-cart">+</div>
-                        <div class="product-image">
-                            <img src="~/Image/product-image/sale_product/Adidas X SpeedFlow 1 FG Meterorite.jpg" alt="" />
-                        </div>
-                        <div class="product-content">
-                            <h6>Nike Air Zoom Mercurial Vapor 16 Pro TF</h6>
-                            <p class="description-product">Pink Foam/Black</p>
-                            <p class="price">2,150,000</p>
-                        </div>
-                    </div>
-                }
+            <div class="container-products row" id="list-products">
             </div>
             <div class="number-list">
                 <ul>
@@ -143,3 +124,45 @@
     </div>
 </div>
 
+<script>
+    // Hàm để tải danh sách sản phẩm từ Controller
+function loadProducts() {
+    fetch('@Url.Action("GetAllProductsJson", "HomePage")')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const products = data.data;
+                const productList = document.getElementById('list-products');
+                productList.innerHTML = ''; // Làm trống danh sách trước khi thêm mới
+
+                // Duyệt qua danh sách sản phẩm và thêm vào HTML
+                products.forEach(product => {
+                    const productItem = document.createElement('div');
+                    productItem.classList.add('product-item', 'col-lg-3', 'col-sm-4', 'col-6');
+
+                    // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
+                    productItem.innerHTML = `
+                     <a style="color: black; text-decoration: none;" href="/Carts/AddToCart?productId=${product.ProductID}&quantity=1" class="btn btn-primary">Thêm vào giỏ</a>
+                    <a style="color: black; text-decoration: none;" href="@Url.Action("ProductPage", "ProductPage")/${product.ProductID}">
+                        <div class="product-image">
+                            <img src="@Url.Content("~/Image/product-image/${product.ImageURL}")" alt="${product.ProductName}" />
+                        </div>
+                        <div class="product-content">
+                            <h6>${product.ProductName}</h6>
+                            <p class="description-product">${product.Description}</p>
+                            <p class="price">${product.Price.toLocaleString()}</p>
+                        </div>
+                    </a>
+                    `;
+                    productList.appendChild(productItem);
+                });
+            } else {
+                console.log('Không thể tải sản phẩm');
+            }
+        })
+        .catch(error => console.log('Lỗi:', error));
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        loadProducts();
+    });
+</script>
