@@ -47,5 +47,28 @@ namespace LapTrinhWebBanHang.Controllers
 
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult SortProductCateGory(int? IdCategory)
+        {
+            // Lấy danh sách sản phẩm từ cơ sở dữ liệu, có kiểm tra điều kiện categoryId
+            var products = db.Products
+                .Where(p => !IdCategory.HasValue || p.CategoryID == IdCategory) // Nếu có categoryId, lọc theo ID, nếu không lấy tất cả
+                .OrderBy(p => p.CategoryID) // Sắp xếp theo CategoryID
+                .Select(p => new
+                {
+                    p.ProductID,
+                    p.ProductName,
+                    p.Price,
+                    p.ImageURL,
+                    p.Description,
+                    // Truy vấn lấy tên danh mục từ bảng Categories
+                    CategoryName = db.Categories
+                        .Where(c => c.CategoryID == p.CategoryID)
+                        .Select(c => c.CategoryName)
+                        .FirstOrDefault()
+                })
+                .ToList();
+
+            return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

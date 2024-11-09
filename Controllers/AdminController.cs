@@ -122,8 +122,20 @@ namespace LapTrinhWebBanHang.Controllers
         }
 
         // POST: Admin/CreateProducts
-        [HttpPost]
         //[ValidateAntiForgeryToken]
+        public ActionResult CreateProduct()
+        {
+            var model = new ProductViewModel
+            {
+                Colors = db.Colors.ToList(),
+                Sizes = db.Sizes.ToList()
+            };
+            ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName");
+            return View(model);
+        }
+
+        // POST: Admin/CreateProducts
+        [HttpPost]
         public ActionResult CreateProducts(ProductViewModel model, HttpPostedFileBase ImageFile)
         {
             if (ModelState.IsValid)
@@ -155,16 +167,23 @@ namespace LapTrinhWebBanHang.Controllers
                 db.Products.Add(model.Product);
                 db.SaveChanges();
 
-                // Thêm thông tin sản phẩm vào bảng ProductStock
-                var productStock = new ProductStock
+                // Thêm thông tin sản phẩm vào ProductStock cho từng kích thước được chọn
+                if (model.SelectedSizeIDs != null && model.SelectedSizeIDs.Count > 0)
                 {
-                    ProductID = model.Product.ProductID,
-                    ColorID = model.SelectedColorID,
-                    SizeID = model.SelectedSizeID,
-                    Quantity = model.Quantity
-                };
-                db.ProductStocks.Add(productStock);
-                db.SaveChanges();
+                    foreach (var sizeId in model.SelectedSizeIDs)
+                    {
+                        var productStock = new ProductStock
+                        {
+                            ProductID = model.Product.ProductID,
+                            ColorID = model.SelectedColorID,
+                            SizeID = sizeId,
+                            Quantity = model.Quantity
+                        };
+                        db.ProductStocks.Add(productStock);
+                    }
+                    db.SaveChanges();
+                }
+
 
                 // Xử lý và lưu ảnh phụ
                 if (model.AdditionalImages != null && model.AdditionalImages.Count > 0)
@@ -196,10 +215,10 @@ namespace LapTrinhWebBanHang.Controllers
                 return RedirectToAction("ManageProducts");
             }
 
-            // Nếu ModelState không hợp lệ, tải lại dữ liệu cho form và hiển thị lại
-            ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName");
+            // Nếu ModelState không hợp lệ, tải lại danh sách Colors và Sizes
             model.Colors = db.Colors.ToList();
             model.Sizes = db.Sizes.ToList();
+            ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName");
             return View(model);
         }
 
@@ -350,8 +369,6 @@ namespace LapTrinhWebBanHang.Controllers
         }
 
 
-
-        // POST: Admin/CreateProducts
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult CreateCategory(Category category)

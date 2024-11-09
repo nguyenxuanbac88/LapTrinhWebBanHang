@@ -10,6 +10,7 @@ namespace LapTrinhWebBanHang.Models
         public Product Product { get; set; }
         public string CategoryName { get; set; }
         public List<ProductStockViewModel> ProductStocks { get; set; } // Sử dụng ProductStockViewModel để chứa SizeValue
+        public List<int> SelectedSizeIDs { get; set; } = new List<int>();
         public List<HttpPostedFileBase> AdditionalImages { get; set; }
         public List<ImageProduct> ExistingImages { get; set; }
         public int SelectedColorID { get; set; }

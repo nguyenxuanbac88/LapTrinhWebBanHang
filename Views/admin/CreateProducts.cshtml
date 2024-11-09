@@ -3,7 +3,7 @@
     Layout = "~/Views/admin/Shared/_MasterLayout.cshtml";
 }
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("CreateProducts", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
@@ -44,8 +44,9 @@
 
     <div class="form-group">
         <label for="Size">Size</label>
-        @Html.DropDownListFor(m => m.SelectedSizeID, new SelectList(Model.Sizes, "SizeID", "SizeValue"), "-- Select Size --", new { @class = "form-control" })
+        @Html.ListBoxFor(m => m.SelectedSizeIDs, new MultiSelectList(Model.Sizes, "SizeID", "SizeValue"), new { @class = "form-control", multiple = "multiple" })
     </div>
+
 
     <div class="form-group">
         <label for="Quantity">Quantity</label>
