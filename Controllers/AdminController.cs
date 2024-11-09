@@ -56,7 +56,7 @@ namespace LapTrinhWebBanHang.Controllers
         // GET: Admin/ManageProducts
         public ActionResult ManageProducts()
         {
-            // Bước 1: Lấy tất cả sản phẩm
+            //Lấy tất cả sản phẩm
             var products = db.Products.ToList();
 
             // Bước 2: Tạo danh sách ProductViewModel cho mỗi sản phẩm
@@ -128,7 +128,7 @@ namespace LapTrinhWebBanHang.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Khai báo allowedExtensions ở đầu
+                // Khai báo allowedExtensions cho các định dạng tệp tin hợp lệ
                 string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
 
                 // Xử lý ảnh chính
@@ -137,7 +137,7 @@ namespace LapTrinhWebBanHang.Controllers
                     string extension = Path.GetExtension(ImageFile.FileName).ToLower();
                     if (allowedExtensions.Contains(extension))
                     {
-                        string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + extension;
+                        string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + Guid.NewGuid().ToString("N").Substring(0, 8) + extension;
                         string path = Path.Combine(Server.MapPath("~/image/product-image/"), fileName);
                         ImageFile.SaveAs(path);
                         model.Product.ImageURL = fileName;
@@ -176,7 +176,8 @@ namespace LapTrinhWebBanHang.Controllers
                             string extension = Path.GetExtension(additionalImage.FileName).ToLower();
                             if (allowedExtensions.Contains(extension))
                             {
-                                string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_sub" + extension;
+                                // Tạo tên file duy nhất cho mỗi ảnh phụ
+                                string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + Guid.NewGuid().ToString("N").Substring(0, 8) + "_sub" + extension;
                                 string path = Path.Combine(Server.MapPath("~/image/product-image/"), fileName);
                                 additionalImage.SaveAs(path);
 
@@ -195,6 +196,7 @@ namespace LapTrinhWebBanHang.Controllers
                 return RedirectToAction("ManageProducts");
             }
 
+            // Nếu ModelState không hợp lệ, tải lại dữ liệu cho form và hiển thị lại
             ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName");
             model.Colors = db.Colors.ToList();
             model.Sizes = db.Sizes.ToList();
@@ -445,6 +447,7 @@ namespace LapTrinhWebBanHang.Controllers
             // Chuyển hướng về danh sách hoặc trang khác nếu cần
             return RedirectToAction("PromotionList"); // hoặc bất kỳ action nào bạn muốn chuyển tới
         }
+
         [HttpGet]
         public ActionResult PromotionList()
         {
@@ -504,6 +507,46 @@ namespace LapTrinhWebBanHang.Controllers
                 return RedirectToAction("PromotionList", "Admin");
             }
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult AddPromotion(string promotionName, string description, decimal? discountAmount, decimal? discountPercentage, DateTime startDate, DateTime endDate, int? productId = null)
+        {
+            // Kiểm tra tính hợp lệ của dữ liệu
+            if (string.IsNullOrWhiteSpace(promotionName) || startDate >= endDate)
+            {
+                ModelState.AddModelError("", "Invalid promotion data");
+                return View();
+            }
+
+            // Tạo đối tượng Promotion mới
+            var newPromotion = new Promotion
+            {
+                PromotionName = promotionName,
+                Description = description,
+                DiscountAmount = discountAmount,
+                DiscountPercentage = discountPercentage,
+                StartDate = startDate,
+                EndDate = endDate
+            };
+
+            // Thêm chương trình khuyến mãi vào bảng Promotions
+            db.Promotions.Add(newPromotion);
+            db.SaveChanges();
+
+            // Nếu có productId hợp lệ, thêm vào bảng ProductPromotions để liên kết sản phẩm với chương trình khuyến mãi
+            if (productId.HasValue)
+            {
+                var productPromotion = new ProductPromotion
+                {
+                    ProductID = productId.Value,
+                    PromotionID = newPromotion.PromotionID
+                };
+                db.ProductPromotions.Add(productPromotion);
+                db.SaveChanges();
+            }
+
+            // Chuyển hướng về danh sách chương trình khuyến mãi hoặc trang khác nếu cần
+            return RedirectToAction("PromotionList");
         }
 
     }
