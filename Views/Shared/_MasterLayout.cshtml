@@ -50,13 +50,19 @@
                 </button>
                 <div class="collapse navbar-collapse list-nav" id="navbarNav">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">@Html.ActionLink("TẤT CẢ", "CategoryPage", "Category")</li>
+                        <li class="nav-item"><a href="@Url.Action("CategoryPage", "Category", new { id = 0 })">TẤT CẢ</a></li>
                         <li class="nav-item">
                             <a href="">THƯƠNG HIỆU<i class="ti-angle-down"></i></a>
                             <ul class="sub-nav">
-                                <li onclick="this.querySelector('a').click()"><a href="">Nike</a></li>
-                                <li onclick="this.querySelector('a').click()"><a href="">Adidas</a></li>
-                                <li onclick="this.querySelector('a').click()"><a href="">Puma</a></li>
+                                <li>
+                                    <a href="@Url.Action("CategoryPage", "Category", new { id = 1 })">Nike</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("CategoryPage", "Category", new { id = 2 })">Adidas</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("CategoryPage", "Category", new { id = 3 })">Puma</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item">

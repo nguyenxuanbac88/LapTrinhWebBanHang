@@ -27,6 +27,11 @@ namespace LapTrinhWebBanHang
                 url: "",
                 defaults: new { controller = "HomePage", action = "Home_page" }
             );
+            routes.MapRoute(
+            name: "Category",
+            url: "Category/{id}",
+            defaults: new { controller = "ProductPage", action = "Category", id = UrlParameter.Optional }
+            );
 
             // Route cho xác thực mã
             routes.MapRoute(
