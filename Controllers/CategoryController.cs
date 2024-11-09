@@ -13,7 +13,30 @@ namespace LapTrinhWebBanHang.Controllers
         // GET: Category
         public ActionResult CategoryPage()
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+            Response.Cache.SetNoStore();
+
             return View();
+        }
+
+        public ActionResult GetAllProducts()
+        {
+            var products = db.Products
+                .Select(p => new
+                {
+                    p.ProductID,
+                    p.ProductName,
+                    p.Price,
+                    p.ImageURL,
+                    CategoryName = db.Categories
+                        .Where(c => c.CategoryID == p.CategoryID)
+                        .Select(c => c.CategoryName)
+                        .FirstOrDefault()
+                })
+                .ToList();
+
+            return View(products); // Trả về View với model là danh sách sản phẩm
         }
         public ActionResult SortProductsName(string data)
         {
