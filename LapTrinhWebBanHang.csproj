@@ -204,6 +204,8 @@
     <Content Include="Content\Account\ResetPassword.css" />
     <Content Include="Content\Account\VerifyResetCode.css" />
     <Content Include="Content\Admin\CreateProduct.css" />
+    <Content Include="Content\Admin\sb-admin-2.css" />
+    <Content Include="Content\Admin\sb-admin-2.min.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />

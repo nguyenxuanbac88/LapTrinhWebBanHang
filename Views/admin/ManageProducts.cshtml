@@ -4,76 +4,105 @@
     ViewBag.Title = "Quản lý sản phẩm";
     Layout = "~/Views/admin/Shared/_MasterLayout.cshtml";
 }
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <h2>Quản lý sản phẩm</h2>
 
-<h2>Quản lý sản phẩm</h2>
-
-<p>
-    <a href="@Url.Action("CreateProducts", "Admin")" class="btn btn-success">Thêm sản phẩm mới</a>
-</p>
-
-<p>
-    <a href="@Url.Action("ManageCategory", "Admin")" class="btn btn-success">Quản lý loại sản phẩm</a>
-</p>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>ID sản phẩm</th>
-            <th>Ảnh chính</th>
-            <th>Tên sản phẩm</th>
-            <th>Giá</th>
-            <th>Danh mục</th>
-            <th>Màu sắc & Kích thước</th>
-            <th>Ảnh phụ</th>
-            <th>Thao tác</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <!-- Hiển thị ID sản phẩm -->
-                <td>@item.Product.ProductID</td>
-
-                <!-- Hiển thị ảnh chính -->
-                <td>
-                    <img src="~/image/product-image/@item.Product.ImageURL" alt="Ảnh chính" style="width:50px; height:auto;" />
-                </td>
-
-                <!-- Hiển thị tên sản phẩm -->
-                <td>@item.Product.ProductName</td>
-
-                <!-- Hiển thị giá sản phẩm -->
-                <td>@string.Format("{0:N0}", item.Product.Price)</td>
-
-
-                <!-- Hiển thị tên danh mục -->
-                <td>@item.CategoryName</td>
-
-                <!-- Hiển thị màu sắc và kích thước -->
-                <td>
-                    @foreach (var stock in item.ProductStocks)
-                    {
-                        <div>
-                            Màu: @stock.ColorID, Kích thước: @stock.SizeValue, Kho: @stock.Quantity
-                        </div>
-                    }
-                </td>
-
-                <!-- Hiển thị ảnh phụ -->
-                <td>
-                    @foreach (var img in item.ExistingImages)
-                    {
-                        <img src="~/image/product-image/@img.ImageURL" alt="Ảnh phụ" style="width:50px; height:auto; margin-right: 5px;" />
-                    }
-                </td>
-
-                <!-- Thao tác chỉnh sửa và xóa sản phẩm -->
-                <td>
-                    <a href="@Url.Action("EditProducts", "Admin", new { id = item.Product.ProductID })" class="btn btn-primary">Sửa</a>
-                    <a href="@Url.Action("DeleteProducts", "Admin", new { id = item.Product.ProductID })" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">Xóa</a>
-                </td>
+                <th>ID Sản Phẩm</th>
+                <th>Ảnh Chính</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Danh mục</th>
+                <th>Màu sắc & Kích thước</th>
+                <th>Ảnh phụ</th>
+                <th>Thao tác</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Product.ProductID</td>
+                    <td>
+                        <img src="~/image/product-image/@item.Product.ImageURL" alt="Ảnh chính" style="width:50px; height:auto;" />
+                    </td>
+                    <td>@item.Product.ProductName</td>
+                    <td>@string.Format("{0:N0}", item.Product.Price)</td>
+                    <td>@item.CategoryName</td>
+                    <td>
+                        @foreach (var stock in item.ProductStocks)
+                        {
+                            <div>
+                                Màu: @stock.ColorID, Kích thước: @stock.SizeValue, Kho: @stock.Quantity
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @foreach (var img in item.ExistingImages)
+                        {
+                            <img src="~/image/product-image/@img.ImageURL" alt="Ảnh phụ" style="width:50px; height:auto; margin-right: 5px;" />
+                        }
+                    </td>
+                    <td>
+                        <a href="@Url.Action("EditProducts", "Admin", new { id = item.Product.ProductID })" class="btn btn-warning">Ngừng Bán</a>
+                        <a href="@Url.Action("EditProducts", "Admin", new { id = item.Product.ProductID })" class="btn btn-primary">Sửa</a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal"
+                                data-product-id="@item.Product.ProductID"
+                                data-product-name="@item.Product.ProductName">
+                            Xóa
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Modal Xóa Sản Phẩm -->
+    <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteProductModalLabel">Xóa sản phẩm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h3>Bạn có chắc muốn xóa sản phẩm này?</h3>
+                    <p><strong>Tên sản phẩm:</strong> <span id="productName"></span></p>
+                </div>
+                <div class="modal-footer">
+                    @using (Html.BeginForm("DeleteProducts", "Admin", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", "", new { id = "productID" })
+                        <button type="submit" class="btn btn-danger">Xóa</button>
+                    }
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                $('#deleteProductModal').on('show.bs.modal', function (event) {
+                    var button = $(event.relatedTarget);
+                    var productId = button.data('product-id');
+                    var productName = button.data('product-name');
+
+                    var modal = $(this);
+                    modal.find('#productID').val(productId);
+                    modal.find('#productName').text(productName);
+                });
+            });
+        </script>
+    }
+</body>

@@ -324,11 +324,13 @@ namespace LapTrinhWebBanHang.Controllers
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
+
             Product product = db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
             }
+
             return View(product);
         }
 
@@ -347,16 +349,16 @@ namespace LapTrinhWebBanHang.Controllers
 
             // Xóa các bản ghi liên quan trong ProductStock
             var productStocks = db.ProductStocks.Where(ps => ps.ProductID == id).ToList();
-            foreach (var stock in productStocks)
+            if (productStocks.Any())
             {
-                db.ProductStocks.Remove(stock);
+                db.ProductStocks.RemoveRange(productStocks);
             }
 
             // Xóa các bản ghi liên quan trong ImageProducts
             var imageProducts = db.ImageProducts.Where(img => img.ProductsID == id).ToList();
-            foreach (var image in imageProducts)
+            if (imageProducts.Any())
             {
-                db.ImageProducts.Remove(image);
+                db.ImageProducts.RemoveRange(imageProducts);
             }
 
             // Sau khi xóa các bản ghi liên quan, xóa sản phẩm chính
@@ -367,6 +369,7 @@ namespace LapTrinhWebBanHang.Controllers
 
             return RedirectToAction("ManageProducts");
         }
+
 
 
         [ValidateAntiForgeryToken]
