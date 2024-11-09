@@ -29,11 +29,11 @@
             <tr>
                 <td>@promotion.PromotionID</td>
                 <td>@promotion.PromotionName</td>
+                <td>@promotion.Description</td>
                 <td>@string.Format("{0:C}", promotion.DiscountAmount)</td>
                 <td>@promotion.DiscountPercentage %</td>
                 <td>@promotion.StartDate.ToString("yyyy-MM-dd")</td>
                 <td>@promotion.EndDate.ToString("yyyy-MM-dd")</td>
-                <td>@promotion.Description</td>
                 <td>
                     <a href="@Url.Action("EditPromotion", "admin", new { id = promotion.PromotionID })" class="btn btn-primary">Sửa</a>
                     <a href="@Url.Action("DeletePromotion", "admin", new { id = promotion.PromotionID })" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa chương trình khuyến mãi này?');">Xóa</a>
