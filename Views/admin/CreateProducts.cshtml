@@ -1,57 +1,110 @@
 ﻿@model LapTrinhWebBanHang.Models.ProductViewModel
 @{
-    Layout = "~/Views/admin/Shared/_MasterLayout.cshtml";
+    Layout = null;
 }
+<link href="~/Content/Admin/CreateProduct.css" rel="stylesheet" />
+<head>
 
-@using (Html.BeginForm("CreateProducts", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+    <!-- Liên kết Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
-    <div class="form-group">
-        <label for="ProductName">Product Name</label>
-        @Html.TextBoxFor(m => m.Product.ProductName, new { @class = "form-control", placeholder = "Enter product name" })
-    </div>
+    <!-- Các liên kết CSS của Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <div class="form-group">
-        <label for="Price">Price</label>
-        @Html.TextBoxFor(m => m.Product.Price, new { @class = "form-control", placeholder = "Enter price" })
-    </div>
+    <!-- Bootstrap Bundle JS (bao gồm Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
 
-    <div class="form-group">
-        <label for="Description">Description</label>
-        @Html.TextAreaFor(m => m.Product.Description, new { @class = "form-control", rows = 3, placeholder = "Enter description" })
-    </div>
+<div class="form-container">
+    @using (Html.BeginForm("CreateProducts", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
-    <div class="form-group">
-        <label for="Category">Category</label>
-        @Html.DropDownList("Product.CategoryID", ViewBag.Categories as SelectList, "-- Select Category --", new { @class = "form-control" })
-    </div>
+        <div class="form-group">
+            <label for="ProductName">Product Name</label>
+            @Html.TextBoxFor(m => m.Product.ProductName, new { @class = "form-control", placeholder = "Enter product name" })
+        </div>
 
-    <div class="form-group">
-        <label for="ImageFile">Image (Main)</label>
-        <input type="file" name="ImageFile" class="form-control-file" />
-    </div>
+        <div class="form-group">
+            <label for="Price">Price</label>
+            @Html.TextBoxFor(m => m.Product.Price, new { @class = "form-control", placeholder = "Enter price" })
+        </div>
 
-    <div class="form-group">
-        <label for="AdditionalImages">Additional Images</label>
-        <input type="file" name="AdditionalImages" multiple="multiple" class="form-control-file" />
-    </div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            @Html.TextAreaFor(m => m.Product.Description, new { @class = "form-control", rows = 3, placeholder = "Enter description" })
+        </div>
 
-    <div class="form-group">
-        <label for="Color">Color</label>
-        @Html.DropDownListFor(m => m.SelectedColorID, new SelectList(Model.Colors, "ColorID", "ColorName"), "-- Select Color --", new { @class = "form-control" })
-    </div>
+        <div class="form-group">
+            <label for="Category">Category</label>
+            @Html.DropDownList("Product.CategoryID", ViewBag.Categories as SelectList, "-- Select Category --", new { @class = "form-control" })
+        </div>
 
-    <div class="form-group">
-        <label for="Size">Size</label>
-        @Html.ListBoxFor(m => m.SelectedSizeIDs, new MultiSelectList(Model.Sizes, "SizeID", "SizeValue"), new { @class = "form-control", multiple = "multiple" })
-    </div>
+        <div class="form-group">
+            <label for="Color">Color</label>
+            @Html.DropDownListFor(m => m.SelectedColorID, new SelectList(Model.Colors, "ColorID", "ColorName"), "-- Select Color --", new { @class = "form-control" })
+        </div>
 
+        <div class="form-group">
+            <label for="Size">Size</label>
+            @Html.ListBoxFor(m => m.SelectedSizeIDs, new MultiSelectList(Model.Sizes, "SizeID", "SizeValue"), new { @class = "form-control", multiple = "multiple" })
+        </div>
 
-    <div class="form-group">
-        <label for="Quantity">Quantity</label>
-        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", placeholder = "Enter quantity" })
-    </div>
+        <div class="form-group">
+            <label for="Quantity">Quantity</label>
+            @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", placeholder = "Enter quantity" })
+        </div>
 
-    <button type="submit" class="btn btn-primary">Add Product</button>
-}
+        <!-- Phần tải ảnh chính -->
+        <div class="form-group">
+            <label for="ImageFile">Image (Main)</label>
+            <input type="file" name="ImageFile" class="form-control-file" onchange="previewImage(this, '#mainImagePreview')" />
+            <div class="image-preview">
+                <img id="mainImagePreview" src="#" alt="Main Image Preview" style="display:none;" />
+            </div>
+        </div>
+
+        <!-- Phần tải thêm ảnh phụ -->
+        <div class="form-group">
+            <label for="AdditionalImages">Additional Images</label>
+            <input type="file" name="AdditionalImages" multiple="multiple" class="form-control-file" onchange="previewAdditionalImages(this)" />
+            <div id="additionalImagesPreview" class="image-preview"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Product</button>
+        <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
+    }
+</div>
+
+<!-- Đoạn mã JavaScript xem trước ảnh -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function previewImage(input, previewId) {
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                $(previewId).attr('src', e.target.result).show();
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function previewAdditionalImages(input) {
+        $('#additionalImagesPreview').empty();
+        for (let i = 0; i < input.files.length; i++) {
+            const file = input.files[i];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = $('<img>').attr('src', e.target.result);
+                    $('#additionalImagesPreview').append(img);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    }
+</script>

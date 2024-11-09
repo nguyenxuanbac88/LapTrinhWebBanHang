@@ -105,8 +105,8 @@ namespace LapTrinhWebBanHang.Controllers
         // GET: Admin/ManageProducts
         public ActionResult ManageCategory()
         {
-            var ManageCategory = db.Categories.ToList();  // Lấy danh sách tất cả sản phẩm
-            return View(ManageCategory); // Trả về view với danh sách sản phẩm
+            var categories = db.Categories.ToList();  // Lấy danh sách tất cả loại sản phẩm
+            return View(categories); // Trả về view với danh sách loại sản phẩm
         }
 
         // GET: Admin/CreateProducts
@@ -390,6 +390,7 @@ namespace LapTrinhWebBanHang.Controllers
             return View();
         }
         // GET: Admin/EditCategory/5
+        // GET: Admin/EditCategory/5
         public ActionResult EditCategory(int? id)
         {
             if (id == null)
@@ -403,8 +404,16 @@ namespace LapTrinhWebBanHang.Controllers
                 return HttpNotFound();
             }
 
-            return View(category); // Pass the single category to the view
+            // Kiểm tra nếu là yêu cầu AJAX
+            if (Request.IsAjaxRequest())
+            {
+                // Trả về dữ liệu dưới dạng JSON để hiển thị trong modal
+                return Json(new { CategoryID = category.CategoryID, CategoryName = category.CategoryName }, JsonRequestBehavior.AllowGet);
+            }
+
+            return View(category); // Trả về view khi truy cập trực tiếp
         }
+
         [HttpGet]
         public JsonResult GetProduct(int id)
         {
