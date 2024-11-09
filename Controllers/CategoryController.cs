@@ -10,15 +10,31 @@ namespace LapTrinhWebBanHang.Controllers
     public class CategoryController : Controller
     {
         private WebsiteEntities4 db = new WebsiteEntities4(); // Sử dụng DbContext đã được tạo từ Entity Framework
-        // GET: Category
-        public ActionResult CategoryPage()
+                                                              // GET: Category
+        public ActionResult CategoryPage(int? id)
         {
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
-            Response.Cache.SetNoStore();
+            // Kiểm tra nếu id là null, lấy tất cả danh mục
+            var category = id.HasValue ? db.Categories.Find(id.Value) : null;
 
-            return View();
+            if (!id.HasValue || category == null)  // Khi không có id hoặc id không hợp lệ
+            {
+                // Lấy tất cả sản phẩm
+                var products = db.Products.ToList();
+                ViewBag.CategoryName = "Tất cả sản phẩm"; // Đặt tên là "Tất cả sản phẩm" nếu không có danh mục cụ thể
+                return View(products); // Trả về tất cả sản phẩm
+            }
+
+            // Lấy tất cả danh mục từ database
+            var categories = db.Categories.ToList();
+            ViewBag.Categories = categories;
+
+            // Lọc sản phẩm theo CategoryID được truyền vào
+            var productsByCategory = db.Products.Where(p => p.CategoryID == id.Value).ToList();
+            ViewBag.CategoryName = category.CategoryName; // Truyền tên danh mục vào ViewBag
+
+            return View(productsByCategory);
         }
+
 
         public ActionResult GetAllProducts()
         {
