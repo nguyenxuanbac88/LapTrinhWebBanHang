@@ -161,12 +161,16 @@
     right: 2%;
 }
 
+    .shopping-cart a{
+        color: white;
+    }
 
-.account {
-    position: absolute;
-    right: 1%;
-    top: 35%;
-}
+
+    .account {
+        position: absolute;
+        right: 1%;
+        top: 35%;
+    }
 
 .container-acc {
     display: flex;
