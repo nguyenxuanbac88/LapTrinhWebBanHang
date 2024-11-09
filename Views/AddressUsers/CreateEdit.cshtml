@@ -1,0 +1,48 @@
+﻿@model LapTrinhWebBanHang.Models.AddressUser
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.FullName)
+        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Phone)
+        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Province)
+        @Html.TextBoxFor(m => m.Province, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Town)
+        @Html.TextBoxFor(m => m.Town, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Block)
+        @Html.TextBoxFor(m => m.Block, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SpecificAddress)
+        @Html.TextBoxFor(m => m.SpecificAddress, new { @class = "form-control" })
+    </div>
+
+    if (Model.IdAddress == 0)
+    {
+        <button type="submit" class="btn btn-primary">Add Address</button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-primary">Update Address</button>
+    }
+}
+
+if (Model.IdAddress != 0)
+{
+    @using (Html.BeginForm("Delete", "AddressUsers", new { id = Model.IdAddress }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this address?')">Delete Address</button>
+    }
+}

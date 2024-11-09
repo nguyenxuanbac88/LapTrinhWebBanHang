@@ -12,6 +12,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Web.Helpers;
+using System.Security.Policy;
 
 namespace LapTrinhWebBanHang.Controllers
 {
@@ -132,6 +133,21 @@ namespace LapTrinhWebBanHang.Controllers
                             IsAdmin = 0
                         };
                         db.Users.Add(_user);
+                        db.SaveChanges();
+                        // Lưu thông tin địa chỉ vào bảng AddressUser
+                        // Tạo AddressUser mới và liên kết với IdUser của người dùng mới tạo
+                        var addressUser = new AddressUser
+                        {
+                            IdUser = _user.IdUser, // Gán IdUser từ User
+                            FullName = "", // Bạn có thể lấy thông tin này từ model nếu có
+                            Phone = "", // Bạn có thể lấy thông tin này từ model nếu có
+                            Province = "", // Tương tự như trên
+                            Town = "",
+                            Block = "",
+                            SpecificAddress = ""
+                        };
+
+                        db.AddressUsers.Add(addressUser);
                         db.SaveChanges();
                         await SendEmail.EmailSenderAsync(user, "Xác thực tài khoản", $"http://localhost:50375/verify/{token}");
                         ModelState.AddModelError("", "Đăng kí thành công,vui lòng vào email để xác thực tài khoản");

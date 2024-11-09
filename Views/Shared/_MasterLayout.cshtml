@@ -109,7 +109,10 @@
                 </div>
             </nav>
             <div class="shopping-cart">
-                <i class="fa-duotone fa-solid fa-cart-shopping"></i>
+                <!-- Biểu tượng giỏ hàng, khi click vào sẽ dẫn đến trang giỏ hàng -->
+                <a href="@Url.Action("Index", "Carts")">
+                    <i class="fa-duotone fa-solid fa-cart-shopping"></i>
+                </a>
             </div>
         </div>
         @RenderBody()
