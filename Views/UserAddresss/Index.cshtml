@@ -1,0 +1,35 @@
+﻿@model LapTrinhWebBanHang.Models.AddressUserViewModel
+@{
+    ViewBag.Title = "Sign_in";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<h2>Thông Tin Địa Chỉ</h2>
+
+@using (Html.BeginForm("Update", "AddressUser", FormMethod.Post))
+{
+    <div>
+        <label for="FullName">Họ và tên:</label>
+        @Html.TextBoxFor(m => m.FullName)
+    </div>
+    <div>
+        <label for="Phone">Số điện thoại:</label>
+        @Html.TextBoxFor(m => m.Phone)
+    </div>
+    <div>
+        <label for="Province">Tỉnh/Thành:</label>
+        @Html.TextBoxFor(m => m.Province)
+    </div>
+    <div>
+        <label for="Town">Quận/Huyện:</label>
+        @Html.TextBoxFor(m => m.Town)
+    </div>
+    <div>
+        <label for="Block">Phường/Xã:</label>
+        @Html.TextBoxFor(m => m.Block)
+    </div>
+    <div>
+        <label for="SpecificAddress">Địa chỉ cụ thể:</label>
+        @Html.TextBoxFor(m => m.SpecificAddress)
+    </div>
+    <button type="submit">Cập nhật</button>
+}
