@@ -1,7 +1,9 @@
-﻿
+﻿@model LapTrinhWebBanHang.Models.Product
 @{
     ViewBag.Title = "ProductPage";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
+
+
 }
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -11,27 +13,17 @@
     <div class="content row">
         <div class="content-left col-md-5">
             <div class="list-img">
-                <img src="~/Image/product_page/NikeMerSup10Mbappe/ZMSUPERFLY10ELITEKMFG(1).png" />
-                <img src="~/Image/product_page/NikeMerSup10Mbappe/ZMSUPERFLY10ELITEKMFG(2).png" />
-                <img src="~/Image/product_page/NikeMerSup10Mbappe/ZMSUPERFLY10ELITEKMFG(3).png" />
-                <img src="~/Image/product_page/NikeMerSup10Mbappe/ZMSUPERFLY10ELITEKMFG(4).png" />
-                <img src="~/Image/product_page/NikeMerSup10Mbappe/ZMSUPERFLY10ELITEKMFG(5).png" />
-                <img src="~/Image/product_page/NikeMerSup10Mbappe/ZMSUPERFLY10ELITEKMFG(6).png" />
-                <img src="~/Image/product_page/NikeMerSup10Mbappe/ZMSUPERFLY10ELITEKMFG(7).png" />
-                <img src="~/Image/product_page/NikeMerSup10Mbappe/ZMSUPERFLY10ELITEKMFG(8).png" />
-                <img src="~/Image/product_page/NikeMerSup10Mbappe/ZMSUPERFLY10ELITEKMFG(9).png" />
-                <img src="~/Image/product_page/NikeMerSup10Mbappe/ZMSUPERFLY10ELITEKMFG(10).png" />
             </div>
             <div class="img-main">
-                <img src="~/Image/product_page/NikeMerSup10Mbappe/ZMSUPERFLY10ELITEKMFG(1).png" />
+                <img src="~/Image/product-image/@Model.ImageURL" />
             </div>
         </div>
         <div class="content-mid col-md-4">
             <div class="product-content">
                 <div class="product-des">
-                    <h3>Nike Mercurial Superfly 10 Elite 'Kylian Mbappé'</h3>
-                    <p class="description">FG High-Top Football Boot</p>
-                    <p class="price">8,349,000₫</p>
+                    <h3>@Html.DisplayFor(model => model.ProductName)</h3>
+                    <p class="description">@Html.DisplayFor(model => model.Description)</p>
+                    <p class="price">@Html.DisplayFor(model => model.Price)₫</p>
                 </div>
                 <div class="select-size">
                     <h6>CHỌN SIZE: </h6>

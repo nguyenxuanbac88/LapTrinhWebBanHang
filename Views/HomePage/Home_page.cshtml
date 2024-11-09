@@ -85,26 +85,13 @@
 
 <!-- CONTENT -->
 <div class="container">
-
     <!-- NEW PRODUCTS -->
     <div class="new-products">
         <h2>Sản phẩm mới</h2>
         <div class="row thumb">
             <img src="~/Image/thumbnail/bannerMain.png" />
         </div>
-        <div class="new-products-list row">
-            <!--  product-item -->
-            <div class="product-item col-lg-3 sol-sm-4 col-6">
-                <div class="product-image">
-                    <span class="new-tag tag">New</span>
-                    <img src="~/Image/product-image/new_product/ZM SUPERFLY 10 ELITE FG.png" alt="" />
-                </div>
-                <div class="product-content">
-                    <h6>Nike Mercurial Superfly 10 Elite Blueprint FG</h6>
-                    <p class="description-product">Pink Foam/Black</p>
-                    <p class="price">2,150,000</p>
-                </div>
-            </div>
+        <div class="new-products-list row" id="new-products-list">
         </div>
         <div class="number-list">
             <ul>
@@ -125,19 +112,7 @@
             <img class="col-md-6" src="~/Image/thumbnail/NikePack/NikeRiSingGemPack.jpg" />
             <img class="col-md-6" src="~/Image/thumbnail/AdidasPack/AdidasUniforiaPack.jpg" />
         </div>
-        <div class="hot-products-list row">
-            <!--  product-item -->
-            <div class="product-item col-lg-3 sol-sm-4 col-6">
-                <div class="product-image">
-                    <span class="hot-tag tag">HOT</span>
-                    <img src="~/Image/product-image/hot_product/ZM SUPERFLY 10 ELITE FG.png" alt="" />
-                </div>
-                <div class="product-content">
-                    <h6>Nike Mercurial Superfly 10 Elite Blueprint FG</h6>
-                    <p class="description-product">Pink Foam/Black</p>
-                    <p class="price">2,150,000</p>
-                </div>
-            </div>
+        <div class="hot-products-list row" id="hot-products-list">
         </div>
     </div>
 
@@ -265,6 +240,108 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Hàm để tải danh sách sản phẩm từ Controller
+    function loadNewProducts() {
+        fetch('@Url.Action("GetAllProductsJson", "HomePage")')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const products = data.data;
+                    const newproductList = document.getElementById('new-products-list');
+                    newproductList.innerHTML = ''; // Làm trống danh sách trước khi thêm mới
+
+                    // Duyệt qua danh sách sản phẩm và thêm vào HTML
+                    products.forEach(product => {
+                        const productItem = document.createElement('div');
+                        productItem.classList.add('product-item', 'col-lg-3', 'col-sm-4', 'col-6');
+
+                        // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
+                        productItem.innerHTML = `
+                        <a style="color: black; text-decoration: none;" href="@Url.Action("ProductPage", "ProductPage")/${product.ProductID}">
+                            <div class="product-image">
+                                <span class="new-tag tag">New</span>
+                                <img src="@Url.Content("~/Image/product-image/${product.ImageURL}")" alt="${product.ProductName}" />
+                            </div>
+                            <div class="product-content">
+                                <h6>${product.ProductName}</h6>
+                                <p class="description-product">${product.Description}</p>
+                                <p class="price">${product.Price.toLocaleString()}</p>
+                            </div>
+                        </a>
+                        `;
+                        newproductList.appendChild(productItem);
+                    });
+                } else {
+                    console.log('Không thể tải sản phẩm');
+                }
+            })
+            .catch(error => console.log('Lỗi:', error));
+    }
+
+    function loadHotProducts() {
+        fetch('@Url.Action("GetAllProductsJson", "HomePage")')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const products = data.data;
+                    const hotproductList = document.getElementById('hot-products-list');
+                    hotproductList.innerHTML = ''; // Làm trống danh sách trước khi thêm mới
+
+                    // Duyệt qua danh sách sản phẩm và thêm vào HTML
+                    products.forEach(product => {
+                        const productItem = document.createElement('div');
+                        productItem.classList.add('product-item', 'col-lg-3', 'col-sm-4', 'col-6');
+
+                        // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
+                        productItem.innerHTML = `
+                        <a style="color: black; text-decoration: none;" href="@Url.Action("ProductPage", "ProductPage")/${product.ProductID}">
+                            <div class="product-image">
+                                <span class="new-tag tag">New</span>
+                                <img src="@Url.Content("~/Image/product-image/${product.ImageURL}")" alt="${product.ProductName}" />
+                            </div>
+                            <div class="product-content">
+                                <h6>${product.ProductName}</h6>
+                                <p class="description-product">${product.Description}</p>
+                                <p class="price">${product.Price.toLocaleString()}</p>
+                            </div>
+                        </a>
+                        `;
+                        hotproductList.appendChild(productItem);
+                    });
+                } else {
+                    console.log('Không thể tải sản phẩm');
+                }
+            })
+            .catch(error => console.log('Lỗi:', error));
+    }
+
+    // Gọi hàm loadProducts khi trang được tải
+    document.addEventListener('DOMContentLoaded', function () {
+        loadNewProducts();
+        loadHotProducts();
+    });
+
+    //window.onscroll = function () {
+    //    makeDivNav();
+    //}
+
+    //// Di chuyển thanh NAV khi cuộn trang
+    //function makeDivNav() {
+    //    var fixedNav = document.querySelector(".nav"); // Sử dụng querySelector thay vì jQuery
+    //    var navPosition = fixedNav.offsetTop;
+    //    const scrollPosition = document.body.scrollTop || document.documentElement.scrollTop;
+
+    //    if (scrollPosition > navPosition) {
+    //        fixedNav.classList.add("fixed");
+    //    } else {
+    //        fixedNav.classList.remove("fixed");
+    //    }
+    //}
+</script>
+
+
 
 
 
