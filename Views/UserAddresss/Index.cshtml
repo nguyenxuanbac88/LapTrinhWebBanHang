@@ -1,35 +1,66 @@
 ﻿@model LapTrinhWebBanHang.Models.AddressUserViewModel
+
 @{
-    ViewBag.Title = "Sign_in";
+    ViewBag.Title = "Cập nhật thông tin địa chỉ";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
-<h2>Thông Tin Địa Chỉ</h2>
 
-@using (Html.BeginForm("Update", "AddressUser", FormMethod.Post))
+<h2>Cập nhật thông tin địa chỉ</h2>
+
+@if (TempData["SuccessMessage"] != null)
 {
-    <div>
-        <label for="FullName">Họ và tên:</label>
-        @Html.TextBoxFor(m => m.FullName)
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
     </div>
-    <div>
-        <label for="Phone">Số điện thoại:</label>
-        @Html.TextBoxFor(m => m.Phone)
+}
+
+@using (Html.BeginForm("Update", "UserAddresss", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FullName)
+        @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.FullName)
     </div>
-    <div>
-        <label for="Province">Tỉnh/Thành:</label>
-        @Html.TextBoxFor(m => m.Province)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone)
+        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Phone)
     </div>
-    <div>
-        <label for="Town">Quận/Huyện:</label>
-        @Html.TextBoxFor(m => m.Town)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Province)
+        @Html.TextBoxFor(model => model.Province, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Province)
     </div>
-    <div>
-        <label for="Block">Phường/Xã:</label>
-        @Html.TextBoxFor(m => m.Block)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Town)
+        @Html.TextBoxFor(model => model.Town, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Town)
     </div>
-    <div>
-        <label for="SpecificAddress">Địa chỉ cụ thể:</label>
-        @Html.TextBoxFor(m => m.SpecificAddress)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Block)
+        @Html.TextBoxFor(model => model.Block, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Block)
     </div>
-    <button type="submit">Cập nhật</button>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SpecificAddress)
+        @Html.TextBoxFor(model => model.SpecificAddress, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.SpecificAddress)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập nhật thông tin</button>
+}
+
+<!-- Hiển thị thông báo nếu chưa có thông tin -->
+@if (Model.FullName == "" && Model.Phone == "" && Model.Province == "" && Model.Town == "" && Model.Block == "" && Model.SpecificAddress == "")
+{
+    <div class="alert alert-warning">
+        Không có thông tin địa chỉ. Vui lòng cập nhật thông tin.
+    </div>
 }

@@ -7,6 +7,7 @@ namespace LapTrinhWebBanHang.Models
 {
     public class AddressUserViewModel
     {
+        public int IdUser { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }
         public string Province { get; set; }
@@ -14,4 +15,5 @@ namespace LapTrinhWebBanHang.Models
         public string Block { get; set; }
         public string SpecificAddress { get; set; }
     }
+
 }
