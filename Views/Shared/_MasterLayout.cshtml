@@ -94,16 +94,8 @@
                                         <span>@email</span>
                                     </a>
                                     <div class="dropdown-menu">
-                                        @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new
-                                        {
-                                            @class =
-                                        "dropdown-item"
-                                        })
-                                        @Html.ActionLink("Thông tin","Index", "UserAddresss", null, new
-                                   {
-                                       @class =
-                                        "dropdown-item"
-                                   })
+                                        @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new{@class ="dropdown-item"})
+                                        @Html.ActionLink("Thông tin","Index", "UserAddresss", null, new{@class ="dropdown-item"})
                                     </div>
                                 </div>
                             }
