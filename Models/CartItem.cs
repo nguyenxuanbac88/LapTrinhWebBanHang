@@ -7,16 +7,10 @@ namespace LapTrinhWebBanHang.Models
 {
     public class CartItem
     {
-        public int ProductID { get; set; }  // ID sản phẩm
-        public string ProductName { get; set; }  // Tên sản phẩm
-        public decimal Price { get; set; }  // Giá sản phẩm
-        public int Quantity { get; set; }  // Số lượng sản phẩm
-        public string ImageUrl { get; set; }  // URL hình ảnh sản phẩm
-
-        // Tính tổng tiền cho một sản phẩm (Quantity * Price)
-        public decimal TotalPrice
-        {
-            get { return Quantity * Price; }
-        }
+        public int ProductID { get; set; }
+        public string ProductName { get; set; } // Thêm tên sản phẩm
+        public decimal Price { get; set; } // Thêm giá sản phẩm
+        public int Quantity { get; set; }
+        public string ImageUrl { get; set; } // Tuỳ chọn: Thêm URL hình ảnh
     }
 }
