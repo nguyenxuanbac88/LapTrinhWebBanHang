@@ -94,9 +94,17 @@
                                         <span>@email</span>
                                     </a>
                                     <div class="dropdown-menu">
-                                        @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new{@class ="dropdown-item"})
-                                        @Html.ActionLink("Thông tin","Index", "UserAddresss", null, new{@class ="dropdown-item"})
+                                        @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Thông tin", "Index", "UserAddresss", null, new { @class = "dropdown-item" })
                                     </div>
+                                </div>
+                                <div class="shopping-cart">
+                                    <a href="@Url.Action("ViewCart", "Carts")">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                        <span id="cart-icon-quantity" class="badge bg-danger">
+                                            @(Session["CartQuantity"] ?? 0)
+                                        </span>
+                                    </a>
                                 </div>
                             }
                             else
@@ -111,12 +119,7 @@
                     </ul>
                 </div>
             </nav>
-            <div class="shopping-cart">
-                <!-- Biểu tượng giỏ hàng, khi click vào sẽ dẫn đến trang giỏ hàng -->
-                <a href="@Url.Action("Index", "Carts")">
-                    <i class="fa-duotone fa-solid fa-cart-shopping"></i>
-                </a>
-            </div>
+            
         </div>
         @RenderBody()
         <!--  footer -->
