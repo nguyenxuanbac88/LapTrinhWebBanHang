@@ -138,6 +138,7 @@
     <Compile Include="Models\Category.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CheckoutViewModel.cs" />
     <Compile Include="Models\Color.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -382,6 +383,7 @@
     <Content Include="Views\admin\Orders.cshtml" />
     <Content Include="Views\Carts\ViewCart.cshtml" />
     <Content Include="Views\Carts\OrderConfirmation.cshtml" />
+    <Content Include="Views\Carts\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
