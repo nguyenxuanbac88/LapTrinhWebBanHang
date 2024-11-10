@@ -1,0 +1,84 @@
+﻿
+.container{
+    padding: 50px 0;
+}
+
+.table-cart{
+    width: 100%;
+}
+
+h2{
+    text-align: center;
+    font-weight: bold;
+}
+
+.table-cart img {
+    width: 100px;
+}
+
+.name-product{
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.table-cart input{
+    width: 100px;
+}
+
+.table-cart button{
+    font-size: 0.7rem;
+}
+
+.row-product {
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Chuyển động mượt */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+    .row-product:hover {
+        transform: scale(1.015); /* Phóng to hàng khi hover */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tạo hiệu ứng bóng đổ */
+        z-index: 1; /* Đảm bảo hàng nổi lên trên các hàng khác */
+    }
+
+form{
+    display: flex;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+    .quantity-control button {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        background-color: #f0f0f0;
+        color: #333;
+    }
+
+    .quantity-control input[type="number"] {
+        width: 30px;
+        text-align: center;
+        border: none;
+        background: #fff;
+        font-size: 16px;
+        margin: 0 5px;
+    }
+
+.total-pay {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-pay h3{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
