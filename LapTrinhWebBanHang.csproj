@@ -361,12 +361,6 @@
     <Content Include="Views\Shared\_MasterLayout.cshtml" />
     <Content Include="Views\HomePage\Home_page.cshtml" />
     <Content Include="Views\Category\CategoryPage.cshtml" />
-    <Content Include="Views\admin\ManageProducts.cshtml" />
-    <Content Include="Views\admin\CreateProducts.cshtml" />
-    <Content Include="Views\admin\EditProducts.cshtml" />
-    <Content Include="Views\admin\DeleteProducts.cshtml" />
-    <Content Include="Views\admin\ManageCategory.cshtml" />
-    <Content Include="Views\admin\CreateCategory.cshtml" />
     <Content Include="Views\Account\Sign_in.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\ProductPage\ProductPage.cshtml" />
@@ -374,16 +368,23 @@
     <Content Include="Views\Account\VerifyResetCode.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\admin\Shared\_MasterLayout.cshtml" />
-    <Content Include="Views\admin\Dashboard.cshtml" />
-    <Content Include="Views\admin\AddInventory.cshtml" />
-    <Content Include="Views\admin\AddPromotion.cshtml" />
-    <Content Include="Views\admin\PromotionList.cshtml" />
-    <Content Include="Views\admin\EditPromotion.cshtml" />
     <Content Include="Views\UserAddresss\Index.cshtml" />
-    <Content Include="Views\admin\Orders.cshtml" />
     <Content Include="Views\Carts\ViewCart.cshtml" />
     <Content Include="Views\Carts\OrderConfirmation.cshtml" />
     <Content Include="Views\Carts\Checkout.cshtml" />
+    <Content Include="Views\admin\AddPromotion.cshtml" />
+    <Content Include="Views\admin\AddStock.cshtml" />
+    <Content Include="Views\admin\CreateProducts.cshtml" />
+    <Content Include="Views\admin\Dashboard.cshtml" />
+    <Content Include="Views\admin\DeleteProducts.cshtml" />
+    <Content Include="Views\admin\EditProducts.cshtml" />
+    <Content Include="Views\admin\EditPromotion.cshtml" />
+    <Content Include="Views\admin\ManageCategory.cshtml" />
+    <Content Include="Views\admin\ManageInventory.cshtml" />
+    <Content Include="Views\admin\ManageProducts.cshtml" />
+    <Content Include="Views\admin\Orders.cshtml" />
+    <Content Include="Views\admin\PromotionList.cshtml" />
+    <Content Include="Views\admin\_AddStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

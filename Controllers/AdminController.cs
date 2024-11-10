@@ -129,18 +129,6 @@ namespace LapTrinhWebBanHang.Controllers
             return View(model);
         }
 
-        // POST: Admin/CreateProducts
-        //[ValidateAntiForgeryToken]
-        public ActionResult CreateProduct()
-        {
-            var model = new ProductViewModel
-            {
-                Colors = db.Colors.ToList(),
-                Sizes = db.Sizes.ToList()
-            };
-            ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName");
-            return View(model);
-        }
 
         // POST: Admin/CreateProducts
         [HttpPost]

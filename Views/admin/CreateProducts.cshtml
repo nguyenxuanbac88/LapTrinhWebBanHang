@@ -1,4 +1,5 @@
-﻿@model LapTrinhWebBanHang.Models.ProductViewModel
+﻿﻿@model LapTrinhWebBanHang.Models.ProductViewModel
+
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/admin/Shared/_MasterLayout.cshtml";
@@ -25,28 +26,28 @@
         @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
         <div class="form-group">
-            <label for="ProductName">Product Name</label>
-            @Html.TextBoxFor(m => m.Product.ProductName, new { @class = "form-control", placeholder = "Enter product name" })
+            <label for="ProductName">Tên Sản Phẩm</label>
+            @Html.TextBoxFor(m => m.Product.ProductName, new { @class = "form-control", placeholder = "Điền Tên Sản Phẩm" })
         </div>
 
         <div class="form-group">
-            <label for="Price">Price</label>
-            @Html.TextBoxFor(m => m.Product.Price, new { @class = "form-control", placeholder = "Enter price" })
+            <label for="Price">Giá Bán</label>
+            @Html.TextBoxFor(m => m.Product.Price, new { @class = "form-control", placeholder = "Điền Giá Bán" })
         </div>
 
         <div class="form-group">
-            <label for="Description">Description</label>
-            @Html.TextAreaFor(m => m.Product.Description, new { @class = "form-control", rows = 3, placeholder = "Enter description" })
+            <label for="Description">Mô Tả Sản Phẩm</label>
+            @Html.TextAreaFor(m => m.Product.Description, new { @class = "form-control", rows = 3, placeholder = "Nội Dung Mô Tả" })
         </div>
 
         <div class="form-group">
-            <label for="Category">Category</label>
-            @Html.DropDownList("Product.CategoryID", ViewBag.Categories as SelectList, "-- Select Category --", new { @class = "form-control" })
+            <label for="Category">Loại Sản Phẩm</label>
+            @Html.DropDownListFor(model => model.Product.CategoryID, ViewBag.Categories as IEnumerable<SelectListItem>, "-- Chọn Loại Sản Phẩm --", new { @class = "form-control" })
         </div>
 
         <div class="form-group">
-            <label for="Color">Color</label>
-            @Html.DropDownListFor(m => m.SelectedColorID, new SelectList(Model.Colors, "ColorID", "ColorName"), "-- Select Color --", new { @class = "form-control" })
+            <label for="Color">Màu Sắc</label>
+            @Html.DropDownListFor(m => m.SelectedColorID, new SelectList(Model.Colors, "ColorID", "ColorName"), "-- Chọn Màu --", new { @class = "form-control" })
         </div>
 
         <div class="form-group">
@@ -61,15 +62,9 @@
             </div>
         </div>
 
-
-        <div class="form-group">
-            <label for="Quantity">Quantity</label>
-            @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", placeholder = "Enter quantity" })
-        </div>
-
         <!-- Main Image Upload Section -->
         <div class="form-group">
-            <label for="ImageFile">Main Image</label>
+            <label for="ImageFile">Ảnh Chính</label>
             <input type="file" name="ImageFile" class="form-control-file" onchange="previewImage(this, '#mainImagePreview')" />
             <div class="image-preview">
                 <img id="mainImagePreview" src="#" alt="Main Image Preview" style="display:none;" />
@@ -79,7 +74,7 @@
 
         <!-- Additional Images Upload Section -->
         <div class="form-group">
-            <label for="AdditionalImages">Additional Images</label>
+            <label for="AdditionalImages">Ảnh Phụ</label>
             <input type="file" name="AdditionalImages" multiple="multiple" class="form-control-file" onchange="previewAdditionalImages(this)" />
             <div id="additionalImagesPreview" class="image-preview">
                 <!-- Additional images will be displayed here -->
@@ -87,8 +82,8 @@
         </div>
 
 
-        <button type="submit" class="btn btn-primary">Add Product</button>
-        <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
+        <button type="submit" class="btn btn-primary">Thêm Sản Phẩm</button>
+        @*<button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>*@
     }
 </div>
 
