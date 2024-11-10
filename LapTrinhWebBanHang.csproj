@@ -242,6 +242,7 @@
     <Content Include="Content\MasterLayout\style.css" />
     <Content Include="Content\MasterLayout\subnav.css" />
     <Content Include="Content\Account\Register.css" />
+    <Content Include="Content\UserAddress\UserAddress.css" />
     <Content Include="DuAnWebSiteBanHang.sql" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

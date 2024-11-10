@@ -94,8 +94,8 @@
                                         <span>@email</span>
                                     </a>
                                     <div class="dropdown-menu">
-                                        @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new{@class ="dropdown-item"})
-                                        @Html.ActionLink("Thông tin","Index", "UserAddresss", null, new{@class ="dropdown-item"})
+                                        @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Thông tin", "Index", "UserAddresss", null, new { @class = "dropdown-item" })
                                     </div>
                                 </div>
                             }
@@ -120,47 +120,61 @@
         </div>
         @RenderBody()
         <!--  footer -->
-    <div id="footer" class="footer">
-        <div class="contact-footer row">
-            <div class="ourself col-md-3 col-6">
-                <h3>VỀ CHÚNG TÔI</h3>
-                @*<img src="https://hali.vn/wp-content/uploads/2020/01/logo-MU.jpg" alt="Logo MU" />*@
-                <div class="socials-list">
-                    <a href="https://www.facebook.com/ltt2712?locale=vi_VN" target="_blank">
-                        <i class="fab fa-facebook"></i>
-                    </a>
-                    <a href="https://www.instagram.com/_ltt_2712/" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://github.com/ltthanh2712" target="_blank">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://twitter.com/" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                    </a>
+        <div id="footer" class="footer">
+            <div class="contact-footer row">
+                <div class="ourself col-md-3 col-6">
+                    <h3>VỀ CHÚNG TÔI</h3>
+                    @*<img src="https://hali.vn/wp-content/uploads/2020/01/logo-MU.jpg" alt="Logo MU" />*@
+                    <div class="socials-list">
+                        <a href="https://www.facebook.com/ltt2712?locale=vi_VN" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/_ltt_2712/" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://github.com/ltthanh2712" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://twitter.com/" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="info col-md-3 col-6">
+                    <h3 style="margin-left: 24px;">CHÍNH SÁCH</h3>
+                    <ul>
+                        <li><a href="">Chính sách đổi trả</a></li>
+                        <li><a href="">Chính sách bảo hành</a></li>
+                        <li><a href="">Chính sách giao nhận hàng</a></li>
+                        <li><a href="">Chính sách bảo mật</a></li>
+                        <li><a href="">Chương trình khác hàng thân thiết</a></li>
+                    </ul>
+                </div>
+                <div class="map col-md-3 col-6">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li><a href="https://www.facebook.com/xuanbac.abc?locale=vi_VN" target="_blank">Nguyễn Xuân Bắc</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100039603459445&locale=vi_VN" target="_blank">Trần Duy Khoa</a></li>
+                        <li><a href="https://www.facebook.com/ltt2712?locale=vi_VN" target="_blank">Lâm Tấn Thành</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100022915635838&locale=vi_VN" target="_blank">Nguyễn Ngọc Minh Thư</a></li>
+                    </ul>
+                    @*<img src="~/Image/thumbnail/map.png" alt="" />*@
+                </div>
+                <div class="contact-address col-md-3 col-6">
+                    <h3>ĐỊA CHỈ</h3>
+                    <p>
+                        <i class="fa-solid fa-location-dot"></i><span>
+                            CN1: 806 QL22, ấp Mỹ Hoà 3, Hóc
+                            Môn, Hồ Chí Minh, Việt Nam
+                        </span> <br />
+                        <br />
+                        <i class="fa-solid fa-location-dot"></i><span>CN2: 828 Đ. Sư Vạn Hạnh, Phường 12, Quận 10, Hồ Chí Minh, Việt Nam </span><br />
+                        <br />
+                        <i class="fa-solid fa-location-dot"></i><span>CN3: 52-70 Ba Gia, Phường 7, Tân Bình, Hồ Chí Minh, Việt Nam </span><br />
+                    </p>
                 </div>
             </div>
-            <div class="info col-md-3 col-6">
-                <h3 style="margin-left: 24px;">CHÍNH SÁCH</h3>
-                <ul>
-                    <li><a href="">Chính sách đổi trả</a></li>
-                    <li><a href="">Chính sách bảo hành</a></li>
-
-                </ul>
-            </div>
-            <div class="map col-md-3 col-6">
-                <h3>LIÊN HỆ</h3>
-                @*<img src="~/Image/thumbnail/map.png" alt="" />*@
-            </div>
-            <div class="contact-address col-md-3 col-6">
-                <h3>ĐỊA CHỈ</h3>
-                <p>
-                    <i class="fa-solid fa-location-dot"></i>CN1: 806 QL22, ấp Mỹ Hoà 3, Hóc
-                    Môn, Hồ Chí Minh, Việt Nam <br/>
-                </p>
-            </div>
         </div>
-    </div>
         <script src="~/Scripts/home_page/main.js"></script>
     </div>
 </body>

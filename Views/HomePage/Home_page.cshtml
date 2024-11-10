@@ -143,23 +143,13 @@
     </div>
 
     <!--  jersey -->
-    <div class="jersey" id="jersey">
+    <div class="jersey">
         <h2>Áo đấu</h2>
         <div class="row thumb">
             <img class="col-md-6" src="~/Image/thumbnail/JerseyThumb/MUjersey.jpg" />
             <img class="col-md-6" src="~/Image/thumbnail/JerseyThumb/TOTjersey.jpg" />
         </div>
-        <div class="jersey-list row">
-            <!--  product-item -->
-            <div class="product-item col-lg-3 sol-sm-4 col-6">
-                <div class="product-image">
-                    <img src="" alt="" />
-                </div>
-                <div class="product-content">
-                    <h6>Nike Air Zoom Mercurial Vapor 16 Pro TF</h6>
-                    <p class="price">2,150,000</p>
-                </div>
-            </div>
+        <div class="jersey-list row" id="jersey-list">
         </div>
     </div>
 
@@ -242,24 +232,26 @@
 </div>
 
 <script>
-    // Hàm để tải danh sách sản phẩm từ Controller
     function loadNewProducts() {
-        fetch('@Url.Action("GetAllProductsJson", "HomePage")')
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const products = data.data;
-                    const newproductList = document.getElementById('new-products-list');
-                    newproductList.innerHTML = ''; // Làm trống danh sách trước khi thêm mới
+    fetch('@Url.Action("GetAllProductsJson", "HomePage")')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const products = data.data;
+                const newproductList = document.getElementById('new-products-list');
+                newproductList.innerHTML = ''; // Làm trống danh sách trước khi thêm mới
 
-                    // Duyệt qua danh sách sản phẩm và thêm vào HTML
-                    products.forEach(product => {
-                        const productItem = document.createElement('div');
-                        productItem.classList.add('product-item', 'col-lg-3', 'col-sm-4', 'col-6');
+                // Giới hạn hiển thị chỉ 8 sản phẩm đầu tiên
+                const limitedProducts = products.slice(0, 8);
 
-                        // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
-                        productItem.innerHTML = `
-                         <a style="color: black; text-decoration: none;" href="/Carts/AddToCart?productId=${product.ProductID}&quantity=1" class="btn btn-primary">Thêm vào giỏ</a>
+                // Duyệt qua danh sách sản phẩm giới hạn và thêm vào HTML
+                limitedProducts.forEach(product => {
+                    const productItem = document.createElement('div');
+                    productItem.classList.add('product-item', 'col-lg-3', 'col-sm-4', 'col-6');
+
+                    // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
+                    productItem.innerHTML = `
+                        <a style="color: black; text-decoration: none;" href="/Carts/AddToCart?productId=${product.ProductID}&quantity=1" class="btn btn-primary">Thêm vào giỏ</a>
                         <a style="color: black; text-decoration: none;" href="@Url.Action("ProductPage", "ProductPage")/${product.ProductID}">
                             <div class="product-image">
                                 <span class="new-tag tag">New</span>
@@ -271,32 +263,36 @@
                                 <p class="price">${product.Price.toLocaleString()}</p>
                             </div>
                         </a>
-                        `;
-                        newproductList.appendChild(productItem);
-                    });
-                } else {
-                    console.log('Không thể tải sản phẩm');
-                }
-            })
-            .catch(error => console.log('Lỗi:', error));
-    }
+                    `;
+                    newproductList.appendChild(productItem);
+                });
+            } else {
+                console.log('Không thể tải sản phẩm');
+            }
+        })
+        .catch(error => console.log('Lỗi:', error));
+}
 
-    function loadHotProducts() {
-        fetch('@Url.Action("GetAllProductsJson", "HomePage")')
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const products = data.data;
-                    const hotproductList = document.getElementById('hot-products-list');
-                    hotproductList.innerHTML = ''; // Làm trống danh sách trước khi thêm mới
 
-                    // Duyệt qua danh sách sản phẩm và thêm vào HTML
-                    products.forEach(product => {
-                        const productItem = document.createElement('div');
-                        productItem.classList.add('product-item', 'col-lg-3', 'col-sm-4', 'col-6');
+   function loadHotProducts() {
+    fetch('@Url.Action("GetAllProductsJson", "HomePage")')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const products = data.data;
+                const hotproductList = document.getElementById('hot-products-list');
+                hotproductList.innerHTML = ''; // Làm trống danh sách trước khi thêm mới
 
-                        // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
-                        productItem.innerHTML = `
+                // Giới hạn hiển thị chỉ 4 sản phẩm đầu tiên
+                const limitedProducts = products.slice(0, 4);
+
+                // Duyệt qua danh sách sản phẩm giới hạn và thêm vào HTML
+                limitedProducts.forEach(product => {
+                    const productItem = document.createElement('div');
+                    productItem.classList.add('product-item', 'col-lg-3', 'col-sm-4', 'col-6');
+
+                    // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
+                    productItem.innerHTML = `
                         <a style="color: black; text-decoration: none;" href="@Url.Action("ProductPage", "ProductPage")/${product.ProductID}">
                             <div class="product-image">
                                 <span class="new-tag tag">New</span>
@@ -308,20 +304,59 @@
                                 <p class="price">${product.Price.toLocaleString()}</p>
                             </div>
                         </a>
-                        `;
-                        hotproductList.appendChild(productItem);
-                    });
-                } else {
-                    console.log('Không thể tải sản phẩm');
-                }
-            })
-            .catch(error => console.log('Lỗi:', error));
-    }
+                    `;
+                    hotproductList.appendChild(productItem);
+                });
+            } else {
+                console.log('Không thể tải sản phẩm');
+            }
+        })
+        .catch(error => console.log('Lỗi:', error));
+}
+
+
+    // Hàm để tải danh sách áo đấu từ Controller
+function loadJerseys() {
+    fetch('@Url.Action("GetAllFootballJersey", "HomePage")')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const products = data.data;
+                const jerseyList = document.getElementById('jersey-list');
+                jerseyList.innerHTML = ''; // Làm trống danh sách trước khi thêm mới
+
+                // Duyệt qua danh sách sản phẩm và thêm vào HTML
+                products.forEach(product => {
+                    const productItem = document.createElement('div');
+                    productItem.classList.add('product-item', 'col-lg-3', 'col-sm-4', 'col-6');
+
+                    // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
+                    productItem.innerHTML = `
+                    <a style="color: black; text-decoration: none;" href="@Url.Action("ProductPage", "ProductPage")/${product.ProductID}">
+                        <div class="product-image">
+                            <img src="@Url.Content("~/Image/product-image/${product.ImageURL}")" alt="${product.ProductName}" />
+                        </div>
+                        <div class="product-content">
+                            <h6>${product.ProductName}</h6>
+                            <p class="description-product">${product.Description}</p>
+                            <p class="price">${product.Price.toLocaleString()}</p>
+                        </div>
+                    </a>
+                    `;
+                    jerseyList.appendChild(productItem);
+                });
+            } else {
+                console.log('Không thể tải áo đấu');
+            }
+        })
+        .catch(error => console.log('Lỗi:', error));
+}
 
     // Gọi hàm loadProducts khi trang được tải
     document.addEventListener('DOMContentLoaded', function () {
         loadNewProducts();
         loadHotProducts();
+        loadJerseys();
     });
 
     //window.onscroll = function () {

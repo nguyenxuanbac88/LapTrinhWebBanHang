@@ -95,6 +95,26 @@
         color: #ffffff;
     }
 
+.contact-footer .map ul {
+    padding: 0;
+}
+
+.contact-footer .map li {
+    list-style-type: none;
+    margin-top: 15px;
+    font-weight: 300;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+.contact-footer .map a {
+    text-decoration: none;
+    color: #ff9800;
+    transition: color 0.3s;
+}
+
+    .contact-footer .map a:hover {
+        color: #ffffff;
+    }
 .contact-footer img {
     width: 100px; /* Giảm kích thước logo */
     height: auto;
@@ -111,18 +131,23 @@
     color: #ff9800;
 }
 
-.contact-footer .contact-address p {
+.contact-footer .contact-address span {
     margin-top: 10px;
     opacity: 0.9;
     font-weight: 300;
     font-size: 0.9rem;
+    color: #ff9800;
 }
 
-.footer p {
-    margin-top: 15px;
-    opacity: 0.8;
-    font-size: 0.9rem;
-}
+    .contact-footer .contact-address span:hover{
+        color: white;
+    }
+
+    .footer p {
+        margin-top: 15px;
+        opacity: 0.8;
+        font-size: 0.9rem;
+    }
 
 /* Responsive footer */
 @media (max-width: 768px) {

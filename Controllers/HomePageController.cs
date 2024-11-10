@@ -143,7 +143,27 @@ namespace LapTrinhWebBanHang.Controllers
              .ToList();
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult GetAllFootballJersey()
+        {
+            // Lọc tất cả các sản phẩm có CategoryID là 4 (áo đấu)
+            var products = db.Products
+                .Where(p => p.Category.CategoryID == 4) // Lọc theo CategoryId
+                .Select(p => new
+                {
+                    p.ProductID,
+                    p.ProductName,
+                    p.Price,
+                    p.ImageURL,
+                    p.Description,
+                    // Truy vấn lấy tên danh mục từ bảng Categories
+                    categoryID = p.Category.CategoryID
+                })
+                .ToList();
 
+            // Trả về dữ liệu JSON
+            return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

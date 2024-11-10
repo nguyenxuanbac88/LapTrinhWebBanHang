@@ -1,0 +1,29 @@
+﻿.container{
+    padding: 80px;
+}
+
+h2{
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.form-info {
+    background-color: #f4f4f4;
+    padding: 100px 50px;
+    justify-content: center;
+}
+
+    .form-info input{
+        margin-bottom: 20px;
+    }
+
+    .form-info button {
+        width: 200px;
+        margin-top: 20px;
+    }
+
+    .form-info .back {
+        text-decoration: none;
+        color: black;
+    }

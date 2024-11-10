@@ -11,7 +11,8 @@ namespace LapTrinhWebBanHang.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class AddressUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,11 +23,17 @@ namespace LapTrinhWebBanHang.Models
     
         public int IdAddress { get; set; }
         public Nullable<int> IdUser { get; set; }
+        [DisplayName("H? tên")]
         public string FullName { get; set; }
+        [DisplayName("S? ði?n tho?i")]
         public string Phone { get; set; }
+        [DisplayName("T?nh")]
         public string Province { get; set; }
+        [DisplayName("Qu?n, huy?n, th? tr?n")]
         public string Town { get; set; }
+        [DisplayName("Phý?ng, x?, ?p")]
         public string Block { get; set; }
+        [DisplayName("S? nhà")]
         public string SpecificAddress { get; set; }
     
         public virtual User User { get; set; }
