@@ -377,12 +377,10 @@
     <Content Include="Views\admin\AddPromotion.cshtml" />
     <Content Include="Views\admin\PromotionList.cshtml" />
     <Content Include="Views\admin\EditPromotion.cshtml" />
-    <Content Include="Views\Carts\Index.cshtml" />
-    <Content Include="Views\Carts\Checkout.cshtml" />
-    <Content Include="Views\Carts\PaymentSuccess.cshtml" />
-    <Content Include="Views\Carts\CartSummary.cshtml" />
     <Content Include="Views\UserAddresss\Index.cshtml" />
     <Content Include="Views\admin\Orders.cshtml" />
+    <Content Include="Views\Carts\ViewCart.cshtml" />
+    <Content Include="Views\Carts\OrderConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
