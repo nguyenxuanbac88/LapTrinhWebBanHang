@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LapTrinhWebBanHang.Models;
@@ -131,6 +132,19 @@ namespace LapTrinhWebBanHang.Controllers
 
 
         // POST: Admin/CreateProducts
+        //[ValidateAntiForgeryToken]
+        public ActionResult CreateProduct()
+        {
+            var model = new ProductViewModel
+            {
+                Colors = db.Colors.ToList(),
+                Sizes = db.Sizes.ToList()
+            };
+            ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName");
+            return View(model);
+        }
+
+        // POST: Admin/CreateProducts
         [HttpPost]
         public ActionResult CreateProducts(ProductViewModel model, HttpPostedFileBase ImageFile)
         {
@@ -218,12 +232,11 @@ namespace LapTrinhWebBanHang.Controllers
             return View(model);
         }
 
-
         public ActionResult EditProducts(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             // Lấy sản phẩm từ cơ sở dữ liệu
@@ -233,15 +246,19 @@ namespace LapTrinhWebBanHang.Controllers
                 return HttpNotFound();
             }
 
+            // Lấy danh sách ảnh phụ từ ImageProducts
+            var additionalImagesUrls = db.ImageProducts
+                .Where(img => img.ProductsID == product.ProductID)
+                .Select(img => img.ImageURL)
+                .ToList();
+
             // Tạo ViewModel và truyền dữ liệu vào ViewModel
             var model = new ProductViewModel
             {
                 Product = product,
-                SelectedColorID = (int)(db.ProductStocks.FirstOrDefault(ps => ps.ProductID == product.ProductID)?.ColorID),
-                SelectedSizeID = (int)(db.ProductStocks.FirstOrDefault(ps => ps.ProductID == product.ProductID)?.SizeID),
-                Quantity = db.ProductStocks.FirstOrDefault(ps => ps.ProductID == product.ProductID)?.Quantity ?? 0,
+                SelectedColorID = db.ProductStocks.FirstOrDefault(ps => ps.ProductID == product.ProductID)?.ColorID ?? 0,
                 Colors = db.Colors.ToList(),
-                Sizes = db.Sizes.ToList()
+                AdditionalImagesUrls = additionalImagesUrls // Gán danh sách URL ảnh phụ
             };
 
             // Truyền danh sách Categories cho ViewBag để hiển thị trong dropdown
@@ -252,65 +269,78 @@ namespace LapTrinhWebBanHang.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProducts(ProductViewModel model, HttpPostedFileBase ImageFile)
+        public ActionResult EditProducts(ProductViewModel model, HttpPostedFileBase ImageFile, IEnumerable<HttpPostedFileBase> AdditionalImages)
         {
             if (ModelState.IsValid)
             {
-                // Xử lý ảnh chính nếu có file mới
-                string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
-                if (ImageFile != null && ImageFile.ContentLength > 0)
+                // Lấy sản phẩm từ cơ sở dữ liệu
+                var product = db.Products.Find(model.Product.ProductID);
+                if (product != null)
                 {
-                    string extension = Path.GetExtension(ImageFile.FileName).ToLower();
-                    if (allowedExtensions.Contains(extension))
+                    // Cập nhật thông tin sản phẩm
+                    product.ProductName = model.Product.ProductName;
+                    product.Description = model.Product.Description;
+                    product.Price = model.Product.Price;
+                    product.CategoryID = model.Product.CategoryID;
+
+                    // Cập nhật màu sắc nếu cần
+                    var productStock = db.ProductStocks.FirstOrDefault(ps => ps.ProductID == model.Product.ProductID);
+                    if (productStock != null)
                     {
+                        productStock.ColorID = model.SelectedColorID;
+                        db.Entry(productStock).State = EntityState.Modified;
+                    }
+
+                    // Xử lý ảnh chính nếu có file mới
+                    if (ImageFile != null && ImageFile.ContentLength > 0)
+                    {
+                        string extension = Path.GetExtension(ImageFile.FileName).ToLower();
                         string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + extension;
-                        string path = Path.Combine(Server.MapPath("~/image/product-image/"), fileName);
+                        string path = Path.Combine(Server.MapPath("~/Image/product-image/"), fileName);
                         ImageFile.SaveAs(path);
-                        model.Product.ImageURL = fileName;
+                        product.ImageURL = fileName; // Lưu tên file vào cơ sở dữ liệu
                     }
-                    else
+
+                    // Xử lý ảnh phụ nếu có file mới
+                    if (AdditionalImages != null)
                     {
-                        ViewBag.ErrorMessage = "Invalid file type. Please upload a JPG, JPEG, PNG, or GIF image.";
-                        model.Colors = db.Colors.ToList();
-                        model.Sizes = db.Sizes.ToList();
-                        return View(model);
+                        foreach (var file in AdditionalImages)
+                        {
+                            if (file != null && file.ContentLength > 0)
+                            {
+                                string extension = Path.GetExtension(file.FileName).ToLower();
+                                string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + Guid.NewGuid() + extension;
+                                string path = Path.Combine(Server.MapPath("~/Image/product-image/"), fileName);
+                                file.SaveAs(path);
+
+                                // Lưu ảnh phụ vào bảng ImageProducts
+                                db.ImageProducts.Add(new ImageProduct
+                                {
+                                    ProductsID = model.Product.ProductID,
+                                    ImageURL = fileName
+                                });
+                            }
+                        }
                     }
-                }
 
-                // Cập nhật thông tin sản phẩm
-                db.Entry(model.Product).State = EntityState.Modified;
-
-                // Cập nhật ProductStock
-                var productStock = db.ProductStocks.FirstOrDefault(ps => ps.ProductID == model.Product.ProductID);
-                if (productStock != null)
-                {
-                    productStock.ColorID = model.SelectedColorID;
-                    productStock.SizeID = model.SelectedSizeID;
-                    productStock.Quantity = model.Quantity;
-                    db.Entry(productStock).State = EntityState.Modified;
+                    // Lưu thay đổi
+                    db.Entry(product).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("ManageProducts");
                 }
-                else
-                {
-                    // Nếu ProductStock chưa tồn tại, tạo mới
-                    db.ProductStocks.Add(new ProductStock
-                    {
-                        ProductID = model.Product.ProductID,
-                        ColorID = model.SelectedColorID,
-                        SizeID = model.SelectedSizeID,
-                        Quantity = model.Quantity
-                    });
-                }
-
-                db.SaveChanges();
-                return RedirectToAction("ManageProducts");
             }
 
-            // Truyền lại dữ liệu cho View nếu có lỗi
+            // Nếu có lỗi, truyền lại dữ liệu cần thiết cho view
             ViewBag.Categories = new SelectList(db.Categories, "CategoryID", "CategoryName", model.Product.CategoryID);
             model.Colors = db.Colors.ToList();
-            model.Sizes = db.Sizes.ToList();
+            model.AdditionalImagesUrls = db.ImageProducts
+                .Where(img => img.ProductsID == model.Product.ProductID)
+                .Select(img => img.ImageURL)
+                .ToList(); // Gán lại ảnh phụ khi có lỗi
+
             return View(model);
         }
+
 
 
         // GET: Admin/DeleteProducts/5
@@ -507,7 +537,7 @@ namespace LapTrinhWebBanHang.Controllers
         }
 
         [HttpPost]
-       // [ValidateAntiForgeryToken]
+        // [ValidateAntiForgeryToken]
         public ActionResult EditPromotion(PromotionViewModel model)
         {
             if (ModelState.IsValid)
@@ -576,28 +606,28 @@ namespace LapTrinhWebBanHang.Controllers
 
         public decimal GetCurrentMonthBalance()
         {
-                var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                var endDate = startDate.AddMonths(1);
+            var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var endDate = startDate.AddMonths(1);
 
-                var currentMonthBalance = db.Orders
-                    .Where(o => o.OrderDate >= startDate && o.OrderDate < endDate)
-                    .SelectMany(o => o.OrderDetails)
-                    .Sum(od => (decimal?)od.Quantity * od.UnitPrice) ?? 0; 
+            var currentMonthBalance = db.Orders
+                .Where(o => o.OrderDate >= startDate && o.OrderDate < endDate)
+                .SelectMany(o => o.OrderDetails)
+                .Sum(od => (decimal?)od.Quantity * od.UnitPrice) ?? 0;
 
-                return currentMonthBalance;
+            return currentMonthBalance;
         }
 
         public decimal GetCurrentYearBalance()
         {
-                var startOfYear = new DateTime(DateTime.Now.Year, 1, 1);
-                var startOfNextYear = startOfYear.AddYears(1);
+            var startOfYear = new DateTime(DateTime.Now.Year, 1, 1);
+            var startOfNextYear = startOfYear.AddYears(1);
 
-                var currentYearBalance = db.Orders
-                    .Where(o => o.OrderDate >= startOfYear && o.OrderDate < startOfNextYear)
-                    .SelectMany(o => o.OrderDetails)
-                    .Sum(od => (decimal?)od.Quantity * od.UnitPrice) ?? 0; 
+            var currentYearBalance = db.Orders
+                .Where(o => o.OrderDate >= startOfYear && o.OrderDate < startOfNextYear)
+                .SelectMany(o => o.OrderDetails)
+                .Sum(od => (decimal?)od.Quantity * od.UnitPrice) ?? 0;
 
-                return currentYearBalance;
+            return currentYearBalance;
         }
         public int GetCurrentMonthOrderCount()
         {
@@ -621,5 +651,84 @@ namespace LapTrinhWebBanHang.Controllers
         {
             return View();
         }
+        // GET: Inventory
+        public ActionResult ManageInventory()
+        {
+            // Lấy thông tin sản phẩm và tồn kho
+            var inventoryData = db.ProductStocks
+                .Select(ps => new Models.InventoryAddStockViewModel // Đã sửa lỗi chính tả
+                {
+                    ProductStockID = ps.ProductStockID,
+                    ProductID = (int)ps.ProductID,
+                    ProductName = ps.Product.ProductName,
+                    MainImageUrl = ps.Product.ImageURL,
+                    Size = ps.Size.SizeValue,
+                    Color = ps.Color.ColorName,
+                    StockQuantity = (int)ps.Quantity
+                })
+        .ToList();
+
+            return View(inventoryData);
+        }
+        public ActionResult AddStock(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // Tìm sản phẩm theo ProductStockID
+            var productStock = db.ProductStocks.FirstOrDefault(ps => ps.ProductStockID == id);
+
+            if (productStock == null)
+            {
+                return Json(new { success = false, message = "Không tìm thấy sản phẩm trong kho." });
+            }
+
+            var model = new InventoryAddStockViewModel
+            {
+                ProductStockID = productStock.ProductStockID,
+                ProductID = (int)productStock.ProductID,
+                ProductName = productStock.Product.ProductName,
+                Size = productStock.Size.SizeValue, // Nếu cần hiển thị size
+                CurrentStockQuantity = (int)productStock.Quantity
+            };
+
+            return PartialView("_AddStock", model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddStock(InventoryAddStockViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var productStock = db.ProductStocks.FirstOrDefault(ps => ps.ProductStockID == model.ProductStockID);
+
+                // Kiểm tra xem productStock có tồn tại hay không
+                if (productStock != null)
+                {
+                    if (model.QuantityAdded <= 0)
+                    {
+                        return Json(new { success = false, message = "Số lượng nhập kho phải lớn hơn 0." });
+                    }
+
+                    // Cập nhật số lượng kho
+                    productStock.Quantity += model.QuantityAdded;
+                    db.Entry(productStock).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Không tìm thấy sản phẩm trong kho." });
+                }
+            }
+
+            return Json(new { success = false, message = "Không thể cập nhật số lượng kho." });
+        }
+
     }
 }

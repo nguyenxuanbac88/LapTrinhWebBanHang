@@ -145,6 +145,7 @@
     <Compile Include="Models\ImageProduct.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\InventoryAddStockViewModel.cs" />
     <Compile Include="Models\InventoryLog.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
