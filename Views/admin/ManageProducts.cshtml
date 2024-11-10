@@ -21,7 +21,7 @@
                 <th>Tên sản phẩm</th>
                 <th>Giá</th>
                 <th>Danh mục</th>
-                <th>Màu sắc & Kích thước</th>
+                <th>Kích Thước & Tồn Kho</th>
                 <th>Ảnh phụ</th>
                 <th>Thao tác</th>
             </tr>
@@ -41,7 +41,7 @@
                         @foreach (var stock in item.ProductStocks)
                         {
                             <div>
-                                Màu: @stock.ColorID, Kích thước: @stock.SizeValue, Kho: @stock.Quantity
+                             Size: @stock.SizeValue, Kho: @stock.Quantity
                             </div>
                         }
                     </td>
