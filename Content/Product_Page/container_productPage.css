@@ -7,6 +7,10 @@ a {
     color: black;
 }
 
+.style-everyList:hover{
+    color: var(--my-color);
+}
+
 .container {
     padding-bottom: 3%;
     padding-top: 3%;

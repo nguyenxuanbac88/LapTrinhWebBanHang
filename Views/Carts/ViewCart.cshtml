@@ -14,6 +14,7 @@
                 <th>Ảnh</th>
                 <th>Sản phẩm</th>
                 <th>Giá</th>
+                <th>Size</th>
                 <th>Số lượng</th>
                 <th>Tổng tiền</th>
                 <th></th>
@@ -29,6 +30,7 @@
                     <td>
                         @item.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ
                     </td>
+                    <td>@item.Size</td>
                     <td>
                         <form method="post" action="@Url.Action("UpdateCartItem", "Carts")">
                             <div class="quantity-control">
@@ -65,12 +67,15 @@
     function increaseQuantity(button) {
         const input = button.previousElementSibling;
         input.value = parseInt(input.value) + 1;
+        updateCartItem(input);  // Cập nhật giỏ hàng sau khi thay đổi số lượng
     }
 
     function decreaseQuantity(button) {
         const input = button.nextElementSibling;
         if (parseInt(input.value) > 1) { // Đảm bảo số lượng không nhỏ hơn 1
             input.value = parseInt(input.value) - 1;
+            updateCartItem(input);  // Cập nhật giỏ hàng sau khi thay đổi số lượng
         }
     }
+
 </script>
