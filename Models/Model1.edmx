@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WebsiteModel4.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WebsiteModel4.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AddressUser">
           <Key>
             <PropertyRef Name="IdAddress" />
@@ -71,6 +71,7 @@
           <Property Name="AddressID" Type="int" />
           <Property Name="OrderDate" Type="date" Nullable="false" />
           <Property Name="Status" Type="int" />
+          <Property Name="price" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Payments">
           <Key>
@@ -397,8 +398,7 @@
             <End Role="ProductStock" EntitySet="ProductStock" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WebsiteModel4" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -480,6 +480,7 @@
           <NavigationProperty Name="OrderDetails" Relationship="Self.orderdetails_orderid_foreign" FromRole="Orders" ToRole="OrderDetails" />
           <NavigationProperty Name="User" Relationship="Self.orders_userid_foreign" FromRole="Orders" ToRole="Users" />
           <NavigationProperty Name="Payments" Relationship="Self.payments_orderid_foreign" FromRole="Orders" ToRole="Payments" />
+          <Property Name="price" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -894,6 +895,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="WebsiteModel4.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="AddressID" ColumnName="AddressID" />

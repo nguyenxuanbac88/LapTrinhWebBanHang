@@ -150,7 +150,7 @@ namespace LapTrinhWebBanHang.Controllers
 
                         db.AddressUsers.Add(addressUser);
                         db.SaveChanges();
-                        await SendEmail.EmailSenderAsync(user, "Xác thực tài khoản", $"http://localhost:50375/verify/{token}");
+                        await SendEmail.EmailSenderAsync(user, "Xác thực tài khoản", $"https://hangmusports.site/verify/{token}");
                         ModelState.AddModelError("", "Đăng kí thành công,vui lòng vào email để xác thực tài khoản");
                     }
                     else
