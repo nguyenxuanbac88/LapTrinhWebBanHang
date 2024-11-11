@@ -23,15 +23,17 @@ namespace LapTrinhWebBanHang.Models
     
         public int OrderID { get; set; }
         public Nullable<int> UserID { get; set; }
-        public Nullable<int> AddressID { get; set; }
         public System.DateTime OrderDate { get; set; }
         public Nullable<int> Status { get; set; }
         public int price { get; set; }
+        public string phone { get; set; }
+        public string SpecificAddress { get; set; }
+        public string Block { get; set; }
+        public string Town { get; set; }
+        public string Province { get; set; }
     
-        public virtual AddressUser AddressUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> Payments { get; set; }
     }

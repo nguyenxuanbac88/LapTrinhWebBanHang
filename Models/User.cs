@@ -18,7 +18,6 @@ namespace LapTrinhWebBanHang.Models
         public User()
         {
             this.AddressUsers = new HashSet<AddressUser>();
-            this.Orders = new HashSet<Order>();
         }
     
         public int IdUser { get; set; }
@@ -33,7 +32,5 @@ namespace LapTrinhWebBanHang.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AddressUser> AddressUsers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
     }
 }

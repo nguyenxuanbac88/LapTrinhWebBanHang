@@ -11,7 +11,6 @@
         <EntityTypeShape EntityType="WebsiteModel4.ImageProduct" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="WebsiteModel4.InventoryLog" Width="1.5" PointX="10.5" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="WebsiteModel4.OrderDetail" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel4.Order" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="WebsiteModel4.Payment" Width="1.5" PointX="5.25" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="WebsiteModel4.ProductPromotion" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WebsiteModel4.Product" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
@@ -19,21 +18,20 @@
         <EntityTypeShape EntityType="WebsiteModel4.Promotion" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="WebsiteModel4.Size" Width="1.5" PointX="6" PointY="13.125" IsExpanded="true" />
         <EntityTypeShape EntityType="WebsiteModel4.sysdiagram" Width="1.5" PointX="7.75" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebsiteModel4.User" Width="1.5" PointX="1.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebsiteModel4.User" Width="1.5" PointX="7.625" PointY="10.625" IsExpanded="true" />
         <AssociationConnector Association="WebsiteModel4.addressuser_iduser_foreign" ManuallyRouted="false" />
-        <AssociationConnector Association="WebsiteModel4.orders_addressid_foreign" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel4.products_categoryid_foreign" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel4.productstock_colorid_foreign" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel4.imageproducts_productsid_foreign" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel4.inventorylog_productstockid_foreign" ManuallyRouted="false" />
-        <AssociationConnector Association="WebsiteModel4.orderdetails_orderid_foreign" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel4.orderdetails_productid_foreign" ManuallyRouted="false" />
-        <AssociationConnector Association="WebsiteModel4.orders_userid_foreign" ManuallyRouted="false" />
-        <AssociationConnector Association="WebsiteModel4.payments_orderid_foreign" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel4.productpromotions_productid_foreign" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel4.productpromotions_promotionid_foreign" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel4.productstock_productid_foreign" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel4.productstock_sizeid_foreign" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="WebsiteModel4.Order" Width="1.5" PointX="0.75" PointY="10.125" />
+        <AssociationConnector Association="WebsiteModel4.orderdetails_orderid_foreign" />
+        <AssociationConnector Association="WebsiteModel4.payments_orderid_foreign" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

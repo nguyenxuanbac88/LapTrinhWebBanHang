@@ -68,10 +68,14 @@
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
-          <Property Name="AddressID" Type="int" />
           <Property Name="OrderDate" Type="date" Nullable="false" />
           <Property Name="Status" Type="int" />
           <Property Name="price" Type="int" Nullable="false" />
+          <Property Name="phone" Type="nchar" MaxLength="10" />
+          <Property Name="SpecificAddress" Type="nchar" MaxLength="100" />
+          <Property Name="Block" Type="nchar" MaxLength="100" />
+          <Property Name="Town" Type="nchar" MaxLength="100" />
+          <Property Name="Province" Type="nchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Payments">
           <Key>
@@ -217,30 +221,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="orders_addressid_foreign">
-          <End Role="AddressUser" Type="Self.AddressUser" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AddressUser">
-              <PropertyRef Name="IdAddress" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="AddressID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="orders_userid_foreign">
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="IdUser" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="payments_orderid_foreign">
           <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
           <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
@@ -361,14 +341,6 @@
             <End Role="Products" EntitySet="Products" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="orders_addressid_foreign" Association="Self.orders_addressid_foreign">
-            <End Role="AddressUser" EntitySet="AddressUser" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="orders_userid_foreign" Association="Self.orders_userid_foreign">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
           <AssociationSet Name="payments_orderid_foreign" Association="Self.payments_orderid_foreign">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Payments" EntitySet="Payments" />
@@ -415,7 +387,6 @@
           <Property Name="Block" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="SpecificAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="Self.addressuser_iduser_foreign" FromRole="AddressUser" ToRole="Users" />
-          <NavigationProperty Name="Orders" Relationship="Self.orders_addressid_foreign" FromRole="AddressUser" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -464,23 +435,8 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="UnitPrice" Type="Int32" Nullable="false" />
           <Property Name="size" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Order" Relationship="Self.orderdetails_orderid_foreign" FromRole="OrderDetails" ToRole="Orders" />
           <NavigationProperty Name="Product" Relationship="Self.orderdetails_productid_foreign" FromRole="OrderDetails" ToRole="Products" />
-        </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="AddressID" Type="Int32" />
-          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Status" Type="Int32" />
-          <NavigationProperty Name="AddressUser" Relationship="Self.orders_addressid_foreign" FromRole="Orders" ToRole="AddressUser" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.orderdetails_orderid_foreign" FromRole="Orders" ToRole="OrderDetails" />
-          <NavigationProperty Name="User" Relationship="Self.orders_userid_foreign" FromRole="Orders" ToRole="Users" />
-          <NavigationProperty Name="Payments" Relationship="Self.payments_orderid_foreign" FromRole="Orders" ToRole="Payments" />
-          <Property Name="price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="WebsiteModel4.orderdetails_orderid_foreign" FromRole="OrderDetail" ToRole="Order" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -493,7 +449,7 @@
           <Property Name="PaymentMethod" Type="Int32" />
           <Property Name="PaymentStatus" Type="Int32" />
           <Property Name="TransactionID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Order" Relationship="Self.payments_orderid_foreign" FromRole="Payments" ToRole="Orders" />
+          <NavigationProperty Name="Order" Relationship="WebsiteModel4.payments_orderid_foreign" FromRole="Payment" ToRole="Order" />
         </EntityType>
         <EntityType Name="ProductPromotion">
           <Key>
@@ -580,7 +536,6 @@
           <Property Name="CreatedAt" Type="DateTime" Precision="7" />
           <Property Name="Ip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AddressUsers" Relationship="Self.addressuser_iduser_foreign" FromRole="Users" ToRole="AddressUser" />
-          <NavigationProperty Name="Orders" Relationship="Self.orders_userid_foreign" FromRole="Users" ToRole="Orders" />
         </EntityType>
         <Association Name="addressuser_iduser_foreign">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
@@ -591,18 +546,6 @@
             </Principal>
             <Dependent Role="AddressUser">
               <PropertyRef Name="IdUser" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="orders_addressid_foreign">
-          <End Role="AddressUser" Type="Self.AddressUser" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AddressUser">
-              <PropertyRef Name="IdAddress" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="AddressID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -654,18 +597,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="orderdetails_orderid_foreign">
-          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
-          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="OrderID" />
-            </Principal>
-            <Dependent Role="OrderDetails">
-              <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="orderdetails_productid_foreign">
           <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
           <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
@@ -675,30 +606,6 @@
             </Principal>
             <Dependent Role="OrderDetails">
               <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="orders_userid_foreign">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="IdUser" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="payments_orderid_foreign">
-          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
-          <End Role="Payments" Type="Self.Payment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="OrderID" />
-            </Principal>
-            <Dependent Role="Payments">
-              <PropertyRef Name="OrderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -757,7 +664,6 @@
           <EntitySet Name="ImageProducts" EntityType="Self.ImageProduct" />
           <EntitySet Name="InventoryLogs" EntityType="Self.InventoryLog" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Payments" EntityType="Self.Payment" />
           <EntitySet Name="ProductPromotions" EntityType="Self.ProductPromotion" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -769,10 +675,6 @@
           <AssociationSet Name="addressuser_iduser_foreign" Association="Self.addressuser_iduser_foreign">
             <End Role="Users" EntitySet="Users" />
             <End Role="AddressUser" EntitySet="AddressUsers" />
-          </AssociationSet>
-          <AssociationSet Name="orders_addressid_foreign" Association="Self.orders_addressid_foreign">
-            <End Role="AddressUser" EntitySet="AddressUsers" />
-            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="products_categoryid_foreign" Association="Self.products_categoryid_foreign">
             <End Role="Categories" EntitySet="Categories" />
@@ -790,21 +692,9 @@
             <End Role="ProductStock" EntitySet="ProductStocks" />
             <End Role="InventoryLog" EntitySet="InventoryLogs" />
           </AssociationSet>
-          <AssociationSet Name="orderdetails_orderid_foreign" Association="Self.orderdetails_orderid_foreign">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
           <AssociationSet Name="orderdetails_productid_foreign" Association="Self.orderdetails_productid_foreign">
             <End Role="Products" EntitySet="Products" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="orders_userid_foreign" Association="Self.orders_userid_foreign">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="payments_orderid_foreign" Association="Self.payments_orderid_foreign">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="Payments" EntitySet="Payments" />
           </AssociationSet>
           <AssociationSet Name="productpromotions_productid_foreign" Association="Self.productpromotions_productid_foreign">
             <End Role="Products" EntitySet="Products" />
@@ -822,8 +712,58 @@
             <End Role="Sizes" EntitySet="Sizes" />
             <End Role="ProductStock" EntitySet="ProductStocks" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          <EntitySet Name="Orders" EntityType="WebsiteModel4.Order" />
+          <AssociationSet Name="orderdetails_orderid_foreign" Association="WebsiteModel4.orderdetails_orderid_foreign">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="payments_orderid_foreign" Association="WebsiteModel4.payments_orderid_foreign">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="price" Type="Int32" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SpecificAddress" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Block" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Town" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Province" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="OrderDetails" Relationship="WebsiteModel4.orderdetails_orderid_foreign" FromRole="Order" ToRole="OrderDetail" />
+          <NavigationProperty Name="Payments" Relationship="WebsiteModel4.payments_orderid_foreign" FromRole="Order" ToRole="Payment" />
+        </EntityType>
+        <Association Name="orderdetails_orderid_foreign">
+          <End Type="WebsiteModel4.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="WebsiteModel4.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="payments_orderid_foreign">
+          <End Type="WebsiteModel4.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="WebsiteModel4.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -889,18 +829,6 @@
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
                 <ScalarProperty Name="size" ColumnName="size" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="WebsiteModel4.Order">
-              <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -993,6 +921,22 @@
                 <ScalarProperty Name="Stt" ColumnName="Stt" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="Ip" ColumnName="Ip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="WebsiteModel4.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+                <ScalarProperty Name="Block" ColumnName="Block" />
+                <ScalarProperty Name="SpecificAddress" ColumnName="SpecificAddress" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

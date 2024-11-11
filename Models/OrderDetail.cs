@@ -21,7 +21,7 @@ namespace LapTrinhWebBanHang.Models
         public int UnitPrice { get; set; }
         public string size { get; set; }
     
-        public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

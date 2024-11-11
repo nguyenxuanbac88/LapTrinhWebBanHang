@@ -168,9 +168,13 @@ public class CartsController : Controller
             var newOrder = new Order
             {
                 UserID = userId.Value,
-                AddressID = userAddress.IdAddress,
+                SpecificAddress = userAddress.SpecificAddress,
+                Block = userAddress.Block,
+                Town = userAddress.Town,
+                Province = userAddress.Province,
+                phone = userAddress.Phone,
                 OrderDate = DateTime.UtcNow,
-                Status = 1, // Trạng thái đơn hàng (ví dụ: đang xử lý)
+                Status = 0, // Trạng thái đơn hàng (ví dụ: đang xử lý)
                 price = totalAmount
             };
 
@@ -207,8 +211,6 @@ public class CartsController : Controller
         Session["Cart"] = null;
         Session["CartQuantity"] = 0;
     }
-
-
 
     // Xác nhận đơn hàng
     public ActionResult OrderConfirmation()
