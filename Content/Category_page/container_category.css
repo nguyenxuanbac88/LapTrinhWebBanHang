@@ -162,13 +162,14 @@ a {
         transition: transform 0.3s ease-in-out;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+        height: 300px;
     }
 
         .content-right .product-image img {
-            object-fit: cover;
             transition: transform 0.3s ease-in-out;
-            width: 100%;
-            cursor: pointer;
+            width: 100%; /* Đảm bảo ảnh lấp đầy chiều ngang khung chứa */
+            height: 100%; /* Căn chỉnh ảnh vừa với khung theo chiều dọc */
+            object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
         }
 
     .content-right .product-item:hover .product-image img {

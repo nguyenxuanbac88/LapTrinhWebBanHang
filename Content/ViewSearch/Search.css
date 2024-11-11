@@ -1,0 +1,62 @@
+﻿
+.container{
+    padding: 50px 0;
+}
+
+.product-item .product-image {
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 8px;
+    isolation: isolate;
+    height: 300px;
+}
+
+    .product-item .product-image img {
+        transition: transform 0.3s ease-in-out;
+        width: 100%; /* Đảm bảo ảnh lấp đầy chiều ngang khung chứa */
+        height: 100%; /* Căn chỉnh ảnh vừa với khung theo chiều dọc */
+        object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
+    }
+
+.product-item:hover .product-image img {
+    transform: scale(1.1);
+}
+
+.product-content,
+.product-image > img {
+    cursor: pointer;
+}
+
+
+.container .product-item .product-content {
+    width: 100%;
+    padding-top: 10px;
+}
+
+.container .product-content h6 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.container .product-content .description-product {
+    margin-top: 2px;
+    font-size: 0.8rem;
+    opacity: 0.4;
+}
+
+.container .product-content .price-container {
+    display: flex;
+}
+
+.container .product-content .price {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.container .product-content .old-price {
+    margin-left: 20px;
+    text-decoration: line-through;
+    color: gray;
+    font-size: 0.9rem;
+}

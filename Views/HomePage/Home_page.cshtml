@@ -107,38 +107,33 @@
 
     <!-- HOT PRODUCTS -->
     <div class="hot-products">
-        <h2>Sản phẩm HOT</h2>
+        <h2>NIKE</h2>
         <div class="row thumb">
             <img class="col-md-6" src="~/Image/thumbnail/NikePack/NikeRiSingGemPack.jpg" />
-            <img class="col-md-6" src="~/Image/thumbnail/AdidasPack/AdidasUniforiaPack.jpg" />
+            <img class="col-md-6" src="~/Image/thumbnail/NikePack/NikePinkPack.jpg" />
         </div>
-        <div class="hot-products-list row" id="hot-products-list">
+        <div class="hot-products-list row" id="nike-products-list">
         </div>
     </div>
 
-    <!-- SALE PRODUCTS -->
-    <div class="sale-products">
-        <h2>Sản phẩm khuyến mãi</h2>
+    <div class="hot-products">
+        <h2>ADIAS</h2>
         <div class="row thumb">
             <img class="col-md-4" src="~/Image/thumbnail/AdidasPack/AdidasHeatspawnPack.jpg" />
-            <img class="col-md-4" src="~/Image/thumbnail/NikePack/NikePinkPack.jpg" />
+            <img class="col-md-4" src="~/Image/thumbnail/AdidasPack/AdidasUniforiaPack.jpg" />
+            <img class="col-md-4" src="~/Image/thumbnail/AdidasPack/AdidasWhitePack.jpg" />
+        </div>
+        <div class="hot-products-list row" id="adidas-products-list">
+        </div>
+    </div>
+    <div class="hot-products">
+        <h2>PUMA</h2>
+        <div class="row thumb">
+            <img class="col-md-4" src="~/Image/thumbnail/PumaPack/PumaBrilliancePack.jpg" />
+            <img class="col-md-4" src="~/Image/thumbnail/PumaPack/PumaLightsOutPack.jpg" />
             <img class="col-md-4" src="~/Image/thumbnail/PumaPack/PumaRushPack.jpg" />
         </div>
-        <div class="sale-products-list row">
-            <!--  product-item -->
-            <div class="product-item col-lg-3 sol-sm-4 col-6">
-                <div class="product-image">
-                    <img src="~/Image/product-image/sale_product/Adidas X SpeedFlow 1 FG Meterorite.jpg" alt="" />
-                </div>
-                <div class="product-content">
-                    <h6>Nike Mercurial Superfly 10 Elite Blueprint FG</h6>
-                    <p class="description-product">Pink Foam/Black</p>
-                    <div class="price-container">
-                        <p class="price sale-price">2,150,000đ</p>
-                        <p class="old-price">2,500,000đ</p>
-                    </div>
-                </div>
-            </div>
+        <div class="hot-products-list row" id="puma-products-list">
         </div>
     </div>
 
@@ -158,7 +153,7 @@
         <h2>Thương hiệu </h2>
         <div class="brands-list row">
             <!--  Brands-item -->
-            <div class="product-item col-md-4 col-6">
+            <div class="brand-item col-lg-4 col-md-6 col-sm-12">
                 <div class="product-image">
                     <img src="~/Image/thumbnail/brand_banner_1_11zon.png" alt="" />
                 </div>
@@ -167,7 +162,7 @@
                 </div>
             </div>
             <!--  Brands-item -->
-            <div class="product-item col-md-4 col-6">
+            <div class="brand-item col-lg-4 col-md-6 col-sm-12">
                 <div class="product-image">
                     <img src="~/Image/thumbnail/brand_banner_2.jpg" alt="" />
                 </div>
@@ -176,21 +171,12 @@
                 </div>
             </div>
             <!--  Brands-item -->
-            <div class="product-item col-md-4 col-6">
+            <div class="brand-item col-lg-4 col-md-6 col-sm-12">
                 <div class="product-image">
                     <img src="~/Image/thumbnail/brand_banner_3.jpg" alt="" />
                 </div>
                 <div class="product-content">
                     <h6>GIÀY BÓNG ĐÁ PUMA</h6>
-                </div>
-            </div>
-            <!--  Brands-item -->
-            <div class="product-item col-md-4 col-6">
-                <div class="product-image">
-                    <img src="~/Image/thumbnail/brand_banner_4.jpg" alt="" />
-                </div>
-                <div class="product-content">
-                    <h6>GIÀY BÓNG ĐÁ MIZUNO</h6>
                 </div>
             </div>
         </div>
@@ -201,7 +187,7 @@
         <h2>Hướng dẫn chọn size</h2>
         <div class="instruct-list row">
             <!--  Instruct-item -->
-            <div class="product-item col-md-4 col-12">
+            <div class="brand-item col-md-4 col-12">
                 <div class="product-image">
                     <img src="~/Image/thumbnail/instruct 2.jpg" alt="" />
                 </div>
@@ -210,7 +196,7 @@
                 </div>
             </div>
             <!--  Instruct-item -->
-            <div class="product-item col-md-4 col-12">
+            <div class="brand-item col-md-4 col-12">
                 <div class="product-image">
                     <img src="~/Image/thumbnail/instruct 3.jpg" alt="" />
                 </div>
@@ -219,7 +205,7 @@
                 </div>
             </div>
             <!--  Instruct-item -->
-            <div class="product-item col-md-4 col-12">
+            <div class="brand-item col-md-4 col-12">
                 <div class="product-image">
                     <img src="~/Image/thumbnail/instruct 4.jpg" alt="" />
                 </div>
@@ -247,11 +233,10 @@
                 // Duyệt qua danh sách sản phẩm giới hạn và thêm vào HTML
                 limitedProducts.forEach(product => {
                     const productItem = document.createElement('div');
-                    productItem.classList.add('product-item', 'col-lg-3', 'col-sm-4', 'col-6');
+                    productItem.classList.add('product-item','col-xl-3' ,'col-lg-4', 'col-sm-6','col-12');
 
                     // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
                     productItem.innerHTML = `
-                        <a style="color: black; text-decoration: none;" href="/Carts/AddToCart?productId=${product.ProductID}&quantity=1" class="btn btn-primary">Thêm vào giỏ</a>
                         <a style="color: black; text-decoration: none;" href="@Url.Action("ProductPage", "ProductPage")/${product.ProductID}">
                             <div class="product-image">
                                 <span class="new-tag tag">New</span>
@@ -280,7 +265,7 @@
         .then(data => {
             if (data.success) {
                 const products = data.data;
-                const hotproductList = document.getElementById('hot-products-list');
+                const hotproductList = document.getElementById('new-products-list');
                 hotproductList.innerHTML = ''; // Làm trống danh sách trước khi thêm mới
 
                 // Giới hạn hiển thị chỉ 4 sản phẩm đầu tiên
@@ -289,7 +274,127 @@
                 // Duyệt qua danh sách sản phẩm giới hạn và thêm vào HTML
                 limitedProducts.forEach(product => {
                     const productItem = document.createElement('div');
-                    productItem.classList.add('product-item', 'col-lg-3', 'col-sm-4', 'col-6');
+                    productItem.classList.add('product-item', 'col-xl-3', 'col-lg-4', 'col-sm-6', 'col-12');
+
+                    // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
+                    productItem.innerHTML = `
+                        <a style="color: black; text-decoration: none;" href="@Url.Action("ProductPage", "ProductPage")/${product.ProductID}">
+                            <div class="product-image">
+                                <span class="new-tag tag">New</span>
+                                <img src="@Url.Content("~/Image/product-image/${product.ImageURL}")" alt="${product.ProductName}" />
+                            </div>
+                            <div class="product-content">
+                                <h6>${product.ProductName}</h6>
+                                <p class="description-product">${product.Description}</p>
+                                <p class="price">${product.Price.toLocaleString()}</p>
+                            </div>
+                        </a>
+                    `;
+                    hotproductList.appendChild(productItem);
+                });
+            } else {
+                console.log('Không thể tải sản phẩm');
+            }
+        })
+        .catch(error => console.log('Lỗi:', error));
+    }
+
+       function loadNikeProducts() {
+    fetch('@Url.Action("GetAllNike", "HomePage")')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const products = data.data;
+                const hotproductList = document.getElementById('nike-products-list');
+                hotproductList.innerHTML = ''; // Làm trống danh sách trước khi thêm mới
+
+                // Giới hạn hiển thị chỉ 4 sản phẩm đầu tiên
+                const limitedProducts = products.slice(0, 4);
+
+                // Duyệt qua danh sách sản phẩm giới hạn và thêm vào HTML
+                limitedProducts.forEach(product => {
+                    const productItem = document.createElement('div');
+                    productItem.classList.add('product-item', 'col-xl-3', 'col-lg-4', 'col-sm-6', 'col-12');
+
+                    // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
+                    productItem.innerHTML = `
+                        <a style="color: black; text-decoration: none;" href="@Url.Action("ProductPage", "ProductPage")/${product.ProductID}">
+                            <div class="product-image">
+                                <span class="new-tag tag">New</span>
+                                <img src="@Url.Content("~/Image/product-image/${product.ImageURL}")" alt="${product.ProductName}" />
+                            </div>
+                            <div class="product-content">
+                                <h6>${product.ProductName}</h6>
+                                <p class="description-product">${product.Description}</p>
+                                <p class="price">${product.Price.toLocaleString()}</p>
+                            </div>
+                        </a>
+                    `;
+                    hotproductList.appendChild(productItem);
+                });
+            } else {
+                console.log('Không thể tải sản phẩm');
+            }
+        })
+        .catch(error => console.log('Lỗi:', error));
+    }
+
+           function loadAdidasProducts() {
+    fetch('@Url.Action("GetAllAdidas", "HomePage")')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const products = data.data;
+                const hotproductList = document.getElementById('adidas-products-list');
+                hotproductList.innerHTML = ''; // Làm trống danh sách trước khi thêm mới
+
+                // Giới hạn hiển thị chỉ 4 sản phẩm đầu tiên
+                const limitedProducts = products.slice(0, 4);
+
+                // Duyệt qua danh sách sản phẩm giới hạn và thêm vào HTML
+                limitedProducts.forEach(product => {
+                    const productItem = document.createElement('div');
+                    productItem.classList.add('product-item', 'col-xl-3', 'col-lg-4', 'col-sm-6', 'col-12');
+
+                    // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
+                    productItem.innerHTML = `
+                        <a style="color: black; text-decoration: none;" href="@Url.Action("ProductPage", "ProductPage")/${product.ProductID}">
+                            <div class="product-image">
+                                <span class="new-tag tag">New</span>
+                                <img src="@Url.Content("~/Image/product-image/${product.ImageURL}")" alt="${product.ProductName}" />
+                            </div>
+                            <div class="product-content">
+                                <h6>${product.ProductName}</h6>
+                                <p class="description-product">${product.Description}</p>
+                                <p class="price">${product.Price.toLocaleString()}</p>
+                            </div>
+                        </a>
+                    `;
+                    hotproductList.appendChild(productItem);
+                });
+            } else {
+                console.log('Không thể tải sản phẩm');
+            }
+        })
+        .catch(error => console.log('Lỗi:', error));
+    }
+
+               function loadPumaProducts() {
+    fetch('@Url.Action("GetAllPuma", "HomePage")')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const products = data.data;
+                const hotproductList = document.getElementById('puma-products-list');
+                hotproductList.innerHTML = ''; // Làm trống danh sách trước khi thêm mới
+
+                // Giới hạn hiển thị chỉ 4 sản phẩm đầu tiên
+                const limitedProducts = products.slice(0, 4);
+
+                // Duyệt qua danh sách sản phẩm giới hạn và thêm vào HTML
+                limitedProducts.forEach(product => {
+                    const productItem = document.createElement('div');
+                    productItem.classList.add('product-item', 'col-xl-3', 'col-lg-4', 'col-sm-6', 'col-12');
 
                     // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
                     productItem.innerHTML = `
@@ -328,7 +433,7 @@ function loadJerseys() {
                 // Duyệt qua danh sách sản phẩm và thêm vào HTML
                 products.forEach(product => {
                     const productItem = document.createElement('div');
-                    productItem.classList.add('product-item', 'col-lg-3', 'col-sm-4', 'col-6');
+                    productItem.classList.add('product-item','col-xl-3' ,'col-lg-4', 'col-sm-6','col-12');
 
                     // Bao cả phần product-item trong thẻ a để khi click vào toàn bộ sản phẩm sẽ chuyển tới ProductPage
                     productItem.innerHTML = `
@@ -355,7 +460,9 @@ function loadJerseys() {
     // Gọi hàm loadProducts khi trang được tải
     document.addEventListener('DOMContentLoaded', function () {
         loadNewProducts();
-        loadHotProducts();
+        loadNikeProducts()
+        loadAdidasProducts();
+        loadPumaProducts();
         loadJerseys();
     });
 

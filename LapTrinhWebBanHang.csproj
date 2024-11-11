@@ -124,6 +124,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\ProductPageController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserAddresssController.cs" />
     <Compile Include="Controllers\WebhookController.cs" />
     <Compile Include="Global.asax.cs">
@@ -247,6 +248,7 @@
     <Content Include="Content\MasterLayout\subnav.css" />
     <Content Include="Content\Account\Register.css" />
     <Content Include="Content\UserAddress\UserAddress.css" />
+    <Content Include="Content\ViewSearch\Search.css" />
     <Content Include="DuAnWebSiteBanHang.sql" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -306,6 +308,7 @@
     <Content Include="Image\thumbnail\PhongThayDo3.jpg" />
     <Content Include="Image\thumbnail\PhongThayDoMU.jpg" />
     <Content Include="Image\thumbnail\PhongTrungBay.jpg" />
+    <Content Include="Image\thumbnail\PumaPack\PumaBrilliancePack.jpg" />
     <Content Include="Image\thumbnail\PumaPack\PumaLightsOutPack.jpg" />
     <Content Include="Image\thumbnail\PumaPack\PumaRushPack.jpg" />
     <Content Include="Image\thumbnail\thumb3.jpg" />
@@ -387,6 +390,7 @@
     <Content Include="Views\admin\Orders.cshtml" />
     <Content Include="Views\admin\PromotionList.cshtml" />
     <Content Include="Views\admin\_AddStock.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -26,12 +26,14 @@
     transition: transform 0.3s ease-in-out;
     border-radius: 8px;
     isolation: isolate;
+    height: 300px;
 }
 
     .product-item .product-image img {
         transition: transform 0.3s ease-in-out;
-        width: 100%;
-        display: block;
+        width: 100%; /* Đảm bảo ảnh lấp đầy chiều ngang khung chứa */
+        height: 100%; /* Căn chỉnh ảnh vừa với khung theo chiều dọc */
+        object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
     }
 
         .product-item:hover .product-image img {
@@ -140,4 +142,9 @@
     width: 10px;
     height: 10px;
     border-radius: 100%;
+}
+
+.brand-item img{
+    width: 100%;
+    margin-bottom: 10px;
 }

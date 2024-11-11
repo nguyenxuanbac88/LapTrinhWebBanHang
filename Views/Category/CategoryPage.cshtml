@@ -11,9 +11,9 @@
         <img src="https://bizweb.dktcdn.net/100/108/842/collections/giay-bong-da-dinh-thap-tf.jpg?v=1499702390127" alt="" />
     </div>
     <div class="header-content">
-        <div class="filter">
+        @*<div class="filter">
             <span class="filter-btn">Filter <i class="fa-solid fa-sliders"></i></span>
-        </div>
+        </div>*@
         <div class="dropdown">
             <div class="dropdown-header" onclick="toggleDropdown()">
                 Sắp xếp<span style="opacity: 0.6" id="selected-option"></span>
@@ -28,7 +28,8 @@
         </div>
     </div>
     <div class="content row">
-        <div class="content-left col-xl-2 col-md-3">
+        <h2 style="text-align: center; font-weight: bold;">@ViewBag.CategoryName</h2>
+        @*<div class="content-left col-xl-2 col-md-3">
             <div class="side-bar">
                 <div class="product-size border-bot">
                     <div onclick="toggleSection('size-section')" class="container-toggle">
@@ -49,7 +50,7 @@
                     </ul>
                 </div>
 
-                <!-- Chủng loại -->
+
                 <div class="product-type border-bot">
                     <div onclick="toggleSection('type-section')" class="container-toggle">
                         <h4>Chủng loại</h4>
@@ -61,7 +62,6 @@
                     </ul>
                 </div>
 
-                <!-- Thương hiệu -->
                 <div class="product-brands border-bot">
                     <div onclick="toggleSection('brands-section')" class="container-toggle">
                         <h4>Thương hiệu</h4>
@@ -75,7 +75,7 @@
                     </ul>
                 </div>
 
-                <!-- Mức giá -->
+
                 <div class="product-price border-bot">
                     <div onclick="toggleSection('price-section')" class="container-toggle">
                         <h4>Giá</h4>
@@ -89,7 +89,6 @@
                     </ul>
                 </div>
 
-                <!-- Màu sắc -->
                 <div class="product-color">
                     <div onclick="toggleSection('color-section')" class="container-toggle">
                         <h4>Màu sắc</h4>
@@ -106,7 +105,9 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div>*@
+
+
         <div class="content-right col-xl-10 col-md-9">
             <div class="container-products row" id="list-products">
                 @if (Model.Any())
@@ -133,18 +134,7 @@
                 }
             </div>
         </div>
-        <div class="number-list">
-            <ul>
-                <li><<</li>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>>></li>
-            </ul>
-        </div>
     </div>
-</div>
 </div>
 
 <script>

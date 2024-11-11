@@ -76,8 +76,8 @@
                         </li>
                         <li>
                             <div class="search-bar">
-                                <input type="text" placeholder="Search..." />
-                                <button type="submit"><i class="fa fa-search"></i></button>
+                                <input type="text" placeholder="Search..." id="search-input" onkeyup="handleEnter(event)" />
+                                <button onclick="redirectToSearchPage()" type="submit"><i class="fa fa-search"></i></button>
                             </div>
                         </li>
                         <li class="account">
@@ -96,6 +96,7 @@
                                     <div class="dropdown-menu">
                                         @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
                                         @Html.ActionLink("Thông tin", "Index", "UserAddresss", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("DashBoard", "DashBoard", "Admin", null, new { @class = "dropdown-item" });
                                     </div>
                                 </div>
                                 <div class="shopping-cart">
@@ -125,7 +126,7 @@
         <!--  footer -->
         <div id="footer" class="footer">
             <div class="contact-footer row">
-                <div class="ourself col-md-3 col-6">
+                <div class="ourself col-lg-3 col-md-6 col-12">
                     <h3>VỀ CHÚNG TÔI</h3>
                     @*<img src="https://hali.vn/wp-content/uploads/2020/01/logo-MU.jpg" alt="Logo MU" />*@
                     <div class="socials-list">
@@ -143,7 +144,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="info col-md-3 col-6">
+                <div class="info col-lg-3 col-md-6 col-12">
                     <h3 style="margin-left: 24px;">CHÍNH SÁCH</h3>
                     <ul>
                         <li><a href="">Chính sách đổi trả</a></li>
@@ -153,7 +154,7 @@
                         <li><a href="">Chương trình khác hàng thân thiết</a></li>
                     </ul>
                 </div>
-                <div class="map col-md-3 col-6">
+                <div class="map col-lg-3 col-md-6 col-12">
                     <h3>LIÊN HỆ</h3>
                     <ul>
                         <li><a href="https://www.facebook.com/xuanbac.abc?locale=vi_VN" target="_blank">Nguyễn Xuân Bắc</a></li>
@@ -163,7 +164,7 @@
                     </ul>
                     @*<img src="~/Image/thumbnail/map.png" alt="" />*@
                 </div>
-                <div class="contact-address col-md-3 col-6">
+                <div class="contact-address col-lg-3 col-md-6 col-12">
                     <h3>ĐỊA CHỈ</h3>
                     <p>
                         <i class="fa-solid fa-location-dot"></i><span>
@@ -179,6 +180,19 @@
             </div>
         </div>
         <script src="~/Scripts/home_page/main.js"></script>
+        <script>
+            function handleEnter(event) {
+                if (event.key === 'Enter') {
+                    redirectToSearchPage();
+                }
+            }
+            function redirectToSearchPage() {
+                const keyword = document.getElementById('search-input').value.trim();
+                if (keyword) {
+                    window.location.href = `/Search/Index?keyword=${encodeURIComponent(keyword)}`;
+                }
+            }
+        </script>
     </div>
 </body>
 </html>

@@ -164,6 +164,65 @@ namespace LapTrinhWebBanHang.Controllers
             // Trả về dữ liệu JSON
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult GetAllNike()
+        {
+            var products = db.Products
+                .Where(p => p.Category.CategoryID == 1) // Lọc theo CategoryId
+                .Select(p => new
+                {
+                    p.ProductID,
+                    p.ProductName,
+                    p.Price,
+                    p.ImageURL,
+                    p.Description,
+                    // Truy vấn lấy tên danh mục từ bảng Categories
+                    categoryID = p.Category.CategoryID
+                })
+                .ToList();
 
+            // Trả về dữ liệu JSON
+            return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetAllAdidas()
+        {
+            var products = db.Products
+                .Where(p => p.Category.CategoryID == 2) // Lọc theo CategoryId
+                .Select(p => new
+                {
+                    p.ProductID,
+                    p.ProductName,
+                    p.Price,
+                    p.ImageURL,
+                    p.Description,
+                    // Truy vấn lấy tên danh mục từ bảng Categories
+                    categoryID = p.Category.CategoryID
+                })
+                .ToList();
+
+            // Trả về dữ liệu JSON
+            return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetAllPuma()
+        {
+            var products = db.Products
+                .Where(p => p.Category.CategoryID == 3) // Lọc theo CategoryId
+                .Select(p => new
+                {
+                    p.ProductID,
+                    p.ProductName,
+                    p.Price,
+                    p.ImageURL,
+                    p.Description,
+                    // Truy vấn lấy tên danh mục từ bảng Categories
+                    categoryID = p.Category.CategoryID
+                })
+                .ToList();
+
+            // Trả về dữ liệu JSON
+            return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
