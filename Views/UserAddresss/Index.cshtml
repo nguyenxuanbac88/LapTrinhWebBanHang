@@ -56,7 +56,11 @@
             @Html.ValidationMessageFor(model => model.SpecificAddress)
         </div>
         <button type="submit" class="btn btn-primary">Cập nhật thông tin</button>
-        @Html.ActionLink("Quay lại", "Home_page", "HomePage", new {@class = "back"})
+        @Html.ActionLink("Quay lại", "Home_page", "HomePage")
+        <!-- Nút chuyển đến trang đổi mật khẩu -->
+        <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-warning">
+            Đổi mật khẩu
+        </a>
     }
 
     <!-- Hiển thị thông báo nếu chưa có thông tin -->
