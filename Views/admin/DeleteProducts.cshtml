@@ -5,9 +5,9 @@
 }
 
 <!-- Nút để mở popup xóa -->
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal">
+<!--<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal">
     Xóa sản phẩm
-</button>
+</button>-->
 
 <!-- Modal Xóa Sản Phẩm -->
 <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
@@ -32,14 +32,15 @@
                 </dl>
             </div>
             <div class="modal-footer">
-                @using (Html.BeginForm("DeleteConfirmed", "Admin", FormMethod.Post))
+                @using (Html.BeginForm("DeleteConfirmed", "Admin", FormMethod.Post, new { id = "deleteProductForm" }))
                 {
                     @Html.AntiForgeryToken()
-                    @Html.HiddenFor(model => model.ProductID) <!-- Trường ẩn để gửi ProductID -->
+                    @Html.HiddenFor(model => model.ProductID)
                     <button type="submit" class="btn btn-danger">Xóa</button>
                 }
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+
             </div>
-        </div>
+        </div>  
     </div>
 </div>

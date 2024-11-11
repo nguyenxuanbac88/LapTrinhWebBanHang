@@ -343,55 +343,57 @@ namespace LapTrinhWebBanHang.Controllers
 
 
 
-        // GET: Admin/DeleteProducts/5
-        public ActionResult DeleteProducts(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
-
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(product);
-        }
-
-        // POST: Admin/DeleteProducts/5
-        [HttpPost, ActionName("DeleteProducts")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteProducts(int id)
         {
-            // Tìm sản phẩm
-            Product product = db.Products.Find(id);
-
-            if (product == null)
+            try
             {
-                return HttpNotFound();
-            }
+                var product = db.Products.Find(id);
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
 
-            // Xóa các bản ghi liên quan trong ProductStock
-            var productStocks = db.ProductStocks.Where(ps => ps.ProductID == id).ToList();
-            if (productStocks.Any())
+                // Xóa ảnh chính của sản phẩm khỏi thư mục
+                var mainImagePath = Path.Combine(Server.MapPath("~/image/product-image/"), product.ImageURL);
+                if (System.IO.File.Exists(mainImagePath))
+                {
+                    System.IO.File.Delete(mainImagePath);
+                }
+
+                // Xóa các bản ghi liên quan trong ProductStocks
+                var productStocks = db.ProductStocks.Where(ps => ps.ProductID == id).ToList();
+                foreach (var stock in productStocks)
+                {
+                    db.ProductStocks.Remove(stock);
+                }
+
+                // Xóa các ảnh phụ trong ImageProducts
+                var additionalImages = db.ImageProducts.Where(ip => ip.ProductsID == id).ToList();
+                foreach (var image in additionalImages)
+                {
+                    var additionalImagePath = Path.Combine(Server.MapPath("~/image/product-image/"), image.ImageURL);
+                    if (System.IO.File.Exists(additionalImagePath))
+                    {
+                        System.IO.File.Delete(additionalImagePath);
+                    }
+                    db.ImageProducts.Remove(image);
+                }
+
+                // Xóa sản phẩm
+                db.Products.Remove(product);
+                db.SaveChanges();
+
+                // Lưu thông báo thành công vào TempData
+                TempData["SuccessMessage"] = "Sản phẩm đã được xóa thành công.";
+            }
+            catch (Exception ex)
             {
-                db.ProductStocks.RemoveRange(productStocks);
+                Console.WriteLine("Lỗi khi xóa sản phẩm: " + ex.Message);
+
+                TempData["ErrorMessage"] = "Không thể xóa sản phẩm vì có dữ liệu liên quan trong đơn hàng.";
             }
-
-            // Xóa các bản ghi liên quan trong ImageProducts
-            var imageProducts = db.ImageProducts.Where(img => img.ProductsID == id).ToList();
-            if (imageProducts.Any())
-            {
-                db.ImageProducts.RemoveRange(imageProducts);
-            }
-
-            // Sau khi xóa các bản ghi liên quan, xóa sản phẩm chính
-            db.Products.Remove(product);
-
-            // Lưu thay đổi
-            db.SaveChanges();
 
             return RedirectToAction("ManageProducts");
         }

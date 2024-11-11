@@ -11,6 +11,20 @@
 <body>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Hiển thị thông báo lỗi hoặc thành công -->
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
     <h2>Quản lý sản phẩm</h2>
 
     <table class="table table-striped">
@@ -41,7 +55,7 @@
                         @foreach (var stock in item.ProductStocks)
                         {
                             <div>
-                             Size: @stock.SizeValue, Kho: @stock.Quantity
+                                Size: @stock.SizeValue, Kho: @stock.Quantity
                             </div>
                         }
                     </td>
