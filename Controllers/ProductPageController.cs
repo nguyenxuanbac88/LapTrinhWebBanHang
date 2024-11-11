@@ -105,5 +105,32 @@ namespace LapTrinhWebBanHang.Controllers
 
             return Json(new { success = true, data = product }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetProductSizesWithoutQuantity(int productId)
+        {
+            // Kiểm tra xem sản phẩm có tồn tại không
+            var product = db.Products.Find(productId);
+            if (product == null)
+            {
+                return Json(new { success = false, message = "Sản phẩm không tìm thấy" }, JsonRequestBehavior.AllowGet);
+            }
+
+            // Lấy danh sách kích thước của sản phẩm
+            var productSizes = db.ProductStocks
+                .Where(ps => ps.ProductID == productId)
+                .Select(ps => db.Sizes
+                    .Where(s => s.SizeID == ps.SizeID)
+                    .Select(s => s.SizeValue)
+                    .FirstOrDefault())
+                .Distinct()
+                .ToList();
+
+            // Trả về danh sách kích thước và tên sản phẩm dưới dạng JSON
+            return Json(new
+            {
+                success = true,
+                productName = product.ProductName, // Bao gồm tên sản phẩm
+                sizes = productSizes // Danh sách kích thước
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
