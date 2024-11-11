@@ -101,9 +101,15 @@ public class CartsController : Controller
         {
             // Lấy thông tin địa chỉ của người dùng từ AddressUser
             var userAddress = db.AddressUsers.FirstOrDefault(a => a.IdUser == userId.Value);
-            if (userAddress == null)
+            if (userAddress == null || string.IsNullOrEmpty(userAddress.FullName) ||
+            string.IsNullOrEmpty(userAddress.Phone) ||
+            string.IsNullOrEmpty(userAddress.Province) ||
+            string.IsNullOrEmpty(userAddress.Town) ||
+            string.IsNullOrEmpty(userAddress.Block) ||
+            string.IsNullOrEmpty(userAddress.SpecificAddress))
             {
-                // Nếu không tìm thấy địa chỉ người dùng, yêu cầu người dùng cập nhật
+                // Nếu địa chỉ không có hoặc còn thiếu thông tin, chuyển hướng người dùng đến trang cập nhật địa chỉ
+                TempData["Message"] = "Vui lòng nhập đầy đủ thông tin địa chỉ trước khi thanh toán.";
                 return RedirectToAction("Index", "UserAddresss");
             }
 
@@ -152,21 +158,27 @@ public class CartsController : Controller
             userAddress.SpecificAddress = model.Address.SpecificAddress;
 
             db.SaveChanges();
+            // Lấy thông tin giỏ hàng từ session
+            var cart = GetCartFromSession();
+            var cartItems = cart.Items.ToList();
 
+            // Tính tổng số tiền giỏ hàng
+            int totalAmount = cartItems.Sum(item => item.Quantity * item.Price);
             // Tạo đơn hàng mới trong bảng Orders
             var newOrder = new Order
             {
                 UserID = userId.Value,
                 AddressID = userAddress.IdAddress,
                 OrderDate = DateTime.UtcNow,
-                Status = 1 // Trạng thái đơn hàng (ví dụ: đang xử lý)
+                Status = 1, // Trạng thái đơn hàng (ví dụ: đang xử lý)
+                price = totalAmount
             };
 
             db.Orders.Add(newOrder);
             db.SaveChanges();
 
             // Tạo chi tiết đơn hàng trong bảng OrderDetails
-            var cart = GetCartFromSession();
+
             foreach (var item in cart.Items)
             {
                 var orderDetail = new OrderDetail
@@ -174,7 +186,8 @@ public class CartsController : Controller
                     OrderID = newOrder.OrderID,
                     ProductID = item.ProductID,
                     Quantity = item.Quantity,
-                    UnitPrice = item.Price
+                    UnitPrice = item.Price,
+                    size = item.Size,
                 };
 
                 db.OrderDetails.Add(orderDetail);

@@ -295,6 +295,53 @@ namespace LapTrinhWebBanHang.Controllers
                 }
             }
         }
+        // GET: ChangePassword
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        // POST: ChangePassword
+        [HttpPost]
+        public async Task<ActionResult> ChangePassword(string currentPassword, string newPassword, string confirmPassword)
+        {
+            int? userId = Session["IdUser"] as int?;
+            if (!userId.HasValue)
+            {
+                return RedirectToAction("Sign_in");
+            }
+
+            using (WebsiteEntities4 db = new WebsiteEntities4())
+            {
+                var user = await db.Users.FirstOrDefaultAsync(u => u.IdUser == userId.Value);
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "Người dùng không tồn tại.");
+                    return View();
+                }
+
+                // Xác thực mật khẩu hiện tại
+                if (user.PasswordHash != UserServices.GetMd5Hash(currentPassword))
+                {
+                    ModelState.AddModelError("", "Mật khẩu hiện tại không đúng.");
+                    return View();
+                }
+
+                // Kiểm tra mật khẩu mới và xác nhận mật khẩu
+                if (newPassword != confirmPassword)
+                {
+                    ModelState.AddModelError("", "Mật khẩu mới và xác nhận mật khẩu không khớp.");
+                    return View();
+                }
+
+                // Cập nhật mật khẩu mới
+                user.PasswordHash = UserServices.GetMd5Hash(newPassword);
+                await db.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Đổi mật khẩu thành công!";
+                return RedirectToAction("Index", "UserAddresss");
+            }
+        }
 
 
     }

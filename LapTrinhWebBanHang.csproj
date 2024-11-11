@@ -391,6 +391,7 @@
     <Content Include="Views\admin\PromotionList.cshtml" />
     <Content Include="Views\admin\_AddStock.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

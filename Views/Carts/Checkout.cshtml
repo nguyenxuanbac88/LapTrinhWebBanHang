@@ -4,7 +4,6 @@
     ViewBag.Title = "Thanh toán";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
-}
 
 <h2>Thanh toán</h2>
 
@@ -61,8 +60,8 @@
                 <tr>
                     <td>@item.ProductName</td>
                     <td>@item.Quantity</td>
-                    <td>@item.Price.ToString("C")</td>
-                    <td>@(item.Quantity * item.Price).ToString("C")</td>
+                    <td>@item.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</td>
+                    <td>@((item.Quantity * item.Price).ToString("#,0", new System.Globalization.CultureInfo("vi-VN")))   đ</td>
                 </tr>
             }
         </tbody>
@@ -73,7 +72,7 @@
     <!-- Tổng tiền -->
     <div class="form-group">
         <label for="TotalAmount">Tổng số tiền:</label>
-        <strong>@Model.TotalAmount.ToString("C")</strong>
+        <strong>@Model.TotalAmount.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</strong>
     </div>
 
     <!-- Nút thanh toán -->
