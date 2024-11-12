@@ -143,7 +143,7 @@ public class CartsController : Controller
 
         using (WebsiteEntities4 db = new WebsiteEntities4())
         {
-            // Cập nhật lại địa chỉ người dùng trong AddressUser nếu có thay đổi
+            // Cập nhật địa chỉ người dùng
             var userAddress = db.AddressUsers.FirstOrDefault(a => a.IdUser == userId.Value);
             if (userAddress == null)
             {
@@ -156,15 +156,14 @@ public class CartsController : Controller
             userAddress.Town = model.Address.Town;
             userAddress.Block = model.Address.Block;
             userAddress.SpecificAddress = model.Address.SpecificAddress;
-
             db.SaveChanges();
-            // Lấy thông tin giỏ hàng từ session
+
+            // Lấy giỏ hàng và tính tổng số tiền
             var cart = GetCartFromSession();
             var cartItems = cart.Items.ToList();
-
-            // Tính tổng số tiền giỏ hàng
             int totalAmount = cartItems.Sum(item => item.Quantity * item.Price);
-            // Tạo đơn hàng mới trong bảng Orders
+
+            // Tạo đơn hàng mới
             var newOrder = new Order
             {
                 UserID = userId.Value,
@@ -174,15 +173,13 @@ public class CartsController : Controller
                 Province = userAddress.Province,
                 phone = userAddress.Phone,
                 OrderDate = DateTime.UtcNow,
-                Status = 0, // Trạng thái đơn hàng (ví dụ: đang xử lý)
+                Status = 0,
                 price = totalAmount
             };
-
             db.Orders.Add(newOrder);
             db.SaveChanges();
 
-            // Tạo chi tiết đơn hàng trong bảng OrderDetails
-
+            // Tạo chi tiết đơn hàng
             foreach (var item in cart.Items)
             {
                 var orderDetail = new OrderDetail
@@ -193,18 +190,18 @@ public class CartsController : Controller
                     UnitPrice = item.Price,
                     size = item.Size,
                 };
-
                 db.OrderDetails.Add(orderDetail);
             }
-
             db.SaveChanges();
 
-            // Xóa giỏ hàng sau khi thanh toán thành công
+            // Xóa giỏ hàng
             ClearCart(userId.Value);
 
-            return RedirectToAction("OrderConfirmation", "Carts", new { orderId = newOrder.OrderID });
+            // Chuyển hướng đến Payment action với orderId và totalAmount
+            return RedirectToAction("Payment", "Carts", new { orderId = newOrder.OrderID, totalAmount = totalAmount });
         }
     }
+
     // Xóa giỏ hàng
     private void ClearCart(int userId)
     {
@@ -298,6 +295,30 @@ public class CartsController : Controller
         }
     }
 
+    public ActionResult Payment(int orderId, int totalAmount)
+    {
+        ViewBag.BankName = "bidv";
+        ViewBag.AccountNumber = "96386910014";
+        ViewBag.AccountName = "NGUYEN XUAN BAC";
+        ViewBag.TransactionId = $"musports{orderId}";
+        ViewBag.Amount = totalAmount; // Đảm bảo truyền đúng totalAmount
+        ViewBag.OrderID = orderId;
+        return View();
+    }
+    [HttpGet]
+    public JsonResult CheckOrderStatus(int orderId)
+    {
+        using (var db = new WebsiteEntities4())
+        {
+            var order = db.Orders.FirstOrDefault(o => o.OrderID == orderId);
 
+            if (order == null)
+            {
+                return Json(new { status = -1, statusText = "Không tìm thấy đơn hàng" }, JsonRequestBehavior.AllowGet);
+            }
 
+            // Trả về JSON trạng thái
+            return Json(new { status = order.Status, statusText = order.Status == 1 ? "Hoàn tất" : "Đang xử lý" }, JsonRequestBehavior.AllowGet);
+        }
+    }
 }
