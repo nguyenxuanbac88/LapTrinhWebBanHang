@@ -401,6 +401,9 @@
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Carts\OrderHistory.cshtml" />
     <Content Include="Views\Carts\OrderDetail.cshtml" />
+    <Content Include="Views\Carts\Payment.cshtml" />
+    <Content Include="Views\admin\OrderDetailHistory.cshtml" />
+    <Content Include="Views\admin\OrderHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

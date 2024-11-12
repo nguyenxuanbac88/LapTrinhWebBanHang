@@ -606,31 +606,34 @@ namespace LapTrinhWebBanHang.Controllers
             return RedirectToAction("PromotionList");
         }
 
-        public decimal GetCurrentMonthBalance()
+        public int GetCurrentMonthBalance()
         {
-            var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            var endDate = startDate.AddMonths(1);
+            var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);  // Ngày đầu tháng
+            var endDate = startDate.AddMonths(1);  // Ngày đầu tháng sau
 
+            // Tính tổng thu nhập của tháng hiện tại từ bảng Orders
             var currentMonthBalance = db.Orders
-                .Where(o => o.OrderDate >= startDate && o.OrderDate < endDate)
-                .SelectMany(o => o.OrderDetails)
-                .Sum(od => (decimal?)od.Quantity * od.UnitPrice) ?? 0;
+                .Where(o => o.OrderDate >= startDate && o.OrderDate < endDate)  // Lọc đơn hàng trong tháng hiện tại
+                .Sum(o => (int?)o.price) ?? 0;  // Tính tổng thu nhập từ cột 'price'
 
             return currentMonthBalance;
         }
 
-        public decimal GetCurrentYearBalance()
-        {
-            var startOfYear = new DateTime(DateTime.Now.Year, 1, 1);
-            var startOfNextYear = startOfYear.AddYears(1);
 
+        public int GetCurrentYearBalance()
+        {
+            var startOfYear = new DateTime(DateTime.Now.Year, 1, 1);  // Ngày bắt đầu năm
+            var startOfNextYear = new DateTime(DateTime.Now.Year + 1, 1, 1);  // Ngày bắt đầu năm sau
+
+            // Tính tổng thu nhập trong năm hiện tại từ bảng Orders
             var currentYearBalance = db.Orders
-                .Where(o => o.OrderDate >= startOfYear && o.OrderDate < startOfNextYear)
-                .SelectMany(o => o.OrderDetails)
-                .Sum(od => (decimal?)od.Quantity * od.UnitPrice) ?? 0;
+                .Where(o => o.OrderDate >= startOfYear && o.OrderDate < startOfNextYear)  // Lọc theo năm hiện tại
+                .Sum(o => (int?)o.price) ?? 0;  // Tính tổng thu nhập từ cột 'price'
 
             return currentYearBalance;
         }
+
+
         public int GetCurrentMonthOrderCount()
         {
             var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -806,6 +809,42 @@ namespace LapTrinhWebBanHang.Controllers
             }
         }
 
+        // API để lấy thống kê thu nhập theo tháng
+        [HttpGet]
+        public JsonResult GetEarningsByMonth()
+        {
+            try
+            {
+                // Tạo mảng các tháng từ tháng 1 đến tháng 12
+                var months = new string[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
+                // Truy vấn thu nhập theo tháng từ bảng Orders
+                var earnings = db.Orders
+                    .Where(o => o.OrderDate.Year == 2024)  // Bạn có thể thay đổi theo năm hiện tại
+                    .GroupBy(o => new { Year = o.OrderDate.Year, Month = o.OrderDate.Month })
+                    .Select(g => new
+                    {
+                        Year = g.Key.Year,
+                        Month = g.Key.Month,
+                        TotalEarnings = g.Sum(o => o.price)
+                    })
+                    .OrderBy(g => g.Month)
+                    .ToList();
+
+                // Tạo dữ liệu cho các tháng từ 1-11
+                var result = new
+                {
+                    months = months.Take(11).ToList(), // Lấy 10 tháng đầu
+                    earnings = months.Take(11).Select(month => earnings.FirstOrDefault(e => e.Month == Array.IndexOf(months, month) + 1)?.TotalEarnings ?? 0).ToList()
+                };
+
+                return Json(result, JsonRequestBehavior.AllowGet); // Trả về dữ liệu dạng JSON
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
     }
 }

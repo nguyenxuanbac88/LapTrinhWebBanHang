@@ -68,7 +68,7 @@
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
-          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Status" Type="int" />
           <Property Name="price" Type="int" Nullable="false" />
           <Property Name="phone" Type="nchar" MaxLength="10" />
@@ -728,7 +728,7 @@
           </Key>
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" />
-          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Status" Type="Int32" />
           <Property Name="price" Type="Int32" Nullable="false" />
           <Property Name="phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />

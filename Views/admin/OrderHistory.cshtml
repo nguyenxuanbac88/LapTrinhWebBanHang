@@ -65,7 +65,6 @@
                             <th>ID</th>
                             <th>Tài Khoản</th>
                             <th>Mã Đơn Hàng</th>
-                            <th>Loại</th>
                             <th>Địa chỉ</th>
                             <th>Số Điện Thoại</th>
                             <th>Tổng Tiền</th>
@@ -83,12 +82,20 @@
                                     <td>@order.OrderID</td>
                                     <td>@order.UserID</td>
                                     <td>@order.OrderID</td>
-                                    <td>@order.Status</td>
                                     <td>@order.SpecificAddress, @order.Block, @order.Town, @order.Province</td>
                                     <td>@order.Phone</td>
-                                    <td>@order.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ
-                                    <td>@order.Status</td>
-                                    <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@order.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</td>
+                                    <td>
+                                        @if (order.Status == 0)
+                                        {
+                                            <span class="text-warning">Chưa Thanh Toán</span> <!-- Màu vàng cho "Chưa Thanh Toán" -->
+                                        }
+                                        else if (order.Status == 1)
+                                        {
+                                            <span class="text-success">Đã Thanh Toán</span> <!-- Màu xanh cho "Đã Thanh Toán" -->
+                                        }
+                                    </td>
+                                    <td>@order.OrderDate.ToString("HH:mm:ss dd-MM-yyyy")</td>
                                     <td>
                                         <button class="btn btn-primary btn-sm" onclick="showDetails(@order.OrderID)">Chi tiết</button>
                                     </td>
@@ -102,6 +109,8 @@
                             </tr>
                         }
                     </tbody>
+
+
                 </table>
             </div>
         </div>

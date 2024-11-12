@@ -172,7 +172,7 @@ public class CartsController : Controller
                 Town = userAddress.Town,
                 Province = userAddress.Province,
                 phone = userAddress.Phone,
-                OrderDate = DateTime.UtcNow,
+                OrderDate = DateTime.UtcNow.ToLocalTime(),
                 Status = 0,
                 price = totalAmount
             };
