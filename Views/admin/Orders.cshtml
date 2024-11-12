@@ -1,4 +1,4 @@
-﻿@model LapTrinhWebBanHang.Models.ProductViewModel
+﻿@model List<LapTrinhWebBanHang.Models.NewOrderHistoryViewModel>
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/admin/Shared/_MasterLayout.cshtml";
@@ -75,34 +75,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>user01</td>
-                            <td>ORD001</td>
-                            <td>NIKE</td>
-                            <td>123 Đường ABC, TP.HCM</td>
-                            <td>0123456789</td>
-                            <td>1.200.000</td>
-                            <td>Đã Thanh Toán</td>
-                            <td>2023-11-10</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Chi tiết</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>user02</td>
-                            <td>ORD002</td>
-                            <td>ADIDAS</td>
-                            <td>456 Đường XYZ, Hà Nội</td>
-                            <td>0987654321</td>
-                            <td>1.500.000</td>
-                            <td>Chờ Thanh Toán</td>
-                            <td>2022-11-11</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Chi tiết</button>
-                            </td>
-                        </tr>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var order in Model)
+                            {
+                                <tr>
+                                    <td>@order.OrderID</td>
+                                    <td>@order.UserID</td>
+                                    <td>@order.OrderID</td>
+                                    <td>@order.Status</td>
+                                    <td>@order.SpecificAddress, @order.Block, @order.Town, @order.Province</td>
+                                    <td>@order.Phone</td>
+                                    <td>@String.Format("{0:C}", order.Price)</td>
+                                    <td>@order.Status</td>
+                                    <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm" onclick="showDetails(@order.OrderID)">Chi tiết</button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="10" class="text-center">Không có đơn hàng nào</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -138,43 +136,36 @@
                             "previous": "Trước"
                         }
                     },
-                    dom: 'Bfrtip', // Thêm phần điều khiển cho các nút
+                    dom: 'Bfrtip',
                     buttons: [
                         {
                             extend: 'excelHtml5',
                             text: 'Xuất ra Excel',
-                            className: 'btn btn-success mb-3', // Thêm lớp CSS cho nút
-                            title: 'LichSuDonHang', // Tên file xuất ra
+                            className: 'btn btn-success mb-3',
+                            title: 'LichSuDonHang',
                             exportOptions: {
-                                columns: ':visible' // Chỉ xuất các cột hiển thị
+                                columns: ':visible'
                             }
                         }
                     ]
                 });
 
-                // Hàm lọc dữ liệu
                 $('#filterButton').on('click', function () {
                     var type = $('#filterType').val();
                     var status = $('#filterStatus').val();
                     var username = $('#filterUsername').val().toLowerCase();
-                    var startDate = $('#filterStartDate').val();
-                    var endDate = $('#filterEndDate').val();
 
-                    // Áp dụng bộ lọc vào bảng DataTable
-                    table.columns(3).search(type);       // Lọc cột Loại
-                    table.columns(7).search(status);     // Lọc cột Trạng Thái
-                    table.columns(1).search(username);   // Lọc cột Tài Khoản
-
-                    // Lọc theo ngày
+                    table.columns(3).search(type);
+                    table.columns(7).search(status);
+                    table.columns(1).search(username);
                     table.draw();
                 });
 
-                // Custom filter for date range
                 $.fn.dataTable.ext.search.push(
                     function (settings, data, dataIndex) {
                         var min = $('#filterStartDate').val();
                         var max = $('#filterEndDate').val();
-                        var date = data[8]; // Cột Thời Gian
+                        var date = data[8];
 
                         if ((min === "" && max === "") ||
                             (min === "" && date <= max) ||
@@ -190,6 +181,11 @@
                     table.draw();
                 });
             });
+
+            function showDetails(orderId) {
+                alert('Chi tiết cho đơn hàng ID: ' + orderId);
+                // Tại đây bạn có thể thêm mã để hiển thị chi tiết đơn hàng (bằng AJAX hoặc chuyển trang)
+            }
         </script>
     }
 </body>

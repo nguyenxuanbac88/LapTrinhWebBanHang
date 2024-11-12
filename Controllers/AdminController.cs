@@ -731,6 +731,52 @@ namespace LapTrinhWebBanHang.Controllers
 
             return Json(new { success = false, message = "Không thể cập nhật số lượng kho." });
         }
+        public ActionResult OrderHistory()
+        {
+            using (var db = new WebsiteEntities4())
+            {
+                var orders = db.Orders
+                           .Select(o => new NewOrderHistoryViewModel
+                           {
+                               UserID = (int)o.UserID,
+                               OrderID = o.OrderID,
+                               OrderDate = o.OrderDate,
+                               Status = o.Status,
+                               Price = o.price,
+                               SpecificAddress = o.SpecificAddress,
+                               Block = o.Block,
+                               Town = o.Town,
+                               Province = o.Province,
+                               Phone = o.phone,
+                               OrderDetails = db.OrderDetails
+                                                .Where(od => od.OrderID == o.OrderID)
+                                                .Select(od => new NewOrderDetailViewModel
+                                                {
+                                                    ProductID = (int)od.ProductID,
+                                                    ProductName = db.Products
+                                                                    .Where(p => p.ProductID == od.ProductID)
+                                                                    .Select(p => p.ProductName)
+                                                                    .FirstOrDefault() ?? "Unknown Product",
+                                                    Quantity = od.Quantity,
+                                                    UnitPrice = od.UnitPrice
+                                                }).ToList()
+                           }).ToList();
+
+                // Debugging step: Check if orders contain data
+                if (orders == null || !orders.Any())
+                {
+                    Console.WriteLine("No orders found.");
+                    orders = new List<NewOrderHistoryViewModel>(); // Trả về danh sách trống nếu không có dữ liệu
+                }
+                else
+                {
+                    Console.WriteLine("Orders found: " + orders.Count);
+                }
+
+                return View(orders);
+            }
+        }
+                
 
     }
 }
