@@ -7,7 +7,7 @@ namespace LapTrinhWebBanHang.Models
 {
     public class NewOrderHistoryViewModel
     {
-        public int UserID { get; set; }
+        public int? UserID { get; set; }
         public int OrderID { get; set; }
         public DateTime OrderDate { get; set; }
         public int? Status { get; set; }
@@ -19,11 +19,6 @@ namespace LapTrinhWebBanHang.Models
         public string Phone { get; set; }
         public List<NewOrderDetailViewModel> OrderDetails { get; set; }
 
-        // Constructor để tránh OrderDetails bị null
-        public NewOrderHistoryViewModel()
-        {
-            OrderDetails = new List<NewOrderDetailViewModel>();
-        }
     }
 
 }

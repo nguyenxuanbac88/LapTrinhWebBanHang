@@ -75,7 +75,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (Model != null && Model.Any())
+                        @if (Model != null)
                         {
                             foreach (var order in Model)
                             {
@@ -86,7 +86,7 @@
                                     <td>@order.Status</td>
                                     <td>@order.SpecificAddress, @order.Block, @order.Town, @order.Province</td>
                                     <td>@order.Phone</td>
-                                    <td>@String.Format("{0:C}", order.Price)</td>
+                                    <td>@order.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ
                                     <td>@order.Status</td>
                                     <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
                                     <td>
@@ -183,9 +183,9 @@
             });
 
             function showDetails(orderId) {
-                alert('Chi tiết cho đơn hàng ID: ' + orderId);
-                // Tại đây bạn có thể thêm mã để hiển thị chi tiết đơn hàng (bằng AJAX hoặc chuyển trang)
-            }
+    window.location.href = '@Url.Action("OrderDetailHistory", "Admin", new { orderId = "__orderId__" })'.replace("__orderId__", orderId);
+}
+
         </script>
     }
 </body>

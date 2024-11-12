@@ -395,7 +395,6 @@
     <Content Include="Views\admin\ManageCategory.cshtml" />
     <Content Include="Views\admin\ManageInventory.cshtml" />
     <Content Include="Views\admin\ManageProducts.cshtml" />
-    <Content Include="Views\admin\Orders.cshtml" />
     <Content Include="Views\admin\PromotionList.cshtml" />
     <Content Include="Views\admin\_AddStock.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
