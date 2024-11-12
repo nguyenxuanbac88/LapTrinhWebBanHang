@@ -1,0 +1,30 @@
+﻿.container {
+    padding: 50px 20px;
+    box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.2);
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+h2{
+    text-align: center;
+    font-weight: bold;
+}
+
+.container .details{
+    color: green;
+    text-decoration: none;
+    padding: 10px;
+}
+
+    .container .details:hover{
+        opacity: 0.6;
+    }
+
+.table thead {
+    text-align: center;
+}
+
+.table tbody td {
+    text-align: center;
+}
+

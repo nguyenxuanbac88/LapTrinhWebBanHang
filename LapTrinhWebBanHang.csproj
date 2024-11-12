@@ -238,6 +238,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Cart\OrderDetail.css" />
+    <Content Include="Content\Cart\OrderHistory.css" />
     <Content Include="Content\Cart\ViewCart.css" />
     <Content Include="Content\Category_page\container_category.css" />
     <Content Include="Content\Error\Error.css" />
@@ -286,6 +288,7 @@
     <Content Include="Image\product_page\NikeMerSup10Mbappe\ZMSUPERFLY10ELITEKMFG%288%29.png" />
     <Content Include="Image\product_page\NikeMerSup10Mbappe\ZMSUPERFLY10ELITEKMFG%289%29.png" />
     <Content Include="Image\thumbnail\3-1722856929-183514avatar.png" />
+    <Content Include="Image\thumbnail\AdidasPack\Adidas.png" />
     <Content Include="Image\thumbnail\AdidasPack\AdidasHeatspawnPack.jpg" />
     <Content Include="Image\thumbnail\AdidasPack\AdidasUniforiaPack.jpg" />
     <Content Include="Image\thumbnail\AdidasPack\AdidasWhitePack.jpg" />
@@ -303,6 +306,7 @@
     <Content Include="Image\thumbnail\logo-MU.png" />
     <Content Include="Image\thumbnail\map.png" />
     <Content Include="Image\thumbnail\nhung-phong-thay-do-dep-nhat-lang-bong-da-the-gioi.jpg" />
+    <Content Include="Image\thumbnail\NikePack\Nike.png" />
     <Content Include="Image\thumbnail\NikePack\NikePinkPack.jpg" />
     <Content Include="Image\thumbnail\NikePack\NikeRiSingGemPack.jpg" />
     <Content Include="Image\thumbnail\NikePack\NikeWhitePack%281%29.jpg" />
@@ -312,6 +316,7 @@
     <Content Include="Image\thumbnail\PhongThayDo3.jpg" />
     <Content Include="Image\thumbnail\PhongThayDoMU.jpg" />
     <Content Include="Image\thumbnail\PhongTrungBay.jpg" />
+    <Content Include="Image\thumbnail\PumaPack\Puma.png" />
     <Content Include="Image\thumbnail\PumaPack\PumaBrilliancePack.jpg" />
     <Content Include="Image\thumbnail\PumaPack\PumaLightsOutPack.jpg" />
     <Content Include="Image\thumbnail\PumaPack\PumaRushPack.jpg" />

@@ -3,13 +3,73 @@
     padding: 50px 0;
 }
 
-.table-cart{
+.row {
+    box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.2);
+    padding: 20px 10px;
+}
+
+.table-cart {
     width: 100%;
 }
+
+    .table-cart td{
+        font-size: 0.8rem;
+    }
+
+    .table-cart th,
+    .table-cart td {
+        padding: 10px;
+    }
+
+.table-cart th:nth-child(1),
+.table-cart td:nth-child(1) {
+    width: 10%; /* Cột Ảnh */
+}
+
+.table-cart th:nth-child(2),
+.table-cart td:nth-child(2) {
+    width: 30%; /* Cột Sản phẩm */
+}
+
+.table-cart th:nth-child(3),
+.table-cart td:nth-child(3) {
+    width: 15%; /* Cột Giá */
+}
+
+.table-cart th:nth-child(4),
+.table-cart td:nth-child(4) {
+    width: 10%; /* Cột Size */
+}
+
+.table-cart th:nth-child(5),
+.table-cart td:nth-child(5) {
+    width: 15%; /* Cột Số lượng */
+}
+
+.table-cart th:nth-child(6),
+.table-cart td:nth-child(6) {
+    width: 15%; /* Cột Tổng tiền */
+}
+
+.table-cart th:nth-child(7),
+.table-cart td:nth-child(7) {
+    width: 5%; /* Cột Xóa */
+}
+
+.table-cart img {
+    width: 100%; /* Tùy chỉnh cho hình ảnh bên trong cột ảnh */
+    max-width: 80px; /* Đảm bảo ảnh không quá lớn */
+    height: auto;
+}
+
 
 h2{
     text-align: center;
     font-weight: bold;
+}
+
+.content-left{
+    background-color: white;
 }
 
 .table-cart img {
@@ -26,17 +86,17 @@ h2{
 }
 
 .table-cart button{
-    font-size: 0.7rem;
+    font-size: 0.6rem;
 }
 
 .row-product {
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Chuyển động mượt */
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.2);
 }
 
     .row-product:hover {
         transform: scale(1.015); /* Phóng to hàng khi hover */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tạo hiệu ứng bóng đổ */
+        box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.2); /* Tạo hiệu ứng bóng đổ */
         z-index: 1; /* Đảm bảo hàng nổi lên trên các hàng khác */
     }
 
@@ -71,14 +131,30 @@ form{
     }
 
 .total-pay {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-color: white;
 }
 
-.total-pay h3{
+    .total-pay h5 {
+        margin-top: 10px;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+.total-pay h6{
+    margin-top: 20px;
     font-size: 1.2rem;
     font-weight: bold;
+    margin-bottom: 20px;
+    color: red;
 }
 
+.total-pay a{
+    display: block;
+    font-size: 0.6rem;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+    .total-pay a:last-child{
+        font-size: 0.8rem;
+        color: black;
+    }
