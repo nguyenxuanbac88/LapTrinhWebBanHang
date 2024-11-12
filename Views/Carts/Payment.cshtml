@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+
+    string bankName = ViewBag.BankName;
+    string accountNumber = ViewBag.AccountNumber;
+    string accountName = ViewBag.AccountName;
+    string transactionId = ViewBag.TransactionId;
+    string amount = ViewBag.Amount.ToString();
+    int orderId = ViewBag.OrderID ?? 0; // Đảm bảo orderId không null
+}
+
+<h2>Payment</h2>
+
+<div class="text-center mt-2">
+    <div class="overlay">
+        <img id="qrMomo" width="250"
+             src="https://img.vietqr.io/image/@(bankName)-@(accountNumber)-qr_only.png?&addInfo=@(transactionId)&amount=@(amount)&accountName=@(accountName)"
+             alt="QR code for payment">
+    </div>
+</div>
+
+<!-- Hiển thị trạng thái đơn hàng -->
+<div id="order-status" class="mt-4">
+    Trạng thái đơn hàng: <span id="status-text">Đang xử lý...</span>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        // Kiểm tra URL để đảm bảo đường dẫn đúng
+        console.log('@Url.Action("CheckOrderStatus", "Carts")?orderId=@orderId');
+
+        // Hàm kiểm tra trạng thái đơn hàng
+        function checkOrderStatus() {
+            fetch('@Url.Action("CheckOrderStatus", "Carts")?orderId=@orderId')
+                .then(response => response.json())
+                .then(data => {
+                    // Cập nhật trạng thái đơn hàng trong phần tử HTML
+                    document.getElementById("status-text").innerText = data.statusText;
+
+                    // Nếu trạng thái đơn hàng đã hoàn tất, có thể dừng kiểm tra
+                    if (data.status === 1) {
+                        clearInterval(statusInterval); // Dừng việc kiểm tra liên tục
+
+                        // Chuyển hướng đến trang hoàn tất
+                        window.location.href = '@Url.Action("OrderDetail", "Carts", new { orderId })';
+                    }
+                })
+                .catch(error => {
+                    console.error("Lỗi khi lấy trạng thái đơn hàng:", error);
+                });
+        }
+
+        // Đặt interval để gọi hàm mỗi 2 giây (2000ms)
+        var statusInterval = setInterval(checkOrderStatus, 2000);
+    });
+</script>
