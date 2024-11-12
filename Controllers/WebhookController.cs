@@ -10,7 +10,7 @@ namespace LapTrinhWebBanHang
 {
     public class WebhookController : Controller
     {
-        private const string AccessToken = "917A6151-E32C-6308-4DE5-DE503713CBCC";
+        private const string AccessToken = "0c9d6d847f794e94d5eb8fe3c2fb929d979f0a44";
         private readonly WebsiteEntities4 db = new WebsiteEntities4();
 
         [AllowAnonymous]
@@ -39,70 +39,61 @@ namespace LapTrinhWebBanHang
                             string amount = transaction.Amount;
                             string transactionID = transaction.TransactionID;
                             int paymentMethod = 1; // Giả định phương thức thanh toán là 1, có thể thay đổi tùy vào yêu cầu
-
-                            // Sử dụng Regex để tìm "musports" và lấy ID sau đó
-                            var match = Regex.Match(description, @"musports\s*(\d+)");
-                            if (match.Success && int.TryParse(match.Groups[1].Value, out int idOrder) && decimal.TryParse(amount, out decimal amountBank))
+                            if (type == "IN")
                             {
-                                var order = db.Orders.FirstOrDefault(o => o.OrderID == idOrder);
-
-                                if (order != null)
+                                // Sử dụng Regex để tìm "musports" và lấy ID sau đó
+                                var match = Regex.Match(description, @"musports\s*(\d+)");
+                                if (match.Success && int.TryParse(match.Groups[1].Value, out int idOrder) && decimal.TryParse(amount, out decimal amountBank))
                                 {
-                                    if (amountBank == order.price)
+                                    var order = db.Orders.FirstOrDefault(o => o.OrderID == idOrder);
+
+                                    if (order != null)
                                     {
-                                        // Cập nhật trạng thái đơn hàng
-                                        order.Status = 1;
-
-                                        // Ghi log vào bảng Payments
-                                        var payment = new Payment
+                                        if (amountBank == order.price)
                                         {
-                                            OrderID = idOrder,
-                                            PaymentAmount = amountBank,
-                                            PaymentDate = DateTime.Now,
-                                            PaymentMethod = paymentMethod,
-                                            PaymentStatus = 1, // 1 biểu thị thanh toán thành công
-                                            TransactionID = transactionID
-                                        };
+                                            // Cập nhật trạng thái đơn hàng
+                                            order.Status = 1;
 
-                                        db.Payments.Add(payment);
+                                            // Ghi log vào bảng Payments
+                                            var payment = new Payment
+                                            {
+                                                OrderID = idOrder,
+                                                PaymentAmount = amountBank,
+                                                PaymentDate = DateTime.Now,
+                                                PaymentMethod = paymentMethod,
+                                                PaymentStatus = 1, // 1 biểu thị thanh toán thành công
+                                                TransactionID = transactionID
+                                            };
 
-                                        try
-                                        {
-                                            db.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu
+                                            db.Payments.Add(payment);
+
+                                            try
+                                            {
+                                                db.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                // Ghi log lỗi nếu xảy ra lỗi khi lưu dữ liệu
+                                                Console.WriteLine("Error saving to database: " + ex.Message);
+                                                return Json(new { status = false, msg = "Error saving to database: " + ex.Message });
+                                            }
                                         }
-                                        catch (Exception ex)
-                                        {
-                                            // Ghi log lỗi nếu xảy ra lỗi khi lưu dữ liệu
-                                            Console.WriteLine("Error saving to database: " + ex.Message);
-                                            return Json(new { status = false, msg = "Error saving to database: " + ex.Message });
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Amount does not match for OrderID: " + idOrder);
                                     }
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Order not found for OrderID: " + idOrder);
+                                    Console.WriteLine("Skipped transaction with Type: " + type);
                                 }
                             }
-                            else
-                            {
-                                Console.WriteLine("Invalid description format or amount for transaction: " + transactionID);
-                            }
+
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine("Invalid webhook data format.");
-                        return Json(new { status = false, msg = "Invalid webhook data format." });
-                    }
+
 
                     var response = new
                     {
                         status = true,
-                        msg = "OKE"
+                        msg = "Ok"
                     };
 
                     return Json(response);
