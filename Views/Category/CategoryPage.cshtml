@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<LapTrinhWebBanHang.Models.Product>
 @{
-    ViewBag.Title = "CagtegoryPage";
+    ViewBag.Title = "HANGMU | " + ViewBag.CategoryName;
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
-
-
 }
 
 <link rel="stylesheet" href="~/Content/Category_page/container_category.css" />
@@ -27,10 +25,11 @@
             <img src="~/Image/thumbnail/PhongThayDo3.jpg" alt="All" />
         }
     </div>
+    <p class="link">HANGMU <span>|</span> <span>@ViewBag.CategoryName</span></p>
     <div class="header-content">
         @*<div class="filter">
-            <span class="filter-btn">Filter <i class="fa-solid fa-sliders"></i></span>
-        </div>*@
+                <span class="filter-btn">Filter <i class="fa-solid fa-sliders"></i></span>
+            </div>*@
         <div class="dropdown">
             <div class="dropdown-header" onclick="toggleDropdown()">
                 Sắp xếp<span style="opacity: 0.6" id="selected-option"></span>
@@ -47,82 +46,82 @@
     <div class="content row">
         <h2 style="text-align: center; font-weight: bold;">@ViewBag.CategoryName</h2>
         @*<div class="content-left col-xl-2 col-md-3">
-            <div class="side-bar">
-                <div class="product-size border-bot">
-                    <div onclick="toggleSection('size-section')" class="container-toggle">
-                        <h4>Kích thước</h4>
-                        <i class="fa-solid fa-angle-down"></i>
+                <div class="side-bar">
+                    <div class="product-size border-bot">
+                        <div onclick="toggleSection('size-section')" class="container-toggle">
+                            <h4>Kích thước</h4>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <ul id="size-section" class="section-content">
+                            <li class="style-everyList"><input type="checkbox" />35</li>
+                            <li class="style-everyList"><input type="checkbox" />36</li>
+                            <li class="style-everyList"><input type="checkbox" />37</li>
+                            <li class="style-everyList"><input type="checkbox" />38</li>
+                            <li class="style-everyList"><input type="checkbox" />39</li>
+                            <li class="style-everyList"><input type="checkbox" />40</li>
+                            <li class="style-everyList"><input type="checkbox" />41</li>
+                            <li class="style-everyList"><input type="checkbox" />42</li>
+                            <li class="style-everyList"><input type="checkbox" />43</li>
+                            <li class="style-everyList"><input type="checkbox" />44</li>
+                        </ul>
                     </div>
-                    <ul id="size-section" class="section-content">
-                        <li class="style-everyList"><input type="checkbox" />35</li>
-                        <li class="style-everyList"><input type="checkbox" />36</li>
-                        <li class="style-everyList"><input type="checkbox" />37</li>
-                        <li class="style-everyList"><input type="checkbox" />38</li>
-                        <li class="style-everyList"><input type="checkbox" />39</li>
-                        <li class="style-everyList"><input type="checkbox" />40</li>
-                        <li class="style-everyList"><input type="checkbox" />41</li>
-                        <li class="style-everyList"><input type="checkbox" />42</li>
-                        <li class="style-everyList"><input type="checkbox" />43</li>
-                        <li class="style-everyList"><input type="checkbox" />44</li>
-                    </ul>
-                </div>
 
 
-                <div class="product-type border-bot">
-                    <div onclick="toggleSection('type-section')" class="container-toggle">
-                        <h4>Chủng loại</h4>
-                        <i class="fa-solid fa-angle-down"></i>
+                    <div class="product-type border-bot">
+                        <div onclick="toggleSection('type-section')" class="container-toggle">
+                            <h4>Chủng loại</h4>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <ul id="type-section" class="section-content">
+                            <li class="style-everyList dis-block"><input type="checkbox" />ĐINH TF</li>
+                            <li class="style-everyList dis-block"><input type="checkbox" />ĐINH FG</li>
+                        </ul>
                     </div>
-                    <ul id="type-section" class="section-content">
-                        <li class="style-everyList dis-block"><input type="checkbox" />ĐINH TF</li>
-                        <li class="style-everyList dis-block"><input type="checkbox" />ĐINH FG</li>
-                    </ul>
-                </div>
 
-                <div class="product-brands border-bot">
-                    <div onclick="toggleSection('brands-section')" class="container-toggle">
-                        <h4>Thương hiệu</h4>
-                        <i class="fa-solid fa-angle-down"></i>
+                    <div class="product-brands border-bot">
+                        <div onclick="toggleSection('brands-section')" class="container-toggle">
+                            <h4>Thương hiệu</h4>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <ul id="brands-section" class="section-content">
+                            <li class="style-everyList dis-block"><input type="checkbox" />NIKE</li>
+                            <li class="style-everyList dis-block"><input type="checkbox" />ADIDAS</li>
+                            <li class="style-everyList dis-block"><input type="checkbox" />PUMA</li>
+                            <li class="style-everyList dis-block"><input type="checkbox" />MIZUNO</li>
+                        </ul>
                     </div>
-                    <ul id="brands-section" class="section-content">
-                        <li class="style-everyList dis-block"><input type="checkbox" />NIKE</li>
-                        <li class="style-everyList dis-block"><input type="checkbox" />ADIDAS</li>
-                        <li class="style-everyList dis-block"><input type="checkbox" />PUMA</li>
-                        <li class="style-everyList dis-block"><input type="checkbox" />MIZUNO</li>
-                    </ul>
-                </div>
 
 
-                <div class="product-price border-bot">
-                    <div onclick="toggleSection('price-section')" class="container-toggle">
-                        <h4>Giá</h4>
-                        <i class="fa-solid fa-angle-down"></i>
+                    <div class="product-price border-bot">
+                        <div onclick="toggleSection('price-section')" class="container-toggle">
+                            <h4>Giá</h4>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <ul id="price-section" class="section-content">
+                            <li class="style-everyList dis-block"><input type="checkbox" />Trên 500K</li>
+                            <li class="style-everyList dis-block"><input type="checkbox" />500k - 1tr</li>
+                            <li class="style-everyList dis-block"><input type="checkbox" />1tr - 2tr</li>
+                            <li class="style-everyList dis-block"><input type="checkbox" />Trên 2tr</li>
+                        </ul>
                     </div>
-                    <ul id="price-section" class="section-content">
-                        <li class="style-everyList dis-block"><input type="checkbox" />Trên 500K</li>
-                        <li class="style-everyList dis-block"><input type="checkbox" />500k - 1tr</li>
-                        <li class="style-everyList dis-block"><input type="checkbox" />1tr - 2tr</li>
-                        <li class="style-everyList dis-block"><input type="checkbox" />Trên 2tr</li>
-                    </ul>
-                </div>
 
-                <div class="product-color">
-                    <div onclick="toggleSection('color-section')" class="container-toggle">
-                        <h4>Màu sắc</h4>
-                        <i class="fa-solid fa-angle-down"></i>
+                    <div class="product-color">
+                        <div onclick="toggleSection('color-section')" class="container-toggle">
+                            <h4>Màu sắc</h4>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <ul id="color-section" class="section-content">
+                            <li style="background-color: red;"></li>
+                            <li style="background-color: white;"></li>
+                            <li style="background-color: yellow;"></li>
+                            <li style="background-color: blue;"></li>
+                            <li style="background-color: green;"></li>
+                            <li style="background-color: gray;"></li>
+                            <li style="background-color: orangered;"></li>
+                        </ul>
                     </div>
-                    <ul id="color-section" class="section-content">
-                        <li style="background-color: red;"></li>
-                        <li style="background-color: white;"></li>
-                        <li style="background-color: yellow;"></li>
-                        <li style="background-color: blue;"></li>
-                        <li style="background-color: green;"></li>
-                        <li style="background-color: gray;"></li>
-                        <li style="background-color: orangered;"></li>
-                    </ul>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
 
 
         <div class="content-right col-xl-10 col-md-9">

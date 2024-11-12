@@ -9,9 +9,26 @@ li {
     cursor: pointer;
 }
 
-.border-bot {
-    border-bottom: 1px solid #ddd;
+.link {
+    font-size: 0.8rem;
+    border-bottom: 1px solid gray;
+    margin: 0 10%;
+    color: red;
+    font-weight: bold;
 }
+
+.link span:first-child{
+    color: black;
+}
+
+    .link span:last-child {
+        color: var(--my-color);
+        font-weight: bold;
+    }
+
+    .border-bot {
+        border-bottom: 1px solid #ddd;
+    }
 
 .dis-block {
     display: block !important;
