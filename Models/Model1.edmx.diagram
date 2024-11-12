@@ -29,7 +29,7 @@
         <AssociationConnector Association="WebsiteModel4.productpromotions_promotionid_foreign" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel4.productstock_productid_foreign" ManuallyRouted="false" />
         <AssociationConnector Association="WebsiteModel4.productstock_sizeid_foreign" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="WebsiteModel4.Order" Width="1.5" PointX="0.75" PointY="10.125" />
+        <EntityTypeShape EntityType="WebsiteModel4.Order" Width="1.5" PointX="3" PointY="10.125" />
         <AssociationConnector Association="WebsiteModel4.orderdetails_orderid_foreign" />
         <AssociationConnector Association="WebsiteModel4.payments_orderid_foreign" />
       </Diagram>

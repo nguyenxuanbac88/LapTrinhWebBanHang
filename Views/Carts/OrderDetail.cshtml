@@ -1,0 +1,54 @@
+﻿@model OrderHistoryViewModel
+@{
+    ViewBag.Title = "Lịch sử mua hàng";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<div class="container">
+    <h2>Chi tiết đơn hàng @Model.OrderID</h2>
+    <table class="table">
+        <tr>
+            <th>Ngày đặt hàng</th>
+            <td>@Model.OrderDate.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr>
+            <th>Địa chỉ</th>
+            <td>@Model.SpecificAddress, @Model.Block, @Model.Town, @Model.Province</td>
+        </tr>
+        <tr>
+            <th>Số điện thoại</th>
+            <td>@Model.Phone</td>
+        </tr>
+        <tr>
+            <th>Trạng thái</th>
+            <td>@Model.Status</td>
+        </tr>
+    </table>
+
+    <h3>Chi tiết sản phẩm</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Kích cỡ</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detail in Model.OrderDetails)
+            {
+                <tr>
+                    <td>@detail.ProductName</td>  <!-- Hiển thị tên sản phẩm -->
+                    <td>@detail.Quantity</td>
+                    <td>@string.Format("{0:C}", detail.UnitPrice)</td>
+                    <td>@detail.Size</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Tổng tiền sẽ hiển thị ở dưới bảng -->
+    <div class="text-right">
+        <strong>Tổng tiền: @string.Format("{0:C}", Model.OrderDetails.Sum(d => d.Quantity * d.UnitPrice))</strong>
+    </div>
+</div>

@@ -217,4 +217,87 @@ public class CartsController : Controller
     {
         return View();
     }
+    public ActionResult OrderHistory()
+    {
+        int? userId = Session["IdUser"] as int?;
+        if (!userId.HasValue)
+        {
+            return RedirectToAction("Sign_in", "Account");
+        }
+
+        using (var db = new WebsiteEntities4())
+        {
+            var orders = db.Orders
+                           .Where(o => o.UserID == userId.Value)
+                           .Select(o => new OrderHistoryViewModel
+                           {
+                               OrderID = o.OrderID,
+                               OrderDate = o.OrderDate,
+                               Status = o.Status,
+                               Price = o.price,
+                               SpecificAddress = o.SpecificAddress,
+                               Block = o.Block,
+                               Town = o.Town,
+                               Province = o.Province,
+                               Phone = o.phone,
+                               OrderDetails = db.OrderDetails
+                                                .Where(od => od.OrderID == o.OrderID)
+                                                .Select(od => new OrderDetailViewModel
+                                                {
+                                                    ProductID = od.ProductID,
+                                                    ProductName = db.Products.FirstOrDefault(p => p.ProductID == od.ProductID).ProductName,
+                                                    Quantity = od.Quantity,
+                                                    UnitPrice = od.UnitPrice,
+                                                    Size = od.size
+                                                }).ToList()
+                           }).ToList();
+
+            return View(orders);
+        }
+    }
+    public ActionResult OrderDetail(int orderId)
+    {
+        using (var db = new WebsiteEntities4())
+        {
+            // Tìm đơn hàng theo orderId
+            var order = db.Orders
+                .Where(o => o.OrderID == orderId)
+                .Select(o => new OrderHistoryViewModel
+                {
+                    OrderID = o.OrderID,
+                    OrderDate = o.OrderDate,
+                    Status = o.Status,
+                    Price = o.price,
+                    SpecificAddress = o.SpecificAddress,
+                    Block = o.Block,
+                    Town = o.Town,
+                    Province = o.Province,
+                    Phone = o.phone,
+                    // Lấy danh sách OrderDetails và thêm thông tin sản phẩm từ bảng Product
+                    OrderDetails = o.OrderDetails
+                        .Select(od => new OrderDetailViewModel
+                        {
+                            ProductID = od.ProductID,
+                            Quantity = od.Quantity,
+                            UnitPrice = od.UnitPrice,
+                            Size = od.size,
+                            ProductName = db.Products
+                                            .Where(p => p.ProductID == od.ProductID)
+                                            .Select(p => p.ProductName)
+                                            .FirstOrDefault()  // Lấy tên sản phẩm
+                        }).ToList()
+                }).FirstOrDefault();
+
+            // Kiểm tra nếu không tìm thấy đơn hàng
+            if (order == null)
+            {
+                return HttpNotFound();  // Trả về lỗi 404 nếu không tìm thấy đơn hàng
+            }
+
+            return View(order);
+        }
+    }
+
+
+
 }
