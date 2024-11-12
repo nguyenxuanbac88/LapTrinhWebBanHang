@@ -3,6 +3,7 @@
     ViewBag.Title = "Lịch sử mua hàng";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
+<link rel="stylesheet" href="~/Content/Cart/OrderHistory.css"/>
 <div class="container">
     <h2>Lịch sử mua hàng</h2>
     <table class="table">
@@ -10,10 +11,10 @@
             <tr>
                 <th>Mã đơn hàng</th>
                 <th>Ngày đặt hàng</th>
-                <th>Tổng tiền</th>
                 <th>Địa chỉ</th>
                 <th>Điện thoại</th>
                 <th>Trạng thái</th>
+                <th>Tổng tiền</th>
                 <th>Chi tiết</th>
             </tr>
         </thead>
@@ -23,12 +24,12 @@
                 <tr>
                     <td>@order.OrderID</td>
                     <td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
-                    <td>@string.Format("{0:C}", order.Price)</td> <!-- Tổng tiền -->
                     <td>@order.SpecificAddress, @order.Block, @order.Town, @order.Province</td> <!-- Địa chỉ -->
                     <td>@order.Phone</td> <!-- Điện thoại -->
                     <td>@order.Status</td> <!-- Trạng thái -->
+                    <td>@string.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C0}", order.Price)</td> <!-- Tổng tiền -->
                     <td>
-                        @Html.ActionLink("Chi tiết", "OrderDetail", new { orderId = order.OrderID })
+                        @Html.ActionLink("Chi tiết", "OrderDetail", new { orderId = order.OrderID }, new { @class = "details" })
                     </td>
                 </tr>
             }

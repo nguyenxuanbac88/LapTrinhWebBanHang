@@ -2,13 +2,30 @@
 @{
     ViewBag.Title = "CagtegoryPage";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
+
+
 }
 
 <link rel="stylesheet" href="~/Content/Category_page/container_category.css" />
 
 <div class="container-content category-page">
     <div class="slide">
-        <img src="https://bizweb.dktcdn.net/100/108/842/collections/giay-bong-da-dinh-thap-tf.jpg?v=1499702390127" alt="" />
+        @if (ViewBag.CategoryID == 1)
+        {
+            <img src="~/Image/thumbnail/NikePack/Nike.png" alt="Nike" />
+        }
+        else if (ViewBag.CategoryID == 2)
+        {
+            <img src="~/Image/thumbnail/AdidasPack/Adidas.png" alt="Adidas" />
+        }
+        else if (ViewBag.CategoryID == 3)
+        {
+            <img src="~/Image/thumbnail/PumaPack/Puma.png" alt="Puma" />
+        }
+        else
+        {
+            <img src="~/Image/thumbnail/PhongThayDo3.jpg" alt="All" />
+        }
     </div>
     <div class="header-content">
         @*<div class="filter">

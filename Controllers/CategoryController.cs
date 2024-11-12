@@ -31,7 +31,7 @@ namespace LapTrinhWebBanHang.Controllers
             // Lọc sản phẩm theo CategoryID được truyền vào
             var productsByCategory = db.Products.Where(p => p.CategoryID == id.Value).ToList();
             ViewBag.CategoryName = category.CategoryName; // Truyền tên danh mục vào ViewBag
-
+            ViewBag.CategoryID = category.CategoryID;
             return View(productsByCategory);
         }
 
