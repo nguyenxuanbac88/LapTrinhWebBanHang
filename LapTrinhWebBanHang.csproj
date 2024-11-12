@@ -391,13 +391,14 @@
     <Content Include="Views\admin\ManageCategory.cshtml" />
     <Content Include="Views\admin\ManageInventory.cshtml" />
     <Content Include="Views\admin\ManageProducts.cshtml" />
-    <Content Include="Views\admin\Orders.cshtml" />
     <Content Include="Views\admin\PromotionList.cshtml" />
     <Content Include="Views\admin\_AddStock.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Carts\OrderHistory.cshtml" />
     <Content Include="Views\Carts\OrderDetail.cshtml" />
+    <Content Include="Views\admin\OrderHistory.cshtml" />
+    <Content Include="Views\admin\OrderDetailHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

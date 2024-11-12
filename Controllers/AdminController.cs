@@ -738,7 +738,7 @@ namespace LapTrinhWebBanHang.Controllers
                 var orders = db.Orders
                            .Select(o => new NewOrderHistoryViewModel
                            {
-                               UserID = (int)o.UserID,
+                               UserID = o.UserID,
                                OrderID = o.OrderID,
                                OrderDate = o.OrderDate,
                                Status = o.Status,
@@ -752,31 +752,60 @@ namespace LapTrinhWebBanHang.Controllers
                                                 .Where(od => od.OrderID == o.OrderID)
                                                 .Select(od => new NewOrderDetailViewModel
                                                 {
-                                                    ProductID = (int)od.ProductID,
-                                                    ProductName = db.Products
-                                                                    .Where(p => p.ProductID == od.ProductID)
-                                                                    .Select(p => p.ProductName)
-                                                                    .FirstOrDefault() ?? "Unknown Product",
+                                                    ProductID = od.ProductID,
+                                                    ProductName = db.Products.FirstOrDefault(p => p.ProductID == od.ProductID).ProductName,
                                                     Quantity = od.Quantity,
                                                     UnitPrice = od.UnitPrice
                                                 }).ToList()
                            }).ToList();
 
-                // Debugging step: Check if orders contain data
-                if (orders == null || !orders.Any())
-                {
-                    Console.WriteLine("No orders found.");
-                    orders = new List<NewOrderHistoryViewModel>(); // Trả về danh sách trống nếu không có dữ liệu
-                }
-                else
-                {
-                    Console.WriteLine("Orders found: " + orders.Count);
-                }
+                
 
                 return View(orders);
             }
         }
-                
+        public ActionResult OrderDetailHistory(int orderId)
+        {
+            using (var db = new WebsiteEntities4())
+            {
+                // Truy vấn đơn hàng
+                var order = db.Orders
+                            .Where(o => o.OrderID == orderId)
+                            .Select(o => new NewOrderHistoryViewModel
+                            {
+                                UserID = o.UserID,
+                                OrderID = o.OrderID,
+                                OrderDate = o.OrderDate,
+                                Status = o.Status,
+                                Price = o.price,
+                                SpecificAddress = o.SpecificAddress,
+                                Block = o.Block,
+                                Town = o.Town,
+                                Province = o.Province,
+                                Phone = o.phone,
+                                OrderDetails = o.OrderDetails
+                                                 .Select(od => new NewOrderDetailViewModel
+                                                 {
+                                                     ProductID = od.ProductID,
+                                                     ProductName = db.Products
+                                                                     .Where(p => p.ProductID == od.ProductID)
+                                                                     .Select(p => p.ProductName)
+                                                                     .FirstOrDefault() ?? "Unknown Product",  // Nếu không tìm thấy sản phẩm thì gán giá trị mặc định
+                                                     Quantity = od.Quantity,
+                                                     UnitPrice = od.UnitPrice
+                                                 }).ToList()  // Đảm bảo danh sách OrderDetails được truy vấn và trả về
+                            }).FirstOrDefault(); // Sử dụng FirstOrDefault để lấy một đối tượng đơn hàng hoặc null nếu không có
+
+                if (order == null)
+                {
+                    // Nếu không tìm thấy đơn hàng, trả về thông báo lỗi
+                    return HttpNotFound("Đơn hàng không tồn tại");
+                }
+
+                return View(order);  // Trả về View với thông tin đơn hàng
+            }
+        }
+
 
     }
 }
