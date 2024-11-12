@@ -17,7 +17,10 @@ namespace LapTrinhWebBanHang.Models
         public string Town { get; set; }
         public string Province { get; set; }
         public string Phone { get; set; }
+        public string Ip { get; set; }  // Thêm trường Ip
         public List<NewOrderDetailViewModel> OrderDetails { get; set; }
+        public string Email { get; internal set; }
+        public string FullName { get; set; }  // Thêm trường FullName để lưu thông tin từ AddressUser
 
     }
 

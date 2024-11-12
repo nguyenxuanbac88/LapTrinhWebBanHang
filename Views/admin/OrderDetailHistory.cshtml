@@ -25,7 +25,7 @@
         <div class="card-body">
 
             <p><strong>Mã Đơn Hàng:</strong> @Model.OrderID</p>
-            <p><strong>Tài Khoản:</strong> @Model.UserID</p>
+            <p><strong>Tài Khoản:</strong> @Model.Email</p>
             <p>
                 <strong>Trạng Thái:</strong>
                 @if (Model.Status == 0)
@@ -37,6 +37,7 @@
                     <span class="text-success">Đã Thanh Toán</span> <!-- Màu xanh cho "Đã Thanh Toán" -->
                 }
             </p>
+            <p><strong>Họ Tên:</strong> @Model.FullName</p>
             <p><strong>Địa Chỉ:</strong> @Model.SpecificAddress, @Model.Block, @Model.Town, @Model.Province</p>
             <p><strong>Số Điện Thoại:</strong> @Model.Phone</p>
             <p><strong>Thời Gian Đặt Hàng:</strong> @Model.OrderDate.ToString("HH:mm:ss dd-MM-yyyy")</p>

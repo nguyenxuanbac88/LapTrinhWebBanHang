@@ -76,6 +76,7 @@
           <Property Name="Block" Type="nchar" MaxLength="100" />
           <Property Name="Town" Type="nchar" MaxLength="100" />
           <Property Name="Province" Type="nchar" MaxLength="100" />
+          <Property Name="FullName" Type="nchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="Payments">
           <Key>
@@ -738,6 +739,7 @@
           <Property Name="Province" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="OrderDetails" Relationship="WebsiteModel4.orderdetails_orderid_foreign" FromRole="Order" ToRole="OrderDetail" />
           <NavigationProperty Name="Payments" Relationship="WebsiteModel4.payments_orderid_foreign" FromRole="Order" ToRole="Payment" />
+          <Property Name="FullName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="orderdetails_orderid_foreign">
           <End Type="WebsiteModel4.Order" Role="Order" Multiplicity="0..1" />
@@ -927,6 +929,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="WebsiteModel4.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="Province" ColumnName="Province" />
                 <ScalarProperty Name="Town" ColumnName="Town" />
                 <ScalarProperty Name="Block" ColumnName="Block" />

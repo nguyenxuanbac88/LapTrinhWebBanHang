@@ -9,6 +9,7 @@
 <head>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Content/Admin/OrderHistorySuccess.css">
 </head>
 <body>
 
@@ -44,10 +45,10 @@
             <label for="end_date" class="form-label">Ngày kết thúc</label>
             <input type="date" class="form-control" id="filterEndDate" name="end_date">
         </div>
-        <div class="col-md-2 text-center">
+        @*<div class="col-md-2 text-center">
             <label for="total_amount" class="form-label">Tổng Tiền</label>
             <input type="text" class="form-control" id="total_amount" name="total_amount" disabled placeholder="1.530.120">
-        </div>
+        </div>*@
     </div>
     <div class="text-center">
         <button class="btn btn-primary" id="filterButton">Lọc dữ liệu</button>
@@ -64,7 +65,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Tài Khoản</th>
-                            <th>Tên Khách Hàng</th>
+                            <th>Họ Tên</th>
                             <th>Mã Đơn Hàng</th>
                             <th>Địa chỉ</th>
                             <th>Số Điện Thoại</th>
@@ -90,7 +91,7 @@
                                     <td>
                                         @if (order.Status == 0)
                                         {
-                                            <span class="text-warning">Chờ Thanh Toán</span> <!-- Màu vàng cho "Chưa Thanh Toán" -->
+                                            <span class="text-warning">Chưa Thanh Toán</span> <!-- Màu vàng cho "Chưa Thanh Toán" -->
                                         }
                                         else if (order.Status == 1)
                                         {
@@ -111,8 +112,6 @@
                             </tr>
                         }
                     </tbody>
-
-
                 </table>
             </div>
         </div>
@@ -194,9 +193,8 @@
             });
 
             function showDetails(orderId) {
-    window.location.href = '@Url.Action("OrderDetailHistory", "Admin", new { orderId = "__orderId__" })'.replace("__orderId__", orderId);
-}
-
+                window.location.href = '@Url.Action("OrderDetailHistory", "Admin", new { orderId = "__orderId__" })'.replace("__orderId__", orderId);
+            }
         </script>
     }
 </body>

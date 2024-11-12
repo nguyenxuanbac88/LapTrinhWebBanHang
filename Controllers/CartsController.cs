@@ -167,6 +167,7 @@ public class CartsController : Controller
             var newOrder = new Order
             {
                 UserID = userId.Value,
+                FullName = userAddress.FullName,
                 SpecificAddress = userAddress.SpecificAddress,
                 Block = userAddress.Block,
                 Town = userAddress.Town,
