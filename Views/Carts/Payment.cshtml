@@ -6,9 +6,12 @@
     string accountNumber = ViewBag.AccountNumber;
     string accountName = ViewBag.AccountName;
     string transactionId = ViewBag.TransactionId;
-    string amount = ViewBag.Amount.ToString("N0");
 
     int orderId = ViewBag.OrderID ?? 0; // Đảm bảo orderId không null
+
+    // Đảm bảo amount là một giá trị số và không có dấu phân cách nghìn
+    decimal amount = ViewBag.Amount != null ? (decimal)ViewBag.Amount : 0;
+    string formattedAmount = amount.ToString("0", System.Globalization.CultureInfo.GetCultureInfo("vi-VN")); // Chuyển thành chuỗi mà không có phần thập phân
 }
 <link rel="stylesheet" href="~/Content/Cart/Payment.css" />
 <div class="container-fluid">
@@ -18,14 +21,14 @@
         </div>
         <hr />
         <p class="warning">
-            Quý khách vui lòng không tắt trình duyệt cho đến khi nhận được kết quả giao dịch trên website. Trường hợp đã thanh toán nhưng chưa nhận kết quả giao dịch, vui lòng liên hệ tới đội ngũ hỗ trợ hoặc số điện thoại . Xin cảm ơn!
+            <i class="fa-solid fa-triangle-exclamation"></i> Quý khách vui lòng không tắt trình duyệt cho đến khi nhận được kết quả giao dịch trên website. Trường hợp đã thanh toán nhưng chưa nhận kết quả giao dịch, vui lòng liên hệ tới đội ngũ hỗ trợ hoặc số điện thoại. Xin cảm ơn!
         </p>
         <div class="col-lg-6">
             <div class="form-info-payment">
                 <h4>Thông tin chuyển khoản</h4>
                 <hr />
                 <label>Số tiền thanh toán</label>
-                <p style="color: red;">@String.Format("{0:N0}", amount) VNĐ</p>
+                <p style="color: red;">@formattedAmount VND</p>
                 <label>Ngân hàng</label>
                 <p style="font-size: 0.8rem;">@bankName (Ngân hàng Thương mại cổ phần Đầu tư và Phát triển Việt Nam)</p>
                 <label>Chủ tài khoản</label>
@@ -45,16 +48,20 @@
                 <div class="overlay">
                     <span class="corner bottom-left"></span>
                     <span class="corner bottom-right"></span>
-                    <img id="qrMomo" width="250"
-                         src="https://img.vietqr.io/image/@(bankName)-@(accountNumber)-qr_only.png?&addInfo=@(transactionId)&amount=@(amount)&accountName=@(accountName)"
+                    <img id="qrMomo" width="300"
+                         src="https://img.vietqr.io/image/@(bankName)-@(accountNumber)-qr_only.png?&addInfo=@(transactionId)&amount=@(formattedAmount)&accountName=@(accountName)"
                          alt="QR code for payment">
                 </div>
             </div>
 
             <!-- Hiển thị trạng thái đơn hàng -->
-            <div id="order-status" class="mt-4">
+            <div style="margin-left: 40px;" id="order-status" class="mt-4">
                 Trạng thái đơn hàng: <span style="color: orange;" id="status-text">Đang xử lý...</span>
             </div>
+        </div>
+        <div class="call">
+            <a href="tel: 0123456789"><i class="fa-solid fa-phone"> 0123456789</i></a>
+            <i class="fa-regular fa-envelope"></i>
         </div>
     </div>
 </div>

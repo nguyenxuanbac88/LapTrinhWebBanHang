@@ -1,6 +1,7 @@
 ﻿
 .container{
     padding: 50px 0;
+    min-height: 600px;
 }
 
 .product-item .product-image {

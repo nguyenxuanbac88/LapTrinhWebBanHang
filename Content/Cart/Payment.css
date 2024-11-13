@@ -120,3 +120,14 @@ h4{
     border-top: none;
     border-left: none;
 }
+
+.call i{
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 10px;
+    color: black;
+}
+
+.call i:hover{
+    color: var(--my-color);
+}

@@ -24,8 +24,8 @@
                         <tr>
                             <td>@item.ProductName</td>
                             <td>@item.Quantity</td>
-                            <td>@item.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</td>
-                            <td>@((item.Quantity * item.Price).ToString("#,0", new System.Globalization.CultureInfo("vi-VN"))) đ</td>
+                            <td>@item.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN"))</td>
+                            <td>@((item.Quantity * item.Price).ToString("#,0", new System.Globalization.CultureInfo("vi-VN")))</td>
                         </tr>
                     }
                 </tbody>
@@ -71,7 +71,7 @@
                 <!-- Tổng tiền -->
                 <div class="form-group">
                     <label for="TotalAmount">Tổng số tiền:</label>
-                    <strong>@Model.TotalAmount.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</strong>
+                    <strong>@Model.TotalAmount.ToString("#,0", new System.Globalization.CultureInfo("vi-VN"))</strong>
                 </div>
 
                 <!-- Nút thanh toán -->

@@ -29,27 +29,33 @@
                     <td>
                         @{
                             var statusText = "";
+                            var statusClass = "";
                             switch (order.Status)
                             {
                                 case 0:
                                     statusText = "Chưa thanh toán";
+                                    statusClass = "status-chua-thanh-toan";
                                     break;
                                 case 1:
                                     statusText = "Đã thanh toán";
+                                    statusClass = "status-da-thanh-toan";
                                     break;
                                 case 2:
                                     statusText = "Đã gửi hàng";
+                                    statusClass = "status-da-gui-hang";
                                     break;
                                 case -1:
                                     statusText = "Đơn hàng bị huỷ";
+                                    statusClass = "status-bi-huy";
                                     break;
                                 default:
                                     statusText = "Không xác định";
+                                    statusClass = "status-khong-xac-dinh";
                                     break;
                             }
                         }
-                        @statusText
-                    </td> <!-- Trạng thái -->
+                        <span class="@statusClass">@statusText</span>
+                    </td>
                     <td>@string.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C0}", order.Price)</td> <!-- Tổng tiền -->
                     <td>
                         @Html.ActionLink("Chi tiết", "OrderDetail", new { orderId = order.OrderID }, new { @class = "details" })

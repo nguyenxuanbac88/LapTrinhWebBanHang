@@ -1,8 +1,7 @@
-﻿.container {
+﻿.container-fluid {
     padding: 50px 20px;
     box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.2);
-    margin-top: 50px;
-    margin-bottom: 50px;
+    min-height: 600px;
 }
 
 h2{
@@ -26,5 +25,29 @@ h2{
 
 .table tbody td {
     text-align: center;
+}
+
+.details{
+    color: green;
+}
+
+.status-chua-thanh-toan {
+    color: #FFA500; /* Màu vàng */
+}
+
+.status-da-thanh-toan {
+    color: #28a745; /* Màu xanh lá */
+}
+
+.status-da-gui-hang {
+    color: #007bff; /* Màu xanh dương */
+}
+
+.status-bi-huy {
+    color: #dc3545; /* Màu đỏ */
+}
+
+.status-khong-xac-dinh {
+    color: #6c757d; /* Màu xám cho trạng thái không xác định */
 }
 
