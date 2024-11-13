@@ -23,8 +23,38 @@
                 </tr>
                 <tr>
                     <th>Trạng thái</th>
-                    <td>@Model.Status</td>
-                </tr>
+                    <td>
+                        @{
+                            var statusText = "";
+                            var statusClass = "";
+                            switch (Model.Status)
+                            {
+                                case 0:
+                                    statusText = "Chưa thanh toán";
+                                    statusClass = "status-chua-thanh-toan";
+                                    break;
+                                case 1:
+                                    statusText = "Đã thanh toán";
+                                    statusClass = "status-da-thanh-toan";
+                                    break;
+                                case 2:
+                                    statusText = "Đã gửi hàng";
+                                    statusClass = "status-da-gui-hang";
+                                    break;
+                                case -1:
+                                    statusText = "Đơn hàng bị huỷ";
+                                    statusClass = "status-bi-huy";
+                                    break;
+                                default:
+                                    statusText = "Không xác định";
+                                    statusClass = "status-khong-xac-dinh";
+                                    break;
+                            }
+                        }
+                        <span class="@statusClass">@statusText</span>
+                    </td>
+
+                </tr> <!-- Trạng thái -->
             </table>
         </div>
         <div class="product-detail col-lg-5">
@@ -44,7 +74,7 @@
                         <tr>
                             <td>@detail.ProductName</td>  <!-- Hiển thị tên sản phẩm -->
                             <td>@detail.Quantity</td>
-                            <td>@string.Format("{0:C}", detail.UnitPrice)</td>
+                            <td>@string.Format("{0:N0}", detail.UnitPrice).Replace(",", ".")</td>
                             <td>@detail.Size</td>
                         </tr>
                     }
@@ -54,6 +84,8 @@
     </div>
     <!-- Tổng tiền sẽ hiển thị ở dưới bảng -->
     <div class="text-right">
-        <strong style="color: red; font-size: 1.2rem;">Tổng tiền: @string.Format("{0:C}", Model.OrderDetails.Sum(d => d.Quantity * d.UnitPrice))</strong>
+        <strong style="color: red; font-size: 1.2rem;">
+            Tổng tiền: @string.Format("{0:N0} VND", Model.OrderDetails.Sum(d => d.Quantity * d.UnitPrice)).Replace(",", ".")
+        </strong>
     </div>
 </div>

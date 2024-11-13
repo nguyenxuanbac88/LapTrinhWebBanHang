@@ -17,7 +17,7 @@ namespace LapTrinhWebBanHang.Controllers
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
             Response.Cache.SetNoStore();
-
+            ViewBag.IsAdmin = Session["IsAdmin"] != null && (bool)Session["IsAdmin"];
             return View();
         }
         [HttpGet]

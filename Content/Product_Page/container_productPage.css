@@ -51,7 +51,7 @@ a {
     }
 
         .content-left .img-main img {
-            width: 400px;
+            width: 420px;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -381,10 +381,9 @@ a {
 
 .btn-add-cart {
     background-color: #fb5830;
-    text-align: center;
-    align-items: center;
-    padding: 18px 10px 0 10px;
-    border-radius: 8px;
+    padding: 10px 10px;
+    font-size: 0.8rem;
+    border: 1px solid gray;
 }
 
     .btn-add-cart:hover{
@@ -416,4 +415,12 @@ a {
 #sizesList input[type="radio"]:checked + span {
     background-color: #000;
     color: #fff;
+}
+
+.btn-buy{
+    background: var(--my-color);
+    padding: 10px 20px;
+    border: 1px solid gray;
+    font-weight: bold;
+    font-size: 0.8rem;
 }

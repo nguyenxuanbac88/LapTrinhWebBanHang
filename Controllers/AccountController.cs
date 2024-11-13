@@ -65,6 +65,7 @@ namespace LapTrinhWebBanHang.Controllers
 
                     Session["Email"] = userInDb.Email;
                     Session["IdUser"] = userInDb.IdUser;
+                    Session["IsAdmin"] = userInDb.IsAdmin == 1;
                     return RedirectToAction("Home_page", "HomePage");
                 }
                 else

@@ -94,10 +94,19 @@
                                         <span>@email</span>
                                     </a>
                                     <div class="dropdown-menu">
-                                        @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
-                                        @Html.ActionLink("Thông tin", "Index", "UserAddresss", null, new { @class = "dropdown-item" })
-                                        @Html.ActionLink("DashBoard", "DashBoard", "Admin", null, new { @class = "dropdown-item" })
-                                        @Html.ActionLink("Lịch sử đơn hàng", "OrderHistory", "Carts", null, new { @class = "dropdown-item" })
+                                        @if (Session["IsAdmin"] != null && (bool)Session["IsAdmin"])
+                                        {
+                                            @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
+                                            @Html.ActionLink("Thông tin", "Index", "UserAddresss", null, new { @class = "dropdown-item" })
+                                            @Html.ActionLink("DashBoard", "DashBoard", "Admin", null, new { @class = "dropdown-item" })
+                                            @Html.ActionLink("Lịch sử đơn hàng", "OrderHistory", "Carts", null, new { @class = "dropdown-item" })
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
+                                            @Html.ActionLink("Thông tin", "Index", "UserAddresss", null, new { @class = "dropdown-item" })
+                                            @Html.ActionLink("Lịch sử đơn hàng", "OrderHistory", "Carts", null, new { @class = "dropdown-item" })
+                                        }
                                     </div>
                                 </div>
                                 <div class="shopping-cart">
