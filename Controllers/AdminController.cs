@@ -893,5 +893,23 @@ namespace LapTrinhWebBanHang.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        // GET: UserAdmin
+        public ActionResult Users()
+        {
+            // Kết hợp bảng Users và AddressUser
+            var users = (from u in db.Users
+                         join a in db.AddressUsers on u.IdUser equals a.IdUser
+                         select new UserAdminViewModel
+                         {
+                             UserID = u.IdUser,
+                             Email = u.Email,
+                             Username = a.FullName,
+                             Address = a.SpecificAddress, // Kết hợp địa chỉ từ bảng AddressUser
+                             PhoneNumber = a.Phone, // Số điện thoại từ AddressUser
+                             IPAddress = u.Ip
+                         }).ToList();
+
+            return View(users);
+        }
     }
 }

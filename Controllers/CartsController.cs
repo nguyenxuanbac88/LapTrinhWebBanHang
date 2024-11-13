@@ -342,13 +342,13 @@ public class CartsController : Controller
             return RedirectToAction("Sign_in", "Account");
         }
 
-        var cart = GetCartFromSession();
         using (var db = new WebsiteEntities4())
         {
             var product = db.Products.FirstOrDefault(p => p.ProductID == productId);
             if (product != null)
             {
-                // Thêm sản phẩm vào giỏ hàng với số lượng 1 và kích thước đã chọn
+                // Tạo giỏ hàng tạm thời
+                var cart = new Cart();
                 cart.AddItem(new CartItem
                 {
                     ProductID = product.ProductID,
@@ -359,13 +359,68 @@ public class CartsController : Controller
                     Size = size,
                     DateAdded = DateTime.UtcNow
                 });
+
+                // Tính tổng số tiền cho đơn hàng
+                int totalAmount = cart.Items.Sum(item => item.Quantity * item.Price);
+
+                // Kiểm tra thông tin địa chỉ người dùng
+                int? userId = Session["IdUser"] as int?;
+                if (!userId.HasValue)
+                {
+                    return RedirectToAction("Sign_in", "Account");
+                }
+
+                // Lấy thông tin địa chỉ người dùng từ AddressUser
+                var userAddress = db.AddressUsers.FirstOrDefault(a => a.IdUser == userId.Value);
+                if (userAddress == null || string.IsNullOrEmpty(userAddress.FullName) ||
+                    string.IsNullOrEmpty(userAddress.Phone) ||
+                    string.IsNullOrEmpty(userAddress.Province) ||
+                    string.IsNullOrEmpty(userAddress.Town) ||
+                    string.IsNullOrEmpty(userAddress.Block) ||
+                    string.IsNullOrEmpty(userAddress.SpecificAddress))
+                {
+                    TempData["Message"] = "Vui lòng nhập đầy đủ thông tin địa chỉ trước khi thanh toán.";
+                    return RedirectToAction("Index", "UserAddresss");
+                }
+
+                // Tạo đơn hàng mới
+                var newOrder = new Order
+                {
+                    UserID = userId.Value,
+                    FullName = userAddress.FullName,
+                    SpecificAddress = userAddress.SpecificAddress,
+                    Block = userAddress.Block,
+                    Town = userAddress.Town,
+                    Province = userAddress.Province,
+                    phone = userAddress.Phone,
+                    OrderDate = DateTime.UtcNow.ToLocalTime(),
+                    Status = 0,
+                    price = totalAmount
+                };
+                db.Orders.Add(newOrder);
+                db.SaveChanges();
+
+                // Tạo chi tiết đơn hàng
+                foreach (var item in cart.Items)
+                {
+                    var orderDetail = new OrderDetail
+                    {
+                        OrderID = newOrder.OrderID,
+                        ProductID = item.ProductID,
+                        Quantity = item.Quantity,
+                        UnitPrice = item.Price,
+                        size = item.Size
+                    };
+                    db.OrderDetails.Add(orderDetail);
+                }
+                db.SaveChanges();
+
+                // Chuyển hướng đến trang thanh toán
+                return RedirectToAction("Payment", "Carts", new { orderId = newOrder.OrderID, totalAmount = totalAmount });
             }
         }
 
-        // Lưu số lượng giỏ hàng vào Session
-        Session["CartQuantity"] = cart.GetTotalQuantity();
-
-        // Chuyển hướng tới trang Checkout
-        return RedirectToAction("Checkout");
+        return RedirectToAction("Home_page", "HomePage");
     }
+
 }
