@@ -71,7 +71,6 @@
                         }
                     </td>
                     <td>
-                        <a href="@Url.Action("EditProducts", "Admin", new { id = item.Product.ProductID })" class="btn btn-warning btn-action">Ngừng Bán</a>
                         <a href="@Url.Action("EditProducts", "Admin", new { id = item.Product.ProductID })" class="btn btn-primary btn-action">Sửa</a>
                         <button type="button" class="btn btn-danger btn-action" data-bs-toggle="modal" data-bs-target="#deleteProductModal"
                                 data-product-id="@item.Product.ProductID"
