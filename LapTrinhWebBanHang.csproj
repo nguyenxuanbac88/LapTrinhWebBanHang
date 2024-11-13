@@ -207,6 +207,7 @@
     <Compile Include="Services\UserServices.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Account\ChangePassword.css" />
     <Content Include="Content\Account\ForgetPassword.css" />
     <Content Include="Content\Account\ResetPassword.css" />
     <Content Include="Content\Account\VerifyResetCode.css" />
@@ -301,9 +302,12 @@
     <Content Include="Image\thumbnail\instruct 3.jpg" />
     <Content Include="Image\thumbnail\instruct 4.jpg" />
     <Content Include="Image\thumbnail\JerseyThumb\MUjersey.jpg" />
+    <Content Include="Image\thumbnail\JerseyThumb\PhongThayDoMU.jpg" />
     <Content Include="Image\thumbnail\JerseyThumb\TOTjersey.jpg" />
     <Content Include="Image\thumbnail\logo-MU.jpg" />
     <Content Include="Image\thumbnail\map.png" />
+    <Content Include="Image\thumbnail\MUngaonghe.png" />
+    <Content Include="Image\thumbnail\MUstadium.png" />
     <Content Include="Image\thumbnail\nhung-phong-thay-do-dep-nhat-lang-bong-da-the-gioi.jpg" />
     <Content Include="Image\thumbnail\NikePack\Nike.png" />
     <Content Include="Image\thumbnail\NikePack\NikePinkPack.jpg" />
@@ -313,7 +317,6 @@
     <Content Include="Image\thumbnail\NikePack\NikeYellowPack.jpg" />
     <Content Include="Image\thumbnail\PhongThayDo2.jpg" />
     <Content Include="Image\thumbnail\PhongThayDo3.jpg" />
-    <Content Include="Image\thumbnail\PhongThayDoMU.jpg" />
     <Content Include="Image\thumbnail\PhongTrungBay.jpg" />
     <Content Include="Image\thumbnail\PumaPack\Puma.png" />
     <Content Include="Image\thumbnail\PumaPack\PumaBrilliancePack.jpg" />

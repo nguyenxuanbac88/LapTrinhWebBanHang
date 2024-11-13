@@ -14,6 +14,7 @@ namespace LapTrinhWebBanHang.Models
         public string Town { get; set; }
         public string Block { get; set; }
         public string SpecificAddress { get; set; }
+        public string Email { get; set; } 
     }
 
 }
