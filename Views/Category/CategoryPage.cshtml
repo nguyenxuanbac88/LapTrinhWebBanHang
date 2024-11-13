@@ -20,9 +20,13 @@
         {
             <img src="~/Image/thumbnail/PumaPack/Puma.png" alt="Puma" />
         }
+        else if (ViewBag.CategoryID == 4)
+        {
+            <img src="~/Image/thumbnail/JerseyThumb/PhongThayDoMU.jpg" alt="ÁO ĐẤU" />
+        }
         else
         {
-            <img src="~/Image/thumbnail/PhongThayDo3.jpg" alt="All" />
+            <img src="~/Image/thumbnail/MUstadium.png" alt="All" />
         }
     </div>
     <p class="link">HANGMU <span>|</span> <span>@ViewBag.CategoryName</span></p>
@@ -30,7 +34,7 @@
         @*<div class="filter">
             <span class="filter-btn">Filter <i class="fa-solid fa-sliders"></i></span>
         </div>*@
-        <div class="dropdown">
+        @*<div class="dropdown">
             <div class="dropdown-header" onclick="toggleDropdown()">
                 Sắp xếp<span style="opacity: 0.6" id="selected-option"></span>
                 <i style="margin: 0 0 0 2px;" class="fa-solid fa-angle-down icon"></i>
@@ -41,7 +45,7 @@
                 <li onclick="selectOption(': Giá: Cao -> Thấp')">Giá: Cao -> Thấp</li>
                 <li onclick="selectOption(': Giá: Thấp -> Cao')">Giá: Thấp -> Cao</li>
             </ul>
-        </div>
+        </div>*@
 
     </div>
     <div class="content container">

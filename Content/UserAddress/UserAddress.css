@@ -1,29 +1,58 @@
-﻿.container{
-    padding: 80px;
+﻿.container {
+    padding: 80px 0;
 }
 
-h2{
+h2 {
     text-align: center;
-    margin-bottom: 30px;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.info-account {
+    margin-left: 5%;
+}
+
+.container .info-account, .container .info {
+    padding: 40px 50px;
+    background-color: #f1f1f1;
+}
+
+.container input {
+    margin-bottom: 20px;
+}
+
+.form-info label {
     font-weight: bold;
 }
 
 .form-info {
-    background-color: #f4f4f4;
-    padding: 100px 50px;
     justify-content: center;
 }
 
-    .form-info input{
-        margin-bottom: 20px;
-    }
-
-    .form-info button {
-        width: 200px;
-        margin-top: 20px;
-    }
-
-    .form-info .back {
-        text-decoration: none;
+    .form-info > a {
         color: black;
+    }
+
+.btn-primary {
+    background-color: var(--my-color);
+    width: 300px;
+    border: 1px solid black;
+    color: black;
+}
+
+    .btn-primary:hover {
+        opacity: 0.8;
+        background-color: var(--my-color);
+    }
+
+.form-email a {
+    background-color: var(--my-color);
+    border: 1px solid black;
+    color: black;
+}
+
+    .form-email a:hover {
+        opacity: 0.8;
+        background-color: var(--my-color);
+        color: white;
     }

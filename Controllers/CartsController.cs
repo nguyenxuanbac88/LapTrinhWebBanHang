@@ -44,7 +44,8 @@ public class CartsController : Controller
                     Price = product.Price,
                     Quantity = quantity,
                     ImageUrl = product.ImageURL,
-                    Size = size  // Lưu giá trị size vào CartItem
+                    Size = size,
+                    DateAdded = DateTime.UtcNow  // Ghi lại thời điểm thêm vào
                 });
             }
         }
@@ -59,6 +60,8 @@ public class CartsController : Controller
     public ActionResult ViewCart()
     {
         var cart = GetCartFromSession();
+        var sortedItems = cart.Items.OrderByDescending(item => item.DateAdded).ToList();  // Sắp xếp từ mới nhất
+        cart.Items = sortedItems;  // Gán danh sách đã sắp xếp lại
         return View(cart);
     }
 
@@ -227,6 +230,7 @@ public class CartsController : Controller
         {
             var orders = db.Orders
                            .Where(o => o.UserID == userId.Value)
+                           .OrderByDescending(o => o.OrderID) // Sắp xếp theo ID từ lớn đến bé
                            .Select(o => new OrderHistoryViewModel
                            {
                                OrderID = o.OrderID,

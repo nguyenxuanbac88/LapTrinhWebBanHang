@@ -124,6 +124,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\ProductPageController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserAddresssController.cs" />
     <Compile Include="Controllers\WebhookController.cs" />
     <Compile Include="Global.asax.cs">
@@ -206,6 +207,7 @@
     <Compile Include="Services\UserServices.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Account\ChangePassword.css" />
     <Content Include="Content\Account\ForgetPassword.css" />
     <Content Include="Content\Account\ResetPassword.css" />
     <Content Include="Content\Account\VerifyResetCode.css" />
@@ -303,9 +305,14 @@
     <Content Include="Image\thumbnail\instruct 3.jpg" />
     <Content Include="Image\thumbnail\instruct 4.jpg" />
     <Content Include="Image\thumbnail\JerseyThumb\MUjersey.jpg" />
+    <Content Include="Image\thumbnail\JerseyThumb\PhongThayDoMU.jpg" />
     <Content Include="Image\thumbnail\JerseyThumb\TOTjersey.jpg" />
     <Content Include="Image\thumbnail\logo-MU.jpg" />
+    <Content Include="Image\thumbnail\Logo-ngan-hang-BIDV.png" />
+    <Content Include="Image\thumbnail\logo.png" />
     <Content Include="Image\thumbnail\map.png" />
+    <Content Include="Image\thumbnail\MUngaonghe.png" />
+    <Content Include="Image\thumbnail\MUstadium.png" />
     <Content Include="Image\thumbnail\nhung-phong-thay-do-dep-nhat-lang-bong-da-the-gioi.jpg" />
     <Content Include="Image\thumbnail\NikePack\Nike.png" />
     <Content Include="Image\thumbnail\NikePack\NikePinkPack.jpg" />

@@ -3,12 +3,60 @@
     padding: 50px 0;
 }
 
-    .container .form-checkout {
-        border: 1px solid gray;
-        padding: 50px 100px;
-        background-color: #f1f1f1;
-    }
+h4{
+    text-align: center;
+    font-weight: bold;
+}
 
-    .container .form-checkout input{
-        width: 300px;
-    }
+.container .form-info {
+    border: 1px solid gray;
+    background-color: #f1f1f1;
+    padding: 30px 50px;
+}
+
+.container .table{
+ border: 1px solid gray;
+}
+
+.form-info {
+    margin-left: auto;
+}
+
+
+.table tbody tr {
+    background-color: #e9ecef;
+    font-size: 0.8rem;
+}
+
+.table th {
+    background-color: #343a40;
+    color: white;
+}
+
+.form-info label{
+    font-weight: bold;
+}
+
+.form-info input{
+    margin-bottom: 10px;
+}
+
+.form-info strong{
+    color:red;
+    font-size: 1.2rem;
+}
+
+.form-info button{
+    background-color: var(--my-color);
+    border: 1px solid gray;
+}
+
+.form-info button:hover {
+    background-color: var(--my-color);
+    border: 1px solid gray;
+    opacity: 0.8;
+}
+
+
+
+

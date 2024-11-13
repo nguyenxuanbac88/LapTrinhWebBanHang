@@ -6,24 +6,57 @@
     string accountNumber = ViewBag.AccountNumber;
     string accountName = ViewBag.AccountName;
     string transactionId = ViewBag.TransactionId;
-    string amount = ViewBag.Amount.ToString();
+    string amount = ViewBag.Amount.ToString("N0");
 
     int orderId = ViewBag.OrderID ?? 0; // Đảm bảo orderId không null
 }
-<link rel="stylesheet" href="~/Content/Cart/Payment.css"/>
-<h2>Payment</h2>
+<link rel="stylesheet" href="~/Content/Cart/Payment.css" />
+<div class="container-fluid">
+    <div class="row form-payment">
+        <div class="img-container">
+            <img src="~/Image/thumbnail/Logo-ngan-hang-BIDV.png" />
+        </div>
+        <hr />
+        <p class="warning">
+            Quý khách vui lòng không tắt trình duyệt cho đến khi nhận được kết quả giao dịch trên website. Trường hợp đã thanh toán nhưng chưa nhận kết quả giao dịch, vui lòng liên hệ tới đội ngũ hỗ trợ hoặc số điện thoại . Xin cảm ơn!
+        </p>
+        <div class="col-lg-6">
+            <div class="form-info-payment">
+                <h4>Thông tin chuyển khoản</h4>
+                <hr />
+                <label>Số tiền thanh toán</label>
+                <p style="color: red;">@String.Format("{0:N0}", amount) VNĐ</p>
+                <label>Ngân hàng</label>
+                <p style="font-size: 0.8rem;">@bankName (Ngân hàng Thương mại cổ phần Đầu tư và Phát triển Việt Nam)</p>
+                <label>Chủ tài khoản</label>
+                <p>@accountName</p>
+                <label>Số tài khoản</label>
+                <p>@accountNumber</p>
+                <label>Mã giao dịch</label>
+                <p>@transactionId</p>
+                <label>Mã đơn</label>
+                <p>@orderId</p>
+            </div>
+        </div>
+        <div class="col-lg-6 pay">
+            <h5>Quét mã qua Internet Banking</h5>
 
-<div class="text-center mt-2">
-    <div class="overlay">
-        <img id="qrMomo" width="250"
-             src="https://img.vietqr.io/image/@(bankName)-@(accountNumber)-qr_only.png?&addInfo=@(transactionId)&amount=@(amount)&accountName=@(accountName)"
-             alt="QR code for payment">
+            <div class="text-center mt-2">
+                <div class="overlay">
+                    <span class="corner bottom-left"></span>
+                    <span class="corner bottom-right"></span>
+                    <img id="qrMomo" width="250"
+                         src="https://img.vietqr.io/image/@(bankName)-@(accountNumber)-qr_only.png?&addInfo=@(transactionId)&amount=@(amount)&accountName=@(accountName)"
+                         alt="QR code for payment">
+                </div>
+            </div>
+
+            <!-- Hiển thị trạng thái đơn hàng -->
+            <div id="order-status" class="mt-4">
+                Trạng thái đơn hàng: <span style="color: orange;" id="status-text">Đang xử lý...</span>
+            </div>
+        </div>
     </div>
-</div>
-
-<!-- Hiển thị trạng thái đơn hàng -->
-<div id="order-status" class="mt-4">
-    Trạng thái đơn hàng: <span id="status-text">Đang xử lý...</span>
 </div>
 
 <script type="text/javascript">

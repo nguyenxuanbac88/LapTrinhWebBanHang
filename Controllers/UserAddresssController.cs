@@ -35,7 +35,7 @@ namespace LapTrinhWebBanHang.Controllers
                     Block = address?.Block ?? "",
                     SpecificAddress = address?.SpecificAddress ?? ""
                 };
-
+                ViewBag.UserEmail = email;
                 return View(viewModel);
             }
         }

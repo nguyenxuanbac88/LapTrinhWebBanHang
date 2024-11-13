@@ -203,14 +203,6 @@
     text-decoration-color: var(--my-color);
 }
 
-.nav .dropdown-menu {
-    background-color: #ffffff;
-    border: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    padding: 0;
-}
-
 .nav .dropdown-item:hover {
     color: var(--my-color);
     border: none;

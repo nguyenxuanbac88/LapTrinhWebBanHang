@@ -4,13 +4,38 @@
     ViewBag.Title = "Thanh toán";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
-<link rel="stylesheet" href="~/Content/Cart/Checkout.css"/>
+<link rel="stylesheet" href="~/Content/Cart/Checkout.css" />
 <div class="container">
-    <div class="form-checkout row">
-        <h4>Thanh toán</h4>
-        <!-- Thông tin địa chỉ người dùng -->
-        <h4>Thông tin địa chỉ</h4>
-        <div class="col-lg-8">
+    <div class="row form-checkout">
+        <!-- Bảng sản phẩm -->
+        <div class="col-lg-7 form-check">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Tổng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CartItems)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</td>
+                            <td>@((item.Quantity * item.Price).ToString("#,0", new System.Globalization.CultureInfo("vi-VN"))) đ</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- Thông tin thanh toán -->
+        <div class="col-lg-4 form-info">
+            <h4>Thông tin</h4>
             @using (Html.BeginForm())
             {
                 <div class="form-group">
@@ -42,41 +67,17 @@
                     <label for="SpecificAddress">Địa chỉ cụ thể:</label>
                     @Html.TextBoxFor(m => m.Address.SpecificAddress, new { @class = "form-control", @readonly = "readonly" })
                 </div>
+
+                <!-- Tổng tiền -->
+                <div class="form-group">
+                    <label for="TotalAmount">Tổng số tiền:</label>
+                    <strong>@Model.TotalAmount.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</strong>
+                </div>
+
+                <!-- Nút thanh toán -->
+                <button type="submit" class="btn btn-primary">Thanh toán</button>
             }
         </div>
-
-        <div class="col-lg-3">
-            <!-- Danh sách sản phẩm trong giỏ hàng -->
-            <h3>Danh sách sản phẩm</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Đơn giá</th>
-                        <th>Tổng</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.CartItems)
-                    {
-                        <tr>
-                            <td>@item.ProductName</td>
-                            <td>@item.Quantity</td>
-                            <td>@item.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</td>
-                            <td>@((item.Quantity * item.Price).ToString("#,0", new System.Globalization.CultureInfo("vi-VN")))   đ</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <!-- Tổng tiền -->
-        <div class="form-group">
-            <label for="TotalAmount">Tổng số tiền:</label>
-            <strong>@Model.TotalAmount.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</strong>
-        </div>
-
-        <!-- Nút thanh toán -->
-        <button type="submit" class="btn btn-primary">Thanh toán</button>
     </div>
 </div>
+

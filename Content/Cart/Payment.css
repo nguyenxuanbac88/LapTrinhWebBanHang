@@ -1,2 +1,122 @@
-﻿body {
+﻿
+.img-container img {
+    width: 100px;
+}
+
+.container-fluid{
+    background-color: #f1f1f1;
+    padding: 50px 200px;
+}
+
+.warning {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: var(--my-color);
+    background-color: rgb(246, 234, 192);
+    border-radius: 2px;
+    border: 1px solid rgb(237, 187, 3);
+    margin-bottom: 0;
+}
+
+
+.form-payment{
+    background-color: white;
+    padding: 10px 100px;
+    padding-bottom: 40px;
+}
+
+h5 ,h4{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+h4{
+    font-size: 1.2rem;
+}
+
+.form-info-payment {
+    background-color: rgb(241, 246, 246);
+    padding: 50px 50px;
+    margin: 20px 0;
+}
+
+.form-info-payment label {
+    margin-top: 15px;
+    opacity: 0.8;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+.form-info-payment p {
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* Div chứa QR code */
+.text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.pay{
+    margin-left: auto;
+    margin-top: 50px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.overlay {
+    position: relative;
+    display: inline-block;
+    padding: 20px;
+}
+
+    /* Góc trên bên trái */
+    .overlay::before,
+    .overlay::after,
+    .corner {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border: 3px solid rgb(25, 90, 231);
+    }
+
+    /* Góc trên bên trái */
+    .overlay::before {
+        top: 0;
+        left: 0;
+        border-right: none;
+        border-bottom: none;
+    }
+
+    /* Góc trên bên phải */
+    .overlay::after {
+        top: 0;
+        right: 0;
+        border-left: none;
+        border-bottom: none;
+    }
+
+/* Góc dưới bên trái */
+.corner.bottom-left {
+    bottom: 0;
+    left: 0;
+    border-top: none;
+    border-right: none;
+}
+
+/* Góc dưới bên phải */
+.corner.bottom-right {
+    bottom: 0;
+    right: 0;
+    border-top: none;
+    border-left: none;
 }
