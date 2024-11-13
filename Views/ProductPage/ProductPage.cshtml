@@ -34,7 +34,9 @@
                 </div>
                 <div class="button-container">
                     <button class="btn yellow-btn">
-                        <span>MUA TẠI ĐÂY</span><br>FREE SHIP
+                        <a href="@Url.Action("BuyNow", "Carts", new { productId = Model.ProductID, size = "L" })" class="btn btn-primary">
+                            Mua Ngay
+                        </a>
                     </button>
                     <a id="addToCartLink" style="color: white; font-size: 0.8rem; font-weight: bold;" href="/Carts/AddToCart?productId=@Model.ProductID&quantity=1" class="btn-add-cart">THÊM VÀO GIỎ</a>
                 </div>

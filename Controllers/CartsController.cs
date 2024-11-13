@@ -332,4 +332,40 @@ public class CartsController : Controller
             return Json(new { status = order.Status, statusText = order.Status == 1 ? "Hoàn tất" : "Đang xử lý" }, JsonRequestBehavior.AllowGet);
         }
     }
+    // Chức năng "Mua Ngay"
+    public ActionResult BuyNow(int productId, string size)
+    {
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if (Session["Email"] == null)
+        {
+            // Nếu chưa đăng nhập, chuyển hướng về trang đăng nhập
+            return RedirectToAction("Sign_in", "Account");
+        }
+
+        var cart = GetCartFromSession();
+        using (var db = new WebsiteEntities4())
+        {
+            var product = db.Products.FirstOrDefault(p => p.ProductID == productId);
+            if (product != null)
+            {
+                // Thêm sản phẩm vào giỏ hàng với số lượng 1 và kích thước đã chọn
+                cart.AddItem(new CartItem
+                {
+                    ProductID = product.ProductID,
+                    ProductName = product.ProductName,
+                    Price = product.Price,
+                    Quantity = 1,  // Số lượng mặc định là 1
+                    ImageUrl = product.ImageURL,
+                    Size = size,
+                    DateAdded = DateTime.UtcNow
+                });
+            }
+        }
+
+        // Lưu số lượng giỏ hàng vào Session
+        Session["CartQuantity"] = cart.GetTotalQuantity();
+
+        // Chuyển hướng tới trang Checkout
+        return RedirectToAction("Checkout");
+    }
 }
