@@ -1,6 +1,6 @@
 ﻿@model OrderHistoryViewModel
 @{
-    ViewBag.Title = "Lịch sử mua hàng";
+    ViewBag.Title = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
 <link rel="stylesheet" href="~/Content/Cart/OrderDetail.css" />
@@ -22,7 +22,30 @@
             </tr>
             <tr>
                 <th>Trạng thái</th>
-                <td>@Model.Status</td>
+                <td>
+                    @{
+                        var statusText = "";
+                        switch (Model.Status)
+                        {
+                            case 0:
+                                statusText = "Chưa thanh toán";
+                                break;
+                            case 1:
+                                statusText = "Đã thanh toán";
+                                break;
+                            case 2:
+                                statusText = "Đã gửi hàng";
+                                break;
+                            case -1:
+                                statusText = "Đơn hàng bị huỷ";
+                                break;
+                            default:
+                                statusText = "Không xác định";
+                                break;
+                        }
+                                }
+                                @statusText
+                            </td>
             </tr>
         </table>
     </div>
