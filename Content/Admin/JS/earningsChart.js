@@ -1,13 +1,12 @@
-﻿// Assuming you have included Chart.js library in the HTML file
-document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener("DOMContentLoaded", function () {
     const ctx = document.getElementById('earningsChart').getContext('2d');
     const earningsChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            labels: [],  // Mảng tháng sẽ được cập nhật từ API
             datasets: [{
                 label: 'Thu Nhập Năm',
-                data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000], // Replace with dynamic data if needed
+                data: [],  // Dữ liệu thu nhập sẽ được cập nhật từ API
                 backgroundColor: 'rgba(78, 115, 223, 0.05)',
                 borderColor: 'rgba(78, 115, 223, 1)',
                 pointBackgroundColor: 'rgba(78, 115, 223, 1)',
@@ -81,4 +80,15 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
+
+    // Fetch data from API
+    fetch('/Admin/GetEarningsByMonth')  // Thay đổi URL API của bạn tại đây
+        .then(response => response.json())
+        .then(data => {
+            // Cập nhật vào biểu đồ
+            earningsChart.data.labels = data.months;  // Dữ liệu tháng
+            earningsChart.data.datasets[0].data = data.earnings;  // Dữ liệu thu nhập
+            earningsChart.update();  // Cập nhật biểu đồ
+        })
+        .catch(error => console.error('Error fetching data:', error));
 });

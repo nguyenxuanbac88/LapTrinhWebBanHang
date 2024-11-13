@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -13,6 +14,7 @@ namespace LapTrinhWebBanHang.Controllers
 {
     public class AdminController : Controller
     {
+
         private WebsiteEntities4 db = new WebsiteEntities4(); // Sử dụng DbContext đã được tạo từ Entity Framework
         //protected override void OnActionExecuting(ActionExecutingContext filterContext)
         //{
@@ -606,31 +608,34 @@ namespace LapTrinhWebBanHang.Controllers
             return RedirectToAction("PromotionList");
         }
 
-        public decimal GetCurrentMonthBalance()
+        public int GetCurrentMonthBalance()
         {
-            var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            var endDate = startDate.AddMonths(1);
+            var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);  // Ngày đầu tháng
+            var endDate = startDate.AddMonths(1);  // Ngày đầu tháng sau
 
+            // Tính tổng thu nhập của tháng hiện tại từ bảng Orders
             var currentMonthBalance = db.Orders
-                .Where(o => o.OrderDate >= startDate && o.OrderDate < endDate)
-                .SelectMany(o => o.OrderDetails)
-                .Sum(od => (decimal?)od.Quantity * od.UnitPrice) ?? 0;
+                .Where(o => o.OrderDate >= startDate && o.OrderDate < endDate)  // Lọc đơn hàng trong tháng hiện tại
+                .Sum(o => (int?)o.price) ?? 0;  // Tính tổng thu nhập từ cột 'price'
 
             return currentMonthBalance;
         }
 
-        public decimal GetCurrentYearBalance()
-        {
-            var startOfYear = new DateTime(DateTime.Now.Year, 1, 1);
-            var startOfNextYear = startOfYear.AddYears(1);
 
+        public int GetCurrentYearBalance()
+        {
+            var startOfYear = new DateTime(DateTime.Now.Year, 1, 1);  // Ngày bắt đầu năm
+            var startOfNextYear = new DateTime(DateTime.Now.Year + 1, 1, 1);  // Ngày bắt đầu năm sau
+
+            // Tính tổng thu nhập trong năm hiện tại từ bảng Orders
             var currentYearBalance = db.Orders
-                .Where(o => o.OrderDate >= startOfYear && o.OrderDate < startOfNextYear)
-                .SelectMany(o => o.OrderDetails)
-                .Sum(od => (decimal?)od.Quantity * od.UnitPrice) ?? 0;
+                .Where(o => o.OrderDate >= startOfYear && o.OrderDate < startOfNextYear)  // Lọc theo năm hiện tại
+                .Sum(o => (int?)o.price) ?? 0;  // Tính tổng thu nhập từ cột 'price'
 
             return currentYearBalance;
         }
+
+
         public int GetCurrentMonthOrderCount()
         {
             var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -735,66 +740,111 @@ namespace LapTrinhWebBanHang.Controllers
         {
             using (var db = new WebsiteEntities4())
             {
-                var orders = db.Orders
-                           .Select(o => new NewOrderHistoryViewModel
-                           {
-                               UserID = o.UserID,
-                               OrderID = o.OrderID,
-                               OrderDate = o.OrderDate,
-                               Status = o.Status,
-                               Price = o.price,
-                               SpecificAddress = o.SpecificAddress,
-                               Block = o.Block,
-                               Town = o.Town,
-                               Province = o.Province,
-                               Phone = o.phone,
-                               OrderDetails = db.OrderDetails
-                                                .Where(od => od.OrderID == o.OrderID)
-                                                .Select(od => new NewOrderDetailViewModel
-                                                {
-                                                    ProductID = od.ProductID,
-                                                    ProductName = db.Products.FirstOrDefault(p => p.ProductID == od.ProductID).ProductName,
-                                                    Quantity = od.Quantity,
-                                                    UnitPrice = od.UnitPrice
-                                                }).ToList()
-                           }).ToList();
+                var orders = (from o in db.Orders
+                              join u in db.Users on o.UserID equals u.IdUser  // Kết hợp bảng Orders và Users
+                              select new NewOrderHistoryViewModel
+                              {
+                                  UserID = o.UserID,
+                                  OrderID = o.OrderID,
+                                  OrderDate = o.OrderDate,
+                                  Status = o.Status,
+                                  Price = o.price,
+                                  SpecificAddress = o.SpecificAddress,
+                                  Block = o.Block,
+                                  Town = o.Town,
+                                  Province = o.Province,
+                                  FullName = (string)o.FullName,
+                                  Phone = o.phone,
+                                  Email = u.Email,  // Lấy thông tin Email từ bảng Users
+                                  Ip = u.Ip,  // Lấy thông tin Ip từ bảng Users
+                                  OrderDetails = db.OrderDetails
+                                                   .Where(od => od.OrderID == o.OrderID)
+                                                   .Select(od => new NewOrderDetailViewModel
+                                                   {
+                                                       ProductID = od.ProductID,
+                                                       ProductName = db.Products.FirstOrDefault(p => p.ProductID == od.ProductID).ProductName,
+                                                       Quantity = od.Quantity,
+                                                       UnitPrice = od.UnitPrice
+                                                   }).ToList()
+                              }).ToList();  // Lấy danh sách đơn hàng
 
-                
+                return View(orders);  // Trả về View với danh sách đơn hàng đã được kết hợp thông tin từ Users
+            }
+        }
+
+        public ActionResult OrderHistorySuccess()
+        {
+            using (var db = new WebsiteEntities4())
+            {
+                var orders = (from o in db.Orders
+                              join u in db.Users on o.UserID equals u.IdUser  // Kết hợp bảng Orders và Users
+                              where o.Status != 0  // Lọc những đơn hàng có Status khác 0
+                              select new NewOrderHistoryViewModel
+                              {
+                                  UserID = o.UserID,
+                                  OrderID = o.OrderID,
+                                  OrderDate = o.OrderDate,
+                                  Status = o.Status,
+                                  Price = o.price,
+                                  FullName = (string)o.FullName,
+                                  SpecificAddress = o.SpecificAddress,
+                                  Block = o.Block,
+                                  Town = o.Town,
+                                  Province = o.Province,
+                                  Phone = o.phone,
+                                  Email = u.Email,  // Lấy thông tin Email từ bảng Users
+                                  Ip = u.Ip,  // Lấy thông tin Ip từ bảng Users
+                                  OrderDetails = db.OrderDetails
+                                                   .Where(od => od.OrderID == o.OrderID)
+                                                   .Select(od => new NewOrderDetailViewModel
+                                                   {
+                                                       ProductID = od.ProductID,
+                                                       ProductName = db.Products.FirstOrDefault(p => p.ProductID == od.ProductID).ProductName,
+                                                       Quantity = od.Quantity,
+                                                       UnitPrice = od.UnitPrice
+                                                   }).ToList()
+                              }).ToList();
 
                 return View(orders);
             }
         }
+
+
         public ActionResult OrderDetailHistory(int orderId)
         {
             using (var db = new WebsiteEntities4())
             {
-                // Truy vấn đơn hàng
-                var order = db.Orders
-                            .Where(o => o.OrderID == orderId)
-                            .Select(o => new NewOrderHistoryViewModel
-                            {
-                                UserID = o.UserID,
-                                OrderID = o.OrderID,
-                                OrderDate = o.OrderDate,
-                                Status = o.Status,
-                                Price = o.price,
-                                SpecificAddress = o.SpecificAddress,
-                                Block = o.Block,
-                                Town = o.Town,
-                                Province = o.Province,
-                                Phone = o.phone,
-                                OrderDetails = o.OrderDetails
-                                                 .Select(od => new NewOrderDetailViewModel
-                                                 {
-                                                     ProductID = od.ProductID,
-                                                     ProductName = db.Products
-                                                                     .Where(p => p.ProductID == od.ProductID)
-                                                                     .Select(p => p.ProductName)
-                                                                     .FirstOrDefault() ?? "Unknown Product",  // Nếu không tìm thấy sản phẩm thì gán giá trị mặc định
-                                                     Quantity = od.Quantity,
-                                                     UnitPrice = od.UnitPrice
-                                                 }).ToList()  // Đảm bảo danh sách OrderDetails được truy vấn và trả về
-                            }).FirstOrDefault(); // Sử dụng FirstOrDefault để lấy một đối tượng đơn hàng hoặc null nếu không có
+                // Truy vấn đơn hàng và kết hợp với thông tin người dùng
+                var order = (from o in db.Orders
+                             join u in db.Users on o.UserID equals u.IdUser  // Kết hợp bảng Orders và Users
+                             where o.OrderID == orderId
+                             select new NewOrderHistoryViewModel
+                             {
+                                 UserID = o.UserID,
+                                 OrderID = o.OrderID,
+                                 OrderDate = o.OrderDate,
+                                 Status = o.Status,
+                                 Price = o.price,
+                                 FullName = (string)o.FullName,
+                                 SpecificAddress = o.SpecificAddress,
+                                 Block = o.Block,
+                                 Town = o.Town,
+                                 Province = o.Province,
+                                 Phone = o.phone,
+                                 Email = u.Email,  // Lấy thông tin Email từ bảng Users
+                                 Ip = u.Ip,  // Lấy thông tin Ip từ bảng Users
+                                 OrderDetails = o.OrderDetails
+                                                  .Select(od => new NewOrderDetailViewModel
+                                                  {
+                                                      ProductID = od.ProductID,
+                                                      ProductName = db.Products
+                                                                      .Where(p => p.ProductID == od.ProductID)
+                                                                      .Select(p => p.ProductName)
+                                                                      .FirstOrDefault() ?? "Unknown Product",  // Nếu không tìm thấy sản phẩm thì gán giá trị mặc định
+                                                      Quantity = od.Quantity,
+                                                      UnitPrice = od.UnitPrice
+                                                  }).ToList()  // Đảm bảo danh sách OrderDetails được truy vấn và trả về
+                             }).FirstOrDefault();  // Sử dụng FirstOrDefault để lấy một đối tượng đơn hàng hoặc null nếu không có
 
                 if (order == null)
                 {
@@ -807,5 +857,41 @@ namespace LapTrinhWebBanHang.Controllers
         }
 
 
+        // API để lấy thống kê thu nhập theo tháng
+        [HttpGet]
+        public JsonResult GetEarningsByMonth()
+        {
+            try
+            {
+                // Tạo mảng các tháng từ tháng 1 đến tháng 12
+                var months = new string[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
+                // Truy vấn thu nhập theo tháng từ bảng Orders
+                var earnings = db.Orders
+                    .Where(o => o.OrderDate.Year == 2024)  // Bạn có thể thay đổi theo năm hiện tại
+                    .GroupBy(o => new { Year = o.OrderDate.Year, Month = o.OrderDate.Month })
+                    .Select(g => new
+                    {
+                        Year = g.Key.Year,
+                        Month = g.Key.Month,
+                        TotalEarnings = g.Sum(o => o.price)
+                    })
+                    .OrderBy(g => g.Month)
+                    .ToList();
+
+                // Tạo dữ liệu cho các tháng từ 1-11
+                var result = new
+                {
+                    months = months.Take(11).ToList(), // Lấy 10 tháng đầu
+                    earnings = months.Take(11).Select(month => earnings.FirstOrDefault(e => e.Month == Array.IndexOf(months, month) + 1)?.TotalEarnings ?? 0).ToList()
+                };
+
+                return Json(result, JsonRequestBehavior.AllowGet); // Trả về dữ liệu dạng JSON
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

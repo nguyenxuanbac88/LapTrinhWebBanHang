@@ -23,38 +23,48 @@
             <h6 class="m-0 font-weight-bold text-primary">Thông Tin Đơn Hàng</h6>
         </div>
         <div class="card-body">
-           
-                <p><strong>Mã Đơn Hàng:</strong> @Model.OrderID</p>
-                <p><strong>Tài Khoản:</strong> @Model.UserID</p>
-                <p><strong>Trạng Thái:</strong> @Model.Status</p>
-                <p><strong>Địa Chỉ:</strong> @Model.SpecificAddress, @Model.Block, @Model.Town, @Model.Province</p>
-                <p><strong>Số Điện Thoại:</strong> @Model.Phone</p>
-                <p><strong>Thời Gian Đặt Hàng:</strong> @Model.OrderDate.ToString("yyyy-MM-dd")</p>
-                <p><strong>Tổng Tiền:</strong> @Model.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</p>
 
-                <h6>Chi Tiết Sản Phẩm</h6>
-                <table class="table table-bordered">
-                    <thead>
+            <p><strong>Mã Đơn Hàng:</strong> @Model.OrderID</p>
+            <p><strong>Tài Khoản:</strong> @Model.Email</p>
+            <p>
+                <strong>Trạng Thái:</strong>
+                @if (Model.Status == 0)
+                {
+                    <span class="text-warning">Chưa Thanh Toán</span> <!-- Màu vàng cho "Chưa Thanh Toán" -->
+                }
+                else if (Model.Status == 1)
+                {
+                    <span class="text-success">Đã Thanh Toán</span> <!-- Màu xanh cho "Đã Thanh Toán" -->
+                }
+            </p>
+            <p><strong>Họ Tên:</strong> @Model.FullName</p>
+            <p><strong>Địa Chỉ:</strong> @Model.SpecificAddress, @Model.Block, @Model.Town, @Model.Province</p>
+            <p><strong>Số Điện Thoại:</strong> @Model.Phone</p>
+            <p><strong>Thời Gian Đặt Hàng:</strong> @Model.OrderDate.ToString("HH:mm:ss dd-MM-yyyy")</p>
+
+            <p><strong>Tổng Tiền:</strong> @Model.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</p>
+
+            <h6>Chi Tiết Sản Phẩm</h6>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Sản Phẩm</th>
+                        <th>Số Lượng</th>
+                        <th>Giá Sản Phẩm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var detail in Model.OrderDetails)
+                    {
                         <tr>
-                            <th>Sản Phẩm</th>
-                            <th>Số Lượng</th>
-                            <th>Đơn Giá</th>
-                            <th>Tổng Tiền</th>
+                            <td>@detail.ProductName</td>
+                            <td>@detail.Quantity</td>
+                            <td>@detail.UnitPrice.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var detail in Model.OrderDetails)
-                        {
-                            <tr>
-                                <td>@detail.ProductName</td>
-                                <td>@detail.Quantity</td>
-                                <td>@detail.UnitPrice.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</td>
-                                <td>@(detail.Quantity * detail.UnitPrice).ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            
+                    }
+                </tbody>
+            </table>
+
         </div>
     </div>
 
