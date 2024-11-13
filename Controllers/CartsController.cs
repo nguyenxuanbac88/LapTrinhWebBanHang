@@ -100,6 +100,15 @@ public class CartsController : Controller
             return RedirectToAction("Sign_in", "Account");
         }
 
+        // Lấy thông tin giỏ hàng từ session
+        var cart = GetCartFromSession();
+        var cartItems = cart.Items.ToList();
+        // Kiểm tra nếu giỏ hàng trống
+        if (!cartItems.Any())
+        {
+            TempData["Message"] = "Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm vào giỏ hàng trước khi thanh toán.";
+            return RedirectToAction("ViewCart", "Carts"); // Chuyển hướng về trang giỏ hàng
+        }
         using (WebsiteEntities4 db = new WebsiteEntities4())
         {
             // Lấy thông tin địa chỉ của người dùng từ AddressUser
@@ -116,9 +125,6 @@ public class CartsController : Controller
                 return RedirectToAction("Index", "UserAddresss");
             }
 
-            // Lấy thông tin giỏ hàng từ session
-            var cart = GetCartFromSession();
-            var cartItems = cart.Items.ToList();
 
             // Tính tổng số tiền giỏ hàng
             decimal totalAmount = cartItems.Sum(item => item.Quantity * item.Price);
