@@ -19,6 +19,5 @@ namespace LapTrinhWebBanHang.Models
         {
             get { return Quantity * Price; }
         }
-        public DateTime DateAdded { get; set; }  // Thời gian thêm vào giỏ hàng
     }
 }

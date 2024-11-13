@@ -13,7 +13,7 @@
 <body>
 
     <div class="mb-3 row">
-        <div class="col-md-2">
+        @*<div class="col-md-2">
             <label for="type" class="form-label">Loại</label>
             <select name="type" id="filterType" class="form-control">
                 <option value="">Tất cả</option>
@@ -22,7 +22,7 @@
                 <option value="PUMA">PUMA</option>
                 <option value="ÁO ĐẤU">ÁO ĐẤU</option>
             </select>
-        </div>
+        </div>*@
         <div class="col-md-2">
             <label for="status" class="form-label">Trạng Thái</label>
             <select name="status" id="filterStatus" class="form-control">
@@ -64,8 +64,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Tài Khoản</th>
+                            <th>Tên Khách Hàng</th>
                             <th>Mã Đơn Hàng</th>
-                            <th>Loại</th>
                             <th>Địa chỉ</th>
                             <th>Số Điện Thoại</th>
                             <th>Tổng Tiền</th>
@@ -81,14 +81,23 @@
                             {
                                 <tr>
                                     <td>@order.OrderID</td>
-                                    <td>@order.UserID</td>
+                                    <td>@order.Email</td>
+                                    <td>@order.FullName</td>
                                     <td>@order.OrderID</td>
-                                    <td>@order.Status</td>
                                     <td>@order.SpecificAddress, @order.Block, @order.Town, @order.Province</td>
                                     <td>@order.Phone</td>
-                                    <td>@order.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ
-                                    <td>@order.Status</td>
-                                    <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@order.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) đ</td>
+                                    <td>
+                                        @if (order.Status == 0)
+                                        {
+                                            <span class="text-warning">Chờ Thanh Toán</span> <!-- Màu vàng cho "Chưa Thanh Toán" -->
+                                        }
+                                        else if (order.Status == 1)
+                                        {
+                                            <span class="text-success">Đã Thanh Toán</span> <!-- Màu xanh cho "Đã Thanh Toán" -->
+                                        }
+                                    </td>
+                                    <td>@order.OrderDate.ToString("HH:mm:ss dd-MM-yyyy")</td>
                                     <td>
                                         <button class="btn btn-primary btn-sm" onclick="showDetails(@order.OrderID)">Chi tiết</button>
                                     </td>
@@ -102,6 +111,8 @@
                             </tr>
                         }
                     </tbody>
+
+
                 </table>
             </div>
         </div>

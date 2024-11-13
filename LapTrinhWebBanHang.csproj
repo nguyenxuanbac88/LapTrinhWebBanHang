@@ -124,7 +124,6 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\ProductPageController.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserAddresssController.cs" />
     <Compile Include="Controllers\WebhookController.cs" />
     <Compile Include="Global.asax.cs">
@@ -207,7 +206,6 @@
     <Compile Include="Services\UserServices.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Account\ChangePassword.css" />
     <Content Include="Content\Account\ForgetPassword.css" />
     <Content Include="Content\Account\ResetPassword.css" />
     <Content Include="Content\Account\VerifyResetCode.css" />
@@ -221,6 +219,7 @@
     <Content Include="Content\Admin\JS\earningsChart.js" />
     <Content Include="Content\Admin\JS\pageLength.js" />
     <Content Include="Content\Admin\ManageProducts.css" />
+    <Content Include="Content\Admin\OrderHistorySuccess.css" />
     <Content Include="Content\Admin\sb-admin-2.css" />
     <Content Include="Content\Admin\sb-admin-2.min.css" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -302,12 +301,9 @@
     <Content Include="Image\thumbnail\instruct 3.jpg" />
     <Content Include="Image\thumbnail\instruct 4.jpg" />
     <Content Include="Image\thumbnail\JerseyThumb\MUjersey.jpg" />
-    <Content Include="Image\thumbnail\JerseyThumb\PhongThayDoMU.jpg" />
     <Content Include="Image\thumbnail\JerseyThumb\TOTjersey.jpg" />
     <Content Include="Image\thumbnail\logo-MU.jpg" />
     <Content Include="Image\thumbnail\map.png" />
-    <Content Include="Image\thumbnail\MUngaonghe.png" />
-    <Content Include="Image\thumbnail\MUstadium.png" />
     <Content Include="Image\thumbnail\nhung-phong-thay-do-dep-nhat-lang-bong-da-the-gioi.jpg" />
     <Content Include="Image\thumbnail\NikePack\Nike.png" />
     <Content Include="Image\thumbnail\NikePack\NikePinkPack.jpg" />
@@ -317,6 +313,7 @@
     <Content Include="Image\thumbnail\NikePack\NikeYellowPack.jpg" />
     <Content Include="Image\thumbnail\PhongThayDo2.jpg" />
     <Content Include="Image\thumbnail\PhongThayDo3.jpg" />
+    <Content Include="Image\thumbnail\PhongThayDoMU.jpg" />
     <Content Include="Image\thumbnail\PhongTrungBay.jpg" />
     <Content Include="Image\thumbnail\PumaPack\Puma.png" />
     <Content Include="Image\thumbnail\PumaPack\PumaBrilliancePack.jpg" />
@@ -404,6 +401,10 @@
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Carts\OrderHistory.cshtml" />
     <Content Include="Views\Carts\OrderDetail.cshtml" />
+    <Content Include="Views\Carts\Payment.cshtml" />
+    <Content Include="Views\admin\OrderDetailHistory.cshtml" />
+    <Content Include="Views\admin\OrderHistory.cshtml" />
+    <Content Include="Views\admin\OrderHistorySuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

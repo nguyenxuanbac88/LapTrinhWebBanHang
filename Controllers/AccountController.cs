@@ -326,7 +326,11 @@ namespace LapTrinhWebBanHang.Controllers
                     ModelState.AddModelError("", "Mật khẩu hiện tại không đúng.");
                     return View();
                 }
-
+                if (user.PasswordHash == UserServices.GetMd5Hash(newPassword))
+                {
+                    ModelState.AddModelError("", "Mật khẩu hiện tại không được trùng với mật khẩu thay đổi.");
+                    return View();
+                }
                 // Kiểm tra mật khẩu mới và xác nhận mật khẩu
                 if (newPassword != confirmPassword)
                 {

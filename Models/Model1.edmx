@@ -68,7 +68,7 @@
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
-          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Status" Type="int" />
           <Property Name="price" Type="int" Nullable="false" />
           <Property Name="phone" Type="nchar" MaxLength="10" />
@@ -76,6 +76,7 @@
           <Property Name="Block" Type="nchar" MaxLength="100" />
           <Property Name="Town" Type="nchar" MaxLength="100" />
           <Property Name="Province" Type="nchar" MaxLength="100" />
+          <Property Name="FullName" Type="nchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="Payments">
           <Key>
@@ -728,7 +729,7 @@
           </Key>
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" />
-          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Status" Type="Int32" />
           <Property Name="price" Type="Int32" Nullable="false" />
           <Property Name="phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -738,6 +739,7 @@
           <Property Name="Province" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="OrderDetails" Relationship="WebsiteModel4.orderdetails_orderid_foreign" FromRole="Order" ToRole="OrderDetail" />
           <NavigationProperty Name="Payments" Relationship="WebsiteModel4.payments_orderid_foreign" FromRole="Order" ToRole="Payment" />
+          <Property Name="FullName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="orderdetails_orderid_foreign">
           <End Type="WebsiteModel4.Order" Role="Order" Multiplicity="0..1" />
@@ -927,6 +929,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="WebsiteModel4.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="Province" ColumnName="Province" />
                 <ScalarProperty Name="Town" ColumnName="Town" />
                 <ScalarProperty Name="Block" ColumnName="Block" />

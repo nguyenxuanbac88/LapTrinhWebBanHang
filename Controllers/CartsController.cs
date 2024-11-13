@@ -44,8 +44,7 @@ public class CartsController : Controller
                     Price = product.Price,
                     Quantity = quantity,
                     ImageUrl = product.ImageURL,
-                    Size = size,
-                    DateAdded = DateTime.UtcNow  // Ghi lại thời điểm thêm vào
+                    Size = size  // Lưu giá trị size vào CartItem
                 });
             }
         }
@@ -60,11 +59,8 @@ public class CartsController : Controller
     public ActionResult ViewCart()
     {
         var cart = GetCartFromSession();
-        var sortedItems = cart.Items.OrderByDescending(item => item.DateAdded).ToList();  // Sắp xếp từ mới nhất
-        cart.Items = sortedItems;  // Gán danh sách đã sắp xếp lại
         return View(cart);
     }
-
 
 
     // Cập nhật số lượng sản phẩm trong giỏ hàng
@@ -171,12 +167,13 @@ public class CartsController : Controller
             var newOrder = new Order
             {
                 UserID = userId.Value,
+                FullName = userAddress.FullName,
                 SpecificAddress = userAddress.SpecificAddress,
                 Block = userAddress.Block,
                 Town = userAddress.Town,
                 Province = userAddress.Province,
                 phone = userAddress.Phone,
-                OrderDate = DateTime.UtcNow,
+                OrderDate = DateTime.UtcNow.ToLocalTime(),
                 Status = 0,
                 price = totalAmount
             };
@@ -230,7 +227,6 @@ public class CartsController : Controller
         {
             var orders = db.Orders
                            .Where(o => o.UserID == userId.Value)
-                           .OrderByDescending(o => o.OrderID) // Sắp xếp theo ID từ lớn đến bé
                            .Select(o => new OrderHistoryViewModel
                            {
                                OrderID = o.OrderID,
@@ -257,7 +253,6 @@ public class CartsController : Controller
             return View(orders);
         }
     }
-
     public ActionResult OrderDetail(int orderId)
     {
         using (var db = new WebsiteEntities4())

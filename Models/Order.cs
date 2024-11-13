@@ -31,6 +31,7 @@ namespace LapTrinhWebBanHang.Models
         public string Block { get; set; }
         public string Town { get; set; }
         public string Province { get; set; }
+        public string FullName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

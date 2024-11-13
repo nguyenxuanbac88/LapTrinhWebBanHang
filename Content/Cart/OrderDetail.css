@@ -1,9 +1,9 @@
-﻿.container {
-    padding: 50px 0;
+﻿.container-fluid {
+    padding: 50px 50px;
+    background-color: rgb(235, 233, 233);
 }
 
 h3{
-    font-size: 1.2rem;
     text-align: center;
     font-weight: bold;
 }
@@ -11,25 +11,10 @@ h3{
 .order-detail, .product-detail {
     box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
     background-color: white;
-    min-height: 300px;
-    padding: 20px 10px;
-    border: 1px solid gray;
-    margin-bottom: 20px;
+    padding: 20px 20px;
 }
 
 .product-detail {
-    margin-left: 6%;
+    margin-top: 50px;
+    margin-bottom: 20px;
 }
-
-.table thead th {
-    font-size: 0.8rem; 
-    font-weight: bold; 
-    color: #333;
-}
-
-.table tbody tr {
-    font-size: 0.8rem;
-    color: #333;
-}
-
-

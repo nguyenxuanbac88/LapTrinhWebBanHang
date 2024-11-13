@@ -43,23 +43,26 @@ namespace LapTrinhWebBanHang.Controllers
         [HttpGet]
         public JsonResult GetAllProductsJson(int? idCategory)
         {
+            // Lấy danh sách sản phẩm từ cơ sở dữ liệu, có kiểm tra điều kiện idCategory
             var products = db.Products
-                    .Where(p => !idCategory.HasValue || p.CategoryID == idCategory)
-                    .OrderByDescending(p => p.ProductID) // Sắp xếp theo ID sản phẩm mới nhất
-                    .Select(p => new
-                    {
-                        p.ProductID,
-                        p.ProductName,
-                        p.Price,
-                        p.ImageURL,
-                        p.Description,
-                        CategoryName = db.Categories
-                            .Where(c => c.CategoryID == p.CategoryID)
-                            .Select(c => c.CategoryName)
-                            .FirstOrDefault()
-                    })
-                    .ToList();
+                .Where(p => !idCategory.HasValue || p.CategoryID == idCategory) // Nếu có idCategory, lọc theo ID, nếu không lấy tất cả
+                .OrderBy(p => p.CategoryID) // Sắp xếp theo CategoryID
+                .Select(p => new
+                {
+                    p.ProductID,
+                    p.ProductName,
+                    p.Price,
+                    p.ImageURL,
+                    p.Description,
+                    // Truy vấn lấy tên danh mục từ bảng Categories
+                    CategoryName = db.Categories
+                        .Where(c => c.CategoryID == p.CategoryID)
+                        .Select(c => c.CategoryName)
+                        .FirstOrDefault()
+                })
+                .ToList();
 
+            // Trả về dữ liệu JSON
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
 
@@ -143,9 +146,9 @@ namespace LapTrinhWebBanHang.Controllers
         [HttpGet]
         public JsonResult GetAllFootballJersey()
         {
+            // Lọc tất cả các sản phẩm có CategoryID là 4 (áo đấu)
             var products = db.Products
-                .Where(p => p.Category.CategoryID == 4)
-                .OrderByDescending(p => p.ProductID) // Sắp xếp theo ID sản phẩm mới nhất
+                .Where(p => p.Category.CategoryID == 4) // Lọc theo CategoryId
                 .Select(p => new
                 {
                     p.ProductID,
@@ -153,18 +156,19 @@ namespace LapTrinhWebBanHang.Controllers
                     p.Price,
                     p.ImageURL,
                     p.Description,
+                    // Truy vấn lấy tên danh mục từ bảng Categories
                     categoryID = p.Category.CategoryID
                 })
                 .ToList();
 
+            // Trả về dữ liệu JSON
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public JsonResult GetAllNike()
         {
             var products = db.Products
-                .Where(p => p.Category.CategoryID == 1)
-                .OrderByDescending(p => p.ProductID) // Sắp xếp theo ID sản phẩm mới nhất
+                .Where(p => p.Category.CategoryID == 1) // Lọc theo CategoryId
                 .Select(p => new
                 {
                     p.ProductID,
@@ -172,18 +176,19 @@ namespace LapTrinhWebBanHang.Controllers
                     p.Price,
                     p.ImageURL,
                     p.Description,
+                    // Truy vấn lấy tên danh mục từ bảng Categories
                     categoryID = p.Category.CategoryID
                 })
                 .ToList();
 
+            // Trả về dữ liệu JSON
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public JsonResult GetAllAdidas()
         {
             var products = db.Products
-                .Where(p => p.Category.CategoryID == 2)
-                .OrderByDescending(p => p.ProductID) // Sắp xếp theo ID sản phẩm mới nhất
+                .Where(p => p.Category.CategoryID == 2) // Lọc theo CategoryId
                 .Select(p => new
                 {
                     p.ProductID,
@@ -191,18 +196,19 @@ namespace LapTrinhWebBanHang.Controllers
                     p.Price,
                     p.ImageURL,
                     p.Description,
+                    // Truy vấn lấy tên danh mục từ bảng Categories
                     categoryID = p.Category.CategoryID
                 })
                 .ToList();
 
+            // Trả về dữ liệu JSON
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public JsonResult GetAllPuma()
         {
             var products = db.Products
-                .Where(p => p.Category.CategoryID == 3)
-                .OrderByDescending(p => p.ProductID) // Sắp xếp theo ID sản phẩm mới nhất
+                .Where(p => p.Category.CategoryID == 3) // Lọc theo CategoryId
                 .Select(p => new
                 {
                     p.ProductID,
@@ -210,10 +216,12 @@ namespace LapTrinhWebBanHang.Controllers
                     p.Price,
                     p.ImageURL,
                     p.Description,
+                    // Truy vấn lấy tên danh mục từ bảng Categories
                     categoryID = p.Category.CategoryID
                 })
                 .ToList();
 
+            // Trả về dữ liệu JSON
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
     }
