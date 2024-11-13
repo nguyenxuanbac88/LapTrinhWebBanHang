@@ -32,22 +32,23 @@
     <p class="link">HANGMU <span>|</span> <span>@ViewBag.CategoryName</span></p>
     <div class="header-content">
         @*<div class="filter">
-                <span class="filter-btn">Filter <i class="fa-solid fa-sliders"></i></span>
-            </div>*@
+            <span class="filter-btn">Filter <i class="fa-solid fa-sliders"></i></span>
+        </div>*@
         <div class="dropdown">
             <div class="dropdown-header" onclick="toggleDropdown()">
                 Sắp xếp<span style="opacity: 0.6" id="selected-option"></span>
                 <i style="margin: 0 0 0 2px;" class="fa-solid fa-angle-down icon"></i>
             </div>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" id="dropdownMenu">
                 <li onclick="selectOption(': Mới nhất')">Mới nhất</li>
                 <li onclick="selectOption(': Cũ nhất')">Cũ nhất</li>
                 <li onclick="selectOption(': Giá: Cao -> Thấp')">Giá: Cao -> Thấp</li>
                 <li onclick="selectOption(': Giá: Thấp -> Cao')">Giá: Thấp -> Cao</li>
             </ul>
         </div>
+
     </div>
-    <div class="content row">
+    <div class="content container">
         <h2 style="text-align: center; font-weight: bold;">@ViewBag.CategoryName</h2>
         @*<div class="content-left col-xl-2 col-md-3">
                 <div class="side-bar">
@@ -128,13 +129,13 @@
             </div>*@
 
 
-        <div class="content-right col-xl-10 col-md-9">
+        <div class="content-right">
             <div class="container-products row" id="list-products">
                 @if (Model.Any())
                 {
                     foreach (var product in Model)
                     {
-                        <div class="product-item col-lg-3 col-sm-4 col-6">
+                        <div class="product-item col-xl-3 col-lg-4 col-sm-6 col-6">
                             <a style="color: black; text-decoration: none;" href="@Url.Action("ProductPage", "ProductPage", new { id = product.ProductID })">
                                 <div class="product-image">
                                     <img src="~/Image/product-image/@product.ImageURL" alt="@product.ProductName" />
@@ -158,6 +159,45 @@
 </div>
 
 <script>
+function toggleDropdown() {
+    const dropdownMenu = document.getElementById("dropdownMenu");
+
+    // Kiểm tra trạng thái hiển thị hiện tại của dropdown
+    if (dropdownMenu.style.display === "none" || dropdownMenu.style.display === "") {
+        dropdownMenu.style.display = "block"; // Hiển thị menu
+    } else {
+        dropdownMenu.style.display = "none"; // Ẩn menu
+    }
+}
+
+function selectOption(optionText) {
+    console.log("Bạn đã chọn " + optionText);
+
+    // Gửi yêu cầu AJAX với giá trị sắp xếp
+    fetch('@Url.Action("GetAllProductsJson", "Category")?sortBy=' + optionText.trim())
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                updateProductList(data); // Cập nhật danh sách sản phẩm
+            }
+        })
+        .catch(error => console.log('Lỗi:', error));
+
+    document.getElementById("dropdownMenu").style.display = "none"; // Đóng menu sau khi chọn
+    document.getElementById("selected-option").textContent = optionText; // Cập nhật lựa chọn hiển thị
+}
+
+// Đóng dropdown menu khi nhấp ra ngoài
+window.onclick = function(event) {
+    if (!event.target.matches('.dropdown-header')) {
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        if (dropdownMenu.style.display === "block") {
+            dropdownMenu.style.display = "none";
+        }
+    }
+};
+
+
     @*// Hàm để tải danh sách sản phẩm từ Controller
 function loadProducts() {
     fetch('@Url.Action("GetAllProductsJson", "HomePage")')

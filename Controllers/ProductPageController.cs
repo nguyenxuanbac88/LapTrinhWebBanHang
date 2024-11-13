@@ -156,6 +156,34 @@ namespace LapTrinhWebBanHang.Controllers
 
             return Json(new { success = true, data = relatedProducts }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetProductImages(int productId)
+        {
+            // Kiểm tra xem sản phẩm có tồn tại không
+            var product = db.Products.Find(productId);
+            if (product == null)
+            {
+                return Json(new { success = false, message = "Sản phẩm không tìm thấy" }, JsonRequestBehavior.AllowGet);
+            }
+
+            // Lấy danh sách ảnh phụ của sản phẩm
+            var supplementaryImages = db.ImageProducts
+                .Where(img => img.ProductsID == productId)
+                .Select(img => img.ImageURL)
+                .ToList();
+
+            if (supplementaryImages == null || supplementaryImages.Count == 0)
+            {
+                return Json(new { success = false, message = "Không có ảnh phụ cho sản phẩm này" }, JsonRequestBehavior.AllowGet);
+            }
+
+            // Trả về danh sách ảnh phụ dưới dạng JSON
+            return Json(new
+            {
+                success = true,
+                productName = product.ProductName, // Bao gồm tên sản phẩm
+                images = supplementaryImages // Danh sách ảnh phụ
+            }, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

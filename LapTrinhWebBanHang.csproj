@@ -239,8 +239,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Cart\Checkout.css" />
     <Content Include="Content\Cart\OrderDetail.css" />
     <Content Include="Content\Cart\OrderHistory.css" />
+    <Content Include="Content\Cart\Payment.css" />
     <Content Include="Content\Cart\ViewCart.css" />
     <Content Include="Content\Category_page\container_category.css" />
     <Content Include="Content\Error\Error.css" />

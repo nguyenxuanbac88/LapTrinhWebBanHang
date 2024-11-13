@@ -118,5 +118,42 @@ namespace LapTrinhWebBanHang.Controllers
 
             return Json(new { success = true, data = products }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetAllProductsJson(string sortBy)
+        {
+            var products = db.Products.AsQueryable();
+
+            // Sắp xếp sản phẩm dựa trên giá trị của `sortBy`
+            switch (sortBy)
+            {
+                case "Newest":
+                    products = products.OrderByDescending(p => p.ProductID); // Sắp xếp sản phẩm mới nhất
+                    break;
+                case "Oldest":
+                    products = products.OrderBy(p => p.ProductID); // Sắp xếp cũ nhất
+                    break;
+                case "PriceDesc":
+                    products = products.OrderByDescending(p => p.Price); // Sắp xếp giá từ cao tới thấp
+                    break;
+                case "PriceAsc":
+                    products = products.OrderBy(p => p.Price); // Sắp xếp giá từ thấp tới cao
+                    break;
+                default:
+                    products = products.OrderBy(p => p.ProductName); // Sắp xếp mặc định theo tên sản phẩm
+                    break;
+            }
+
+            // Lấy danh sách sản phẩm và trả về dưới dạng JSON
+            var productList = products.Select(p => new
+            {
+                p.ProductID,
+                p.ProductName,
+                p.Price,
+                p.ImageURL,
+                p.Description
+            }).ToList();
+
+            return Json(productList, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

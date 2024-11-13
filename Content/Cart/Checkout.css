@@ -1,0 +1,14 @@
+﻿
+.container{
+    padding: 50px 0;
+}
+
+    .container .form-checkout {
+        border: 1px solid gray;
+        padding: 50px 100px;
+        background-color: #f1f1f1;
+    }
+
+    .container .form-checkout input{
+        width: 300px;
+    }
