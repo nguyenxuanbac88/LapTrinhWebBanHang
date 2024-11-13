@@ -140,8 +140,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <script>
-        const productId = @Model.ProductID;
-
+    const productId = @Model.ProductID;
 document.addEventListener('DOMContentLoaded', function () {
     const productId = @Model.ProductID;
     let selectedSize = null;  // Biến lưu trữ size đã chọn
@@ -197,7 +196,31 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("Error:", error); // Kiểm tra lỗi nếu có
         alert("Đã xảy ra lỗi khi lấy danh sách kích thước sản phẩm.");
     });
+
+    // Kiểm tra kích thước đã chọn trước khi thêm vào giỏ hoặc mua ngay
+    function checkSizeSelected() {
+        if (!selectedSize) {
+            alert("Vui lòng chọn kích thước trước khi thêm vào giỏ hàng hoặc mua ngay.");
+            return false;
+        }
+        return true;
+    }
+
+    // Gán sự kiện cho nút "MUA NGAY"
+    document.querySelector('.btn-buy').addEventListener('click', function(event) {
+        if (!checkSizeSelected()) {
+            event.preventDefault();  // Ngừng hành động nếu không chọn size
+        }
+    });
+
+    // Gán sự kiện cho nút "THÊM VÀO GIỎ"
+    document.getElementById('addToCartLink').addEventListener('click', function(event) {
+        if (!checkSizeSelected()) {
+            event.preventDefault();  // Ngừng hành động nếu không chọn size
+        }
+    });
 });
+
 
 
 

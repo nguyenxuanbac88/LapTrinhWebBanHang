@@ -143,7 +143,7 @@
                                 <div class="product-content">
                                     <h6>@product.ProductName</h6>
                                     <p class="description-product">@product.Description</p>
-                                    <p class="price">@product.Price.ToString("C")</p>
+                                    <p class="price">@product.Price.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</p>
                                 </div>
                             </a>
                         </div>

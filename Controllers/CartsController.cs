@@ -52,8 +52,11 @@ public class CartsController : Controller
 
         // Lưu tổng số lượng giỏ hàng vào Session
         Session["CartQuantity"] = cart.GetTotalQuantity();
-        return RedirectToAction("Home_page", "HomePage"); // Trở lại trang sản phẩm
+
+        // Chuyển hướng lại trang ProductPage với sản phẩm hiện tại
+        return RedirectToAction("ProductPage", "ProductPage", new { id = productId });
     }
+
 
 
     // Hiển thị giỏ hàng
