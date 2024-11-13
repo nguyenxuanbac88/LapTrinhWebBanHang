@@ -1,32 +1,31 @@
 ﻿@model OrderHistoryViewModel
 @{
-    ViewBag.Title = "Lịch sử mua hàng";
+    ViewBag.Title = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
 <link rel="stylesheet" href="~/Content/Cart/OrderDetail.css" />
-<div class="container">
-    <div class="row">
-        <div class="order-detail col-lg-6">
-            <h3>Chi tiết đơn hàng @Model.OrderID</h3>
-            <table class="table">
-                <tr>
-                    <th>Ngày đặt hàng</th>
-                    <td>@Model.OrderDate.ToString("dd/MM/yyyy")</td>
-                </tr>
-                <tr>
-                    <th>Địa chỉ</th>
-                    <td>@Model.SpecificAddress, @Model.Block, @Model.Town, @Model.Province</td>
-                </tr>
-                <tr>
-                    <th>Số điện thoại</th>
-                    <td>@Model.Phone</td>
-                </tr>
-                <tr>
-                    <th>Trạng thái</th>
-                    <td>@Model.Status</td>
-                </tr>
-            </table>
-        </div>
+<div class="container-fluid">
+    <div class="order-detail">
+        <h3>Chi tiết đơn hàng @Model.OrderID</h3>
+        <table class="table">
+            <tr>
+                <th>Ngày đặt hàng</th>
+                <td>@Model.OrderDate.ToString("dd/MM/yyyy")</td>
+            </tr>
+            <tr>
+                <th>Địa chỉ</th>
+                <td>@Model.SpecificAddress, @Model.Block, @Model.Town, @Model.Province</td>
+            </tr>
+            <tr>
+                <th>Số điện thoại</th>
+                <td>@Model.Phone</td>
+            </tr>
+            <tr>
+                <th>Trạng thái</th>
+                <td>@Model.Status</td>
+            </tr>
+        </table>
+    </div>
 
         <div class="product-detail col-lg-5">
             <h3>Chi tiết sản phẩm</h3>

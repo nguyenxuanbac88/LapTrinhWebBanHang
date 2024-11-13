@@ -16,14 +16,11 @@ namespace LapTrinhWebBanHang.Controllers
             // Kiểm tra nếu id là null, lấy tất cả danh mục
             var category = id.HasValue ? db.Categories.Find(id.Value) : null;
 
-            if (!id.HasValue || category == null) 
+            if (!id.HasValue || category == null)  // Khi không có id hoặc id không hợp lệ
             {
-                // Lấy tất cả sản phẩm và sắp xếp theo ID từ lớn đến bé
-                var products = db.Products
-                    .OrderByDescending(p => p.ProductID) // Sắp xếp theo ID từ lớn đến bé
-                    .ToList();
-
-                ViewBag.CategoryName = "Tất cả sản phẩm";
+                // Lấy tất cả sản phẩm
+                var products = db.Products.ToList();
+                ViewBag.CategoryName = "Tất cả sản phẩm"; // Đặt tên là "Tất cả sản phẩm" nếu không có danh mục cụ thể
                 return View(products); // Trả về tất cả sản phẩm
             }
 
@@ -31,23 +28,17 @@ namespace LapTrinhWebBanHang.Controllers
             var categories = db.Categories.ToList();
             ViewBag.Categories = categories;
 
-            // Lọc sản phẩm theo CategoryID được truyền vào và sắp xếp theo ID từ lớn đến bé
-            var productsByCategory = db.Products
-                .Where(p => p.CategoryID == id.Value)
-                .OrderByDescending(p => p.ProductID) // Sắp xếp theo ID từ lớn đến bé
-                .ToList();
-
-            ViewBag.CategoryName = category.CategoryName;
+            // Lọc sản phẩm theo CategoryID được truyền vào
+            var productsByCategory = db.Products.Where(p => p.CategoryID == id.Value).ToList();
+            ViewBag.CategoryName = category.CategoryName; // Truyền tên danh mục vào ViewBag
             ViewBag.CategoryID = category.CategoryID;
             return View(productsByCategory);
-
         }
 
 
         public ActionResult GetAllProducts()
         {
             var products = db.Products
-                .OrderByDescending(p => p.ProductID) // Sắp xếp theo ID từ lớn đến bé
                 .Select(p => new
                 {
                     p.ProductID,
@@ -100,7 +91,7 @@ namespace LapTrinhWebBanHang.Controllers
             // Lấy danh sách sản phẩm từ cơ sở dữ liệu, có kiểm tra điều kiện categoryId
             var products = db.Products
                 .Where(p => !IdCategory.HasValue || p.CategoryID == IdCategory) // Nếu có categoryId, lọc theo ID, nếu không lấy tất cả
-                .OrderByDescending(p => p.ProductID) // Sắp xếp theo ID từ lớn đến bé
+                .OrderBy(p => p.CategoryID) // Sắp xếp theo CategoryID
                 .Select(p => new
                 {
                     p.ProductID,

@@ -66,7 +66,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="@Url.Action("CategoryPage", "Category", new { id = 4 })">ÁO ĐẤU</a>
+                            <a href="#jersey">ÁO ĐẤU<i class="ti-angle-down"></i></a>
                         </li>
                         <li class="nav-item">
                             <a href="#instruct">HƯỚNG DẪN<i class="ti-angle-down"></i></a>
@@ -96,8 +96,7 @@
                                     <div class="dropdown-menu">
                                         @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
                                         @Html.ActionLink("Thông tin", "Index", "UserAddresss", null, new { @class = "dropdown-item" })
-                                        @Html.ActionLink("DashBoard", "DashBoard", "Admin", null, new { @class = "dropdown-item" })
-                                        @Html.ActionLink("Lịch sử đơn hàng", "OrderHistory", "Carts", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("DashBoard", "DashBoard", "Admin", null, new { @class = "dropdown-item" });
                                     </div>
                                 </div>
                                 <div class="shopping-cart">
