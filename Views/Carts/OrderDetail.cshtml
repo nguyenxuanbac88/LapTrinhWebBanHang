@@ -22,61 +22,39 @@
             </tr>
             <tr>
                 <th>Trạng thái</th>
-                <td>
-                    @{
-                        var statusText = "";
-                        switch (Model.Status)
-                        {
-                            case 0:
-                                statusText = "Chưa thanh toán";
-                                break;
-                            case 1:
-                                statusText = "Đã thanh toán";
-                                break;
-                            case 2:
-                                statusText = "Đã gửi hàng";
-                                break;
-                            case -1:
-                                statusText = "Đơn hàng bị huỷ";
-                                break;
-                            default:
-                                statusText = "Không xác định";
-                                break;
-                        }
-                                }
-                                @statusText
-                            </td>
+                <td>@Model.Status</td>
             </tr>
         </table>
     </div>
 
-    <div class="product-detail">
-        <h3>Chi tiết sản phẩm</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Đơn giá</th>
-                    <th>Kích cỡ</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var detail in Model.OrderDetails)
-                {
+        <div class="product-detail col-lg-5">
+            <h3>Chi tiết sản phẩm</h3>
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@detail.ProductName</td>  <!-- Hiển thị tên sản phẩm -->
-                        <td>@detail.Quantity</td>
-                        <td>@string.Format("{0:C}", detail.UnitPrice)</td>
-                        <td>@detail.Size</td>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Kích cỡ</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach (var detail in Model.OrderDetails)
+                    {
+                        <tr>
+                            <td>@detail.ProductName</td>  <!-- Hiển thị tên sản phẩm -->
+                            <td>@detail.Quantity</td>
+                            <td>@string.Format("{0:C}", detail.UnitPrice)</td>
+                            <td>@detail.Size</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
+    </div>
     <!-- Tổng tiền sẽ hiển thị ở dưới bảng -->
     <div class="text-right">
-        <strong style="color: red;">Tổng tiền: @string.Format("{0:C}", Model.OrderDetails.Sum(d => d.Quantity * d.UnitPrice))</strong>
+        <strong style="color: red; font-size: 1.2rem;">Tổng tiền: @string.Format("{0:C}", Model.OrderDetails.Sum(d => d.Quantity * d.UnitPrice))</strong>
     </div>
 </div>
