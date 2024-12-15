@@ -27,8 +27,21 @@ This project is a **Shoe Selling Website** developed as a final course project. 
 - **/Models**: Database models and data processing functions, using LINQ for data queries.
 - **/Scripts**: JavaScript files for frontend functionalities.
 - **/wwwroot**: Static resources such as CSS, images, and JavaScript.
+## IMAGE PREVIEW
+   ![image](https://github.com/user-attachments/assets/063897d6-a610-4eca-a27c-2fdc410acf9a)
+   ![image](https://github.com/user-attachments/assets/29e5a9e0-70bd-44bd-a873-37f34cf26b91)
+   ![image](https://github.com/user-attachments/assets/a5a392b9-3b16-4ee3-9fd9-67f11d881bcf)
+   ![image](https://github.com/user-attachments/assets/06efcb49-ccac-451c-866a-bbb39bfb909a)
+   ![image](https://github.com/user-attachments/assets/21a1c50d-d728-4003-914e-befd653344c1)
+   ![image](https://github.com/user-attachments/assets/85d090ab-64cd-44bb-a432-f2140b921645)
+   ![image](https://github.com/user-attachments/assets/c670e91c-33db-4b42-be30-39c800eda5f6)
 
 ## 📥 Installation
 1. Clone the repository:
    ```bash
    git clone https://github.com/nguyenxuanbac88/LapTrinhWebBanHang.git
+
+
+
+
+
