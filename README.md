@@ -1,3 +1,4 @@
+<a href="https://deepwiki.com/nguyenxuanbac88/LapTrinhWebBanHang"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
 # 👟 Shoe Store Website
 
 This project is a **Shoe Selling Website** developed as a final course project. The website allows users to browse, search, and purchase various types of shoes, with an admin interface for product management. It is built using **HTML**, **ASP.NET (C#)**, **JavaScript**, and **LINQ** for database interactions.
